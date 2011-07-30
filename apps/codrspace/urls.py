@@ -8,4 +8,5 @@ urlpatterns = patterns('codrspace.views',
     url(r'^signin/$', 'signin_start', name="signin_start"),
     url(r'^signin_callback/$', 'signin_callback',
         name="signin_callback"),
+    url(r'^signout/$', 'signout', name="signout"),
 )
