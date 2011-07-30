@@ -38,15 +38,26 @@ def edit(request, pk=0, template_name="edit.html"):
     codr_space = get_object_or_404(CodrSpace, pk=pk)
     codr_spaces = CodrSpace.objects.all().order_by('-pk')
 
+    print 'codr_space', codr_space.title, codr_space.content
+
     if request.method == "POST":
         form = CodrForm(request.POST, instance=codr_space)
 
         if form.is_valid():
             codr_space = form.save()
-            return render(request, template_name, {'form': form, 'codr_spaces': codr_spaces})
+
+            return render(request, template_name, {
+                'form':form, 
+                'codr_space':codr_space,
+                'codr_spaces':codr_spaces
+            })
 
     form = CodrForm(instance=codr_space)
-    return render(request, template_name, {'form': form, 'codr_spaces': codr_spaces})
+    return render(request, template_name, {
+        'form':form,
+        'codr_space':codr_space,
+        'codr_spaces':codr_spaces
+    })
 
 
 def signin_start(request, slug=None, template_name="signin.html"):
@@ -67,9 +78,18 @@ def signout(request):
 
 def _validate_github_response(resp):
     """Raise exception if given response has error"""
+
+    # FIXME: Handle error
     if resp.status_code != 200 or 'error' in resp.content:
         raise Exception('code: %u content: %s' % (resp.status_code,
                                                   resp.content))
+
+def _parse_github_access_token(content):
+    """Super hackish way of parsing github access token from request"""
+    # FIXME: Awful parsing w/ lots of assumptions
+    # String looks like this currently
+    # access_token=1c21852a9f19b685d6f67f4409b5b4980a0c9d4f&token_type=bearer
+    return content.split('&')[0].split('=')[1]
 
 
 def signin_callback(request, slug=None, template_name="base.html"):
@@ -87,7 +107,6 @@ def signin_callback(request, slug=None, template_name="base.html"):
                         '2b40ac4251871e09441eb4147cbd5575be48bde9',
                         'code': code})
 
-    # FIXME: Handle error
     _validate_github_response(resp)
 
     # FIXME: Awful parsing w/ lots of assumptions
