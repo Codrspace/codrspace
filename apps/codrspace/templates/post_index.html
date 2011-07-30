@@ -1,1 +1,6 @@
 {% extends "auth_base.html" %}
+{% block content %}
+    {% with user=user.profile.meta %}
+        {% include "user_detail.html" %}
+    {% endwith %}
+{% endblock %}

@@ -9,23 +9,4 @@
 {% endblock %}
 
 {% block content %}
-<div id="auth-homepage">
-
-    <h1>{{ user.username }}</h1>
-
-    {% if posts %}
-    <div id="post-list">
-        {% for post in posts %}
-        <div class="post-item">
-            <h3 class="post-title">
-                <a href="{% url edit post.pk %}">{% firstof post.title "Untitled" %} 
-                <span class="post-create-dt">{{ post.create_dt }}<span></a>
-            </h3>
-            <div class="post-content">{{ post.content }}</div>
-        </div>
-        {% endfor %}
-    </div>
-    {% endif %}
-
-</div>
 {% endblock %}
