@@ -36,5 +36,8 @@ def signin_callback(request, slug=None, template_name="base.html"):
         raise Exception('code: %u content: %s' % (resp.status_code,
                                                   resp.content))
 
-    token = resp.content
+    # FIXME: Awful parsing w/ lots of assumptions
+    # String looks like this currently
+    # access_token=1c21852a9f19b685d6f67f4409b5b4980a0c9d4f&token_type=bearer
+    token = resp.content.split('&')[0].split('=')[1]
     return redirect('http://www.codrspace.com/%s' % (token))
