@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block header %}{% endblock %}
+
 {% block nav %}
 <ul>
     <li><a href="{% url add %}">Add your post</a></li>
@@ -11,15 +13,15 @@
 
     <h1>{{ user.username }}</h1>
 
-    {% if codr_spaces %}
+    {% if posts %}
     <div id="post-list">
-        {% for codr_space in codr_spaces %}
+        {% for post in posts %}
         <div class="post-item">
             <h3 class="post-title">
-                <a href="{% url edit codr_space.pk %}">{% firstof codr_space.title "Untitled" %} 
-                <span class="post-create-dt">{{ codr_space.create_dt }}<span></a>
+                <a href="{% url edit codr_space.pk %}">{% firstof post.title "Untitled" %} 
+                <span class="post-create-dt">{{ post.create_dt }}<span></a>
             </h3>
-            <div class="post-content">{{ codr_space.content }}</div>
+            <div class="post-content">{{ post.content }}</div>
         </div>
         {% endfor %}
     </div>

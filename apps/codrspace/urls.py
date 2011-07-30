@@ -14,3 +14,7 @@ urlpatterns += patterns('codrspace.mock_views',
     url(r'^authorize/$', 'authorize', name="authorize"),
     url(r'^access_token/$', 'access_token', name="access_token"),
 )
+
+urlpatterns += patterns('codrspace.views',
+    url(r'^(?P<username>[\w\d]+)/$', 'post_index', name="post_index"),
+)

@@ -5,6 +5,7 @@ from django.utils import simplejson
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 from settings import GITHUB_CLIENT_ID, DEBUG
 from codrspace.models import Post
@@ -14,15 +15,20 @@ from codrspace.models import Profile
 import requests
 
 
-def index(request):
+def index(request, template_name="home.html"):
+    if request.user.is_authenticated():
+        return redirect(reverse("post_index", args=[request.user.username]))
 
-    if request.user.is_authenticated(): template_name = "auth_base.html"
-    else: template_name = "anon_base.html"
+    return render(request, template_name)
 
-    codr_spaces = Post.objects.all().order_by('-pk')
+@login_required
+def post_index(request, username, template_name="post_index.html"):
+
+    posts = Post.objects.filter(author=request.user)
+    posts = posts.order_by('-pk')
 
     return render(request, template_name, {
-        'codr_spaces':codr_spaces,
+        'posts': posts,
     })
 
 
