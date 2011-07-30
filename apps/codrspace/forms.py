@@ -1,8 +1,8 @@
 from django import forms
-from codrspace.models import CodrSpace
+from codrspace.models import Post
 
 
-class CodrForm(forms.ModelForm):
+class PostForm(forms.ModelForm):
 
     class Meta:
-        model = CodrSpace
+        model = Post

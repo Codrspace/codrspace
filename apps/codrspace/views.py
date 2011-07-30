@@ -7,9 +7,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
 from settings import GITHUB_CLIENT_ID, DEBUG
-from codrspace.models import CodrSpace
-from codrspace.forms import CodrForm
-from profile.models import Profile
+from codrspace.models import Post
+from codrspace.forms import PostForm
+from codrspace.models import Profile
 
 import requests
 
@@ -19,7 +19,7 @@ def index(request):
     if request.user.is_authenticated(): template_name = "auth_base.html"
     else: template_name = "anon_base.html"
 
-    codr_spaces = CodrSpace.objects.all().order_by('-pk')
+    codr_spaces = Post.objects.all().order_by('-pk')
 
     return render(request, template_name, {
         'codr_spaces':codr_spaces,
@@ -29,27 +29,25 @@ def index(request):
 def add(request, template_name="add.html"):
     """ Add a post """
 
-    codr_spaces = CodrSpace.objects.all().order_by('-pk')
+    codr_spaces = Post.objects.all().order_by('-pk')
 
     if request.method == "POST":
-        form = CodrForm(request.POST)
+        form = PostForm(request.POST)
         if form.is_valid():
             codr_space = form.save()
             return render(request, template_name, {'form': form, 'codr_spaces': codr_spaces})
 
-    form = CodrForm()
+    form = PostForm()
     return render(request, template_name, {'form': form, 'codr_spaces': codr_spaces})
 
 
 def edit(request, pk=0, template_name="edit.html"):
     """ Edit a post """
-    codr_space = get_object_or_404(CodrSpace, pk=pk)
-    codr_spaces = CodrSpace.objects.all().order_by('-pk')
-
-    print 'codr_space', codr_space.title, codr_space.content
+    codr_space = get_object_or_404(Post, pk=pk)
+    codr_spaces = Post.objects.all().order_by('-pk')
 
     if request.method == "POST":
-        form = CodrForm(request.POST, instance=codr_space)
+        form = PostForm(request.POST, instance=codr_space)
 
         if form.is_valid():
             codr_space = form.save()
@@ -60,7 +58,7 @@ def edit(request, pk=0, template_name="edit.html"):
                 'codr_spaces':codr_spaces
             })
 
-    form = CodrForm(instance=codr_space)
+    form = PostForm(instance=codr_space)
     return render(request, template_name, {
         'form':form,
         'codr_space':codr_space,
@@ -81,7 +79,7 @@ def signin_start(request, slug=None, template_name="signin.html"):
 def signout(request):
     if request.user.is_authenticated():
         logout(request)
-    return redirect(reverse('home_base'))
+    return redirect(reverse('homepage'))
 
 
 def _validate_github_response(resp):
@@ -156,6 +154,6 @@ def signin_callback(request, slug=None, template_name="base.html"):
         # passwords...yet?
         user.auto_login = True
         user = authenticate(user=user)
-        login(request, user)
+        login(request, user) 
 
-    return redirect(reverse('home_base'))
+    return redirect(reverse('homepage'))

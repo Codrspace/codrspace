@@ -2,6 +2,8 @@
 *.pyc
 *.swp
 *.db
+*.sqlite
 *.swo
+*.script
 local_settings.py
 site_media
