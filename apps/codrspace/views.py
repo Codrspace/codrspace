@@ -67,6 +67,8 @@ def signout(request):
 
 def _validate_github_response(resp):
     """Raise exception if given response has error"""
+
+    # FIXME: Handle error
     if resp.status_code != 200 or 'error' in resp.content:
         raise Exception('code: %u content: %s' % (resp.status_code,
                                                   resp.content))
@@ -93,13 +95,11 @@ def signin_callback(request, slug=None, template_name="base.html"):
                             '2b40ac4251871e09441eb4147cbd5575be48bde9',
                         'code': code})
 
-    # FIXME: Handle error
     _validate_github_response(resp)
 
     token = _parse_github_access_token(resp.content)
     resp = requests.get('https://api.github.com/user?access_token=%s' % (
                                                                         token))
-    # FIXME: Handle error
     _validate_github_response(resp)
     github_user = simplejson.loads(resp.content)
 
