@@ -1,16 +1,39 @@
 """Main codrspace views"""
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from settings import GITHUB_CLIENT_ID
+from codrspace.models import CodrSpace
+from codrspace.forms import CodrForm
 
 
-def index(request, slug=None, template_name="base.html"):
+def index(request, template_name="base.html"):
     return render(request, template_name)
 
+def add(request, template_name="add.html"):
+    """ Add a post """
+    if request.method == "POST":
+        form = CodrForm(request.POST, user=request.user)
+        if form.is_valid(): 
+            codr_space = form.save(commit=False)
+            return render(request, template_name, {'form':form})
 
-def edit(request, slug=None, template_name="edit.html"):
-    """Edit Your Post"""
-    return render(request, template_name, {})
+    form = CodrForm()
+    return render(request, template_name, {'form':form})
+
+
+def edit(request, pk=0, template_name="edit.html"):
+    """ Edit a post """
+    codr_space = get_object_or_404(CodrSpace, pk=pk)
+
+    if request.method == "POST":
+        form = CodrForm(request.POST, instance=codr_space, user=request.user)
+
+        if form.is_valid():
+            codr_space = form.save(commit=False)
+            return render(request, template_name, {'form':form})
+
+    form = CodrForm()
+    return render(request, template_name, {'form':form})
 
 
 def signin_start(request, slug=None, template_name="signin.html"):
