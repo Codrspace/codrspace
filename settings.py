@@ -158,6 +158,11 @@ LOGGING = {
 # Auth Profile App
 AUTH_PROFILE_MODULE = 'profile.Profile'
 
+AUTHENTICATION_BACKENDS = (
+    'profile.backend.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 # local settings for settings override
 try:
     from local_settings import *
