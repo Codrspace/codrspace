@@ -1,6 +1,7 @@
 {% extends "base.html" %}
-{% load markup %}
 
+{% load markup %}
+{% load short_codes %}
 
 {% block content %}
 
@@ -23,7 +24,7 @@
     <ol id="post-list">
     {% for codr_space in codr_spaces|slice:":10" %}
         <li><a href="{% url edit codr_space.pk %}">
-            {{ forloop.counter }}. {{ codr_space.title }} - <span class="content-summary">{{ codr_space.content }} {{ codr_space.create_dt }}</span>
+            {{ forloop.counter }}. {{ codr_space.title }} - <span class="content-summary">{{ codr_space.content|explosivo|safe }} {{ codr_space.create_dt }}</span>
         </a></li>
     {% endfor %}
     </ol>
