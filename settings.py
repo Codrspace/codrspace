@@ -6,6 +6,9 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 APPS_PATH = os.path.join(PROJECT_ROOT, 'apps')
 sys.path.insert(0, APPS_PATH)
 
+# Specific ID for app when it was registered with github
+GITHUB_CLIENT_ID='33642ce3ebbadb4a8787'
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
