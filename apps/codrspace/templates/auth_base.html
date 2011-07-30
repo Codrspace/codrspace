@@ -18,7 +18,7 @@
         {% for post in posts %}
         <div class="post-item">
             <h3 class="post-title">
-                <a href="{% url edit codr_space.pk %}">{% firstof post.title "Untitled" %} 
+                <a href="{% url edit post.pk %}">{% firstof post.title "Untitled" %} 
                 <span class="post-create-dt">{{ post.create_dt }}<span></a>
             </h3>
             <div class="post-content">{{ post.content }}</div>
