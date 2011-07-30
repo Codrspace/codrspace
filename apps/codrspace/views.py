@@ -14,8 +14,16 @@ from codrspace.models import Profile
 import requests
 
 
-def index(request, template_name="base.html"):
-    return render(request, template_name)
+def index(request):
+
+    if request.user.is_authenticated(): template_name = "auth_base.html"
+    else: template_name = "anon_base.html"
+
+    codr_spaces = CodrSpace.objects.all().order_by('-pk')
+
+    return render(request, template_name, {
+        'codr_spaces':codr_spaces,
+    })
 
 
 def add(request, template_name="add.html"):

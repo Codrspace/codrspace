@@ -7,6 +7,8 @@ body {
 #content { padding: 20px; }
 #header { border-bottom: 1px solid #ccc; padding: 10px; }
 #header .logo { font-size: 36px; }
+#header .logo a { color: white; text-decoration: none; }
+#header .logo a:hover { text-decoration: underline; }
 #header .tagline { padding-left: 5px; }
 a.get-started { font-size: 24px; }
 #footer { 
@@ -108,3 +110,28 @@ ol#post-list {
   color: white;
   background-color: black;
 }
+
+#auth-homepage #post-list .post-item {
+  border-bottom: 1px solid #DDD;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+
+#auth-homepage #post-list .post-title {
+  margin: 0;
+}
+
+#auth-homepage #post-list .post-title a {
+  padding: 3px 0;
+}
+#auth-homepage #post-list .post-title a:hover {
+  color: white;
+  background-color: black;
+}
+
+#auth-homepage #post-list .post-create-dt {
+  color: silver;
+  font-size: .8em;
+}
+
+
