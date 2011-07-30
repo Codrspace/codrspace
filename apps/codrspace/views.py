@@ -2,6 +2,8 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import simplejson
+from django.contrib.auth.models import User
+
 from settings import GITHUB_CLIENT_ID
 from codrspace.models import CodrSpace
 from codrspace.forms import CodrForm
@@ -12,11 +14,12 @@ import requests
 def index(request, template_name="base.html"):
     return render(request, template_name)
 
+
 def add(request, template_name="add.html"):
     """ Add a post """
     if request.method == "POST":
         form = CodrForm(request.POST, user=request.user)
-        if form.is_valid(): 
+        if form.is_valid():
             codr_space = form.save(commit=False)
             return render(request, template_name, {'form':form})
 
@@ -74,5 +77,18 @@ def signin_callback(request, slug=None, template_name="base.html"):
     # FIXME: Handle error
     _validate_github_response(resp)
     user = simplejson.loads(resp.content)
+
+    try:
+        user = user.objects.get(username=user['login'])
+    except:
+        password = User.objecs.make_random_password()
+        user = User(username=user['login'], is_active=True,
+                    is_superuser=False, password=password)
+
+    user.save()
+
+    profile = user.get_profile()
+    profile.git_access_token = token
+    profile.save()
 
     return redirect('http://www.codrspace.com/%s' % (user['login']))
