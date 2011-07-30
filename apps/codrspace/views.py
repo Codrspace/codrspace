@@ -36,5 +36,5 @@ def signin_callback(request, slug=None, template_name="base.html"):
         raise Exception('code: %u content: %s' % (resp.status_code,
                                                   resp.content))
 
-    token = resp.content['access_token']
+    token = resp.content
     return redirect('http://www.codrspace.com/%s' % (token))
