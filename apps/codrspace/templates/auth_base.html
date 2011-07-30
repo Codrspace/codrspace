@@ -1,12 +1,23 @@
 {% extends "base.html" %}
 
-{% block header %}{% endblock %}
-
-{% block nav %}
-<ul>
-    <li><a href="{% url add %}">Add your post</a></li>
-</ul>
+{% block header %}
+    <div id="auth-header" class="shadowee">
+        <ul>
+            <li>Wecome, {{ user.username }}</li>
+            <li><a href="{% url add %}">Add Post</a></li>
+            <li><a href="{% url post_list user.username %}">Preview Blog &rarr;</a></li>
+        </ul>
+    </div>
+    <div class="clear"><!-- &nbsp; --></div>
 {% endblock %}
 
-{% block content %}
+{% block nav %}{% endblock %}
+
+{% block content %}{% endblock %}
+
+
+{% block footer %}
+    <div id="auth-footer" class="shadowee">
+        2011 Codrspace&nbsp;&nbsp;<a href="{% url signout %}">Sign Out</a>
+    </div>
 {% endblock %}

@@ -38,6 +38,72 @@ a.get-started { font-size: 24px; }
    text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.8), 0 1px 1px rgba(255, 255, 255, 0.3);
 }
 
+.clear {
+  clear: both;
+}
+
+/* auth base header and footer */
+#auth-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  padding: 0;
+}
+
+#auth-header ul {
+  list-style-type: none;
+  float: left;
+}
+
+#auth-header ul li {
+  float: left;
+  padding-right: 15px;
+}
+
+#auth-header ul li a {
+  text-decoration: none;
+  color: #ffd031;
+}
+
+#auth-header ul li a:hover {
+  text-decoration: none;
+  color: #ffdf75;
+}
+
+#auth-footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 10px;
+}
+
+#auth-footer a {
+  text-decoration: none;
+  color: #ffdf75;  
+}
+
+/* post-list content */
+#post-list-content {
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 1000px;
+}
+
+#post-list-content #left-column {
+    float: left;
+    border-right: 1px solid #ccc;
+    padding: 10px;
+    width: 175px;
+}
+
+#post-list-content #right-column {
+    float: left;
+    padding: 10px 10px 10px 20px;
+    width: 650px;
+}
+
 /* add/edit form
 ----------------------------- */
 form#add-post #title input {
@@ -134,6 +200,10 @@ ol#post-list {
   font-size: .8em;
 }
 
+#add-page {
+  margin-top: 75px;
+}
+
 #add-page table td {
   vertical-align: top;
 }
@@ -147,6 +217,10 @@ ol#post-list {
   padding: 10px;
   margin: 0;
   width: 400px;
+}
+
+#edit-page {
+  margin-top: 75px;  
 }
 
 #edit-page #post-list {

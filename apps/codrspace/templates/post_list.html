@@ -1,4 +1,14 @@
-{% extends "auth_base.html" %}
+{% extends "base.html" %}
+
 {% block content %}
-    {% include "user_detail.html" with meta=meta %}
+    <div id="post-list-content">
+        <div id="left-column">
+            {% include "user_detail.html" with meta=meta %}
+        </div>
+        <div id="right-column">
+            {% for post in posts %}
+                <h2>{{ post.title }}</h2>
+            {% endfor %}     
+        </div>
+    </div>
 {% endblock %}
