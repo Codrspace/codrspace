@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from settings import GITHUB_CLIENT_ID
 
+
 def index(request, slug=None, template_name="base.html"):
     return render_to_response(template_name, {},
         context_instance=RequestContext(request))
