@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 
-from settings import GITHUB_CLIENT_ID
+from settings import GITHUB_CLIENT_ID, DEBUG
 from codrspace.models import CodrSpace
 from codrspace.forms import CodrForm
 from profile.models import Profile
@@ -61,8 +61,12 @@ def edit(request, pk=0, template_name="edit.html"):
 
 def signin_start(request, slug=None, template_name="signin.html"):
     """Start of OAuth signin"""
-    return redirect('https://github.com/login/oauth/authorize?client_id=%s' % (
-                    GITHUB_CLIENT_ID))
+
+    url = 'https://github.com/login/oauth/authorize'
+    if DEBUG:
+        url = 'http://localhost:8000/authorize'
+
+    return redirect('%s?client_id=%s' % (url, GITHUB_CLIENT_ID))
 
 
 def signout(request):
@@ -73,31 +77,39 @@ def signout(request):
 
 def _validate_github_response(resp):
     """Raise exception if given response has error"""
+
+    # FIXME: Handle error
     if resp.status_code != 200 or 'error' in resp.content:
         raise Exception('code: %u content: %s' % (resp.status_code,
                                                   resp.content))
+
+def _parse_github_access_token(content):
+    """Super hackish way of parsing github access token from request"""
+    # FIXME: Awful parsing w/ lots of assumptions
+    # String looks like this currently
+    # access_token=1c21852a9f19b685d6f67f4409b5b4980a0c9d4f&token_type=bearer
+    return content.split('&')[0].split('=')[1]
 
 
 def signin_callback(request, slug=None, template_name="base.html"):
     """Callback from Github OAuth"""
 
+    url = 'https://github.com/login/oauth/access_token'
+    if DEBUG:
+        url = 'http://localhost:9000/access_token/'
+
     code = request.GET['code']
-    resp = requests.post(url='https://github.com/login/oauth/access_token',
-                        params={
-                            'client_id': GITHUB_CLIENT_ID,
-                            'client_secret':
-                                '2b40ac4251871e09441eb4147cbd5575be48bde9',
-                            'code': code})
-    # FIXME: Handle error
+    resp = requests.post(url=url, data={
+                        'client_id': GITHUB_CLIENT_ID,
+                        'client_secret':
+                            '2b40ac4251871e09441eb4147cbd5575be48bde9',
+                        'code': code})
+
     _validate_github_response(resp)
 
-    # FIXME: Awful parsing w/ lots of assumptions
-    # String looks like this currently
-    # access_token=1c21852a9f19b685d6f67f4409b5b4980a0c9d4f&token_type=bearer
-    token = resp.content.split('&')[0].split('=')[1]
+    token = _parse_github_access_token(resp.content)
     resp = requests.get('https://api.github.com/user?access_token=%s' % (
                                                                         token))
-    # FIXME: Handle error
     _validate_github_response(resp)
     github_user = simplejson.loads(resp.content)
 
@@ -123,6 +135,11 @@ def signin_callback(request, slug=None, template_name="base.html"):
     user.auto_login = True
     user = authenticate(username=user.username, password=user.password, user=user)
     if user is not None:
-        return redirect('http://www.codrspace.com/%s' % (github_user['login']))
+        if DEBUG:
+            return redirect('http://localhost:8000/%s' % (
+                                                        github_user['login']))
+        else:
+            return redirect('http://www.codrspace.com/%s' % (
+                                                        github_user['login']))
     else:
         raise Exception("User not logged in")
