@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from settings import GITHUB_CLIENT_ID, DEBUG
 from codrspace.models import Post
 from codrspace.forms import PostForm
-from profile.models import Profile
+from codrspace.models import Profile
 
 import requests
 
