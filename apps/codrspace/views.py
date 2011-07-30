@@ -109,7 +109,8 @@ def signin_callback(request, slug=None, template_name="base.html"):
 
     # Fake auth b/c github already verified them and we aren't using our own
     # passwords...yet?
-    user = authenticate(username=user.username, password=user.password)
+    user.auto_login = True
+    user = authenticate(username=user.username, password=user.password, user=user)
     if user is not None:
         return redirect('http://www.codrspace.com/%s' % (github_user['login']))
     else:
