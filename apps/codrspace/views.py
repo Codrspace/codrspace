@@ -81,7 +81,7 @@ def signin_callback(request, slug=None, template_name="base.html"):
     try:
         user = user.objects.get(username=user['login'])
     except:
-        password = User.objecs.make_random_password()
+        password = User.objects.make_random_password()
         user = User(username=user['login'], is_active=True,
                     is_superuser=False, password=password)
 
