@@ -2,6 +2,9 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import simplejson
+from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
+
 from settings import GITHUB_CLIENT_ID
 from codrspace.models import CodrSpace
 from codrspace.forms import CodrForm
@@ -49,6 +52,12 @@ def signin_start(request, slug=None, template_name="signin.html"):
                     GITHUB_CLIENT_ID))
 
 
+def signout(request):
+    if request.user.is_authenticate():
+        request.user.logout()
+    return redirect(reverse('signout'))
+
+
 def _validate_github_response(resp):
     """Raise exception if given response has error"""
     if resp.status_code != 200 or 'error' in resp.content:
@@ -78,5 +87,18 @@ def signin_callback(request, slug=None, template_name="base.html"):
     # FIXME: Handle error
     _validate_github_response(resp)
     user = simplejson.loads(resp.content)
+
+    try:
+        user = user.objects.get(username=user['login'])
+    except:
+        password = User.objects.make_random_password()
+        user = User(username=user['login'], is_active=True,
+                    is_superuser=False, password=password)
+
+    user.save()
+
+    profile = user.get_profile()
+    profile.git_access_token = token
+    profile.save()
 
     return redirect('http://www.codrspace.com/%s' % (user['login']))
