@@ -32,8 +32,9 @@ def signin_callback(request, slug=None, template_name="base.html"):
                                 '2b40ac4251871e09441eb4147cbd5575be48bde9',
                             'code': code})
     # FIXME: Handle error
-    if resp != 200 or 'error' in resp.content:
-        raise Exception('code: %u content: %s' % (resp.content))
+    if resp.status_code != 200 or 'error' in resp.content:
+        raise Exception('code: %u content: %s' % (resp.status_code,
+                                                  resp.content))
 
     token = resp.content['access_token']
     return redirect('http://www.codrspace.com/%s' % (token))
