@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Codrspace</title>
+    </head>
+    <body>
+        <div id="header">
+            {% block header %} 
+            {% endblock %}
+        </div>
+
+        <ul id="nav">
+            {% block nav %} 
+                <li>Home</li>
+            {% endblock %}
+        </ul>
+
+        <div id="content">
+            {% block content %} 
+                <p>Welcome</p>
+            {% endblock %}
+        </div>
+        
+        <div id="footer">
+            {% block content %} 
+            {% endblock %}
+        </div>
+    </body>
+</html>
