@@ -3,3 +3,4 @@
 *.db
 *.swo
 local_settings.py
+site_media
