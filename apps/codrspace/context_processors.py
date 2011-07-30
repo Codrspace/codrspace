@@ -8,6 +8,7 @@ def codrspace_contexts(request):
     contexts = {}
     contexts.update({
         'SITE_URL': settings.SITE_URL,
+        'TAGLINE': "Why you no write tutorial?"
     })
 
     return contexts

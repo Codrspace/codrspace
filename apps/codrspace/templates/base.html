@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Codrspace</title>
+        <title>Codrspace: {% block title %}{% endblock %}</title>
         <script type="text/javascript">
 
           var _gaq = _gaq || [];
@@ -16,39 +16,13 @@
 
         </script>
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}codrspace.css">
+        {% block extra_head %}{% endblock %}
     </head>
     <body>
-        <div id="header" class="shadowee">
-            {% block header %} 
-                <div class="logo"><a href="{% url homepage %}">Codrspace</a></div>
-                <div class="tagline">Why you no write tutorial?</div>
-            {% endblock %}
-        </div>
-
-        <ul id="nav">
-            {% block nav %}
-            {% endblock %}
-        </ul>
-
-        <div id="content">
-            {% block content %} 
-                <h3>What is Codrspace?</h3>
-                <p>It's a place where you can write tutorials, show-off code, and let the world know you are 1337.</p>
-                <h3>Why Codrspace?</h3>
-                <p>Because a 1337 developer deserves a 1337 product.</p>
-                {% if not user.is_authenticated %}
-                    <a class="get-started" href="{% url signin_start %}">Get Started &rarr;</a>
-                {% else %}
-                    <a href="{% url signout %}">Sign Out</a>
-                {% endif %}
-            {% endblock %}
-        </div>
-            
-        <div id="footer" class="shadowee">
-            {% block footer %}
-            Created by Luke Lee, Glen Zangirolami, and Eloy Zuniga for Django Dash 2011
-            {% endblock %}
-        </div>
+        {% block header %} {% endblock %}
+        {% block nav %}{% endblock %}
+        {% block content %} {% endblock %}
+        {% block footer %}{% endblock %}
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}jquery.labelify.js"></script>
         <script type="text/javascript" src="http://include.reinvigorate.net/re_.js"></script>
@@ -62,5 +36,6 @@
                 $("#add-post #title input").labelify({ text: function(input) { return "Why you no give me title?"; } });
             });
         </script>
+        {% block extra_body %}{% endblock %}
     </body>
 </html>
