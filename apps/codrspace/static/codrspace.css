@@ -1,0 +1,11 @@
+body {
+    font-family: Consolas,Monaco,monospace;
+    padding: 0;
+    margin: 0;
+}
+
+#content { padding: 10px; }
+.header { border-bottom: 1px solid #ccc; padding-bottom: 10px; }
+.header .logo { font-size: 36px; }
+.header .tagline { padding-left: 5px; }
+a.get-started { font-size: 24px; }
