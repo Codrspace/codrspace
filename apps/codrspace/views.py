@@ -32,7 +32,7 @@ def add(request, template_name="add.html"):
     codr_spaces = Post.objects.all().order_by('-pk')
 
     if request.method == "POST":
-        form = CodrForm(request.POST)
+        form = PostForm(request.POST)
         if form.is_valid():
             codr_space = form.save()
             return render(request, template_name, {'form': form, 'codr_spaces': codr_spaces})
@@ -47,7 +47,7 @@ def edit(request, pk=0, template_name="edit.html"):
     codr_spaces = Post.objects.all().order_by('-pk')
 
     if request.method == "POST":
-        form = CodrForm(request.POST, instance=codr_space)
+        form = PostForm(request.POST, instance=codr_space)
 
         if form.is_valid():
             codr_space = form.save()
@@ -58,7 +58,7 @@ def edit(request, pk=0, template_name="edit.html"):
                 'codr_spaces':codr_spaces
             })
 
-    form = CodrForm(instance=codr_space)
+    form = PostForm(instance=codr_space)
     return render(request, template_name, {
         'form':form,
         'codr_space':codr_space,
