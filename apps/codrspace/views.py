@@ -120,8 +120,7 @@ def signin_callback(request, slug=None, template_name="base.html"):
     profile.git_access_token = token
     profile.save()
 
-    # Fake auth b/c github already verified them and we aren't using our own
-    # passwords...yet?
+    # Just auto-login since they are already auth'ed with github at this point
     user.auto_login = True
     user = authenticate(username=user.username, password=user.password, user=user)
     if user is not None:
