@@ -29,6 +29,7 @@ def post_list(request, username, template_name="post_list.html"):
 
     return render(request, template_name, {
         'posts': posts,
+        'meta': request.user.profile.get_meta(),
     })
 
 
@@ -155,7 +156,7 @@ def signin_callback(request, slug=None, template_name="base.html"):
             profile = user.get_profile()
         except:
             profile = Profile(git_access_token=token, user=user,
-                              meta=github_user)
+                              meta=resp.content)
 
         profile.git_access_token = token
         profile.save()

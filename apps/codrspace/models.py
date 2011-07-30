@@ -15,3 +15,8 @@ class Profile(models.Model):
     git_access_token = models.CharField(max_length=75, null=True)
     user = models.OneToOneField(User)
     meta = models.TextField(null=True)
+
+
+    def get_meta(self):
+        from django.utils import simplejson
+        return simplejson.loads(self.meta)
