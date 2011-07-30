@@ -4,10 +4,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import simplejson
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 
 from settings import GITHUB_CLIENT_ID
 from codrspace.models import CodrSpace
 from codrspace.forms import CodrForm
+from profile.models import Profile
 
 import requests
 
@@ -87,19 +89,30 @@ def signin_callback(request, slug=None, template_name="base.html"):
                                                                         token))
     # FIXME: Handle error
     _validate_github_response(resp)
-    user = simplejson.loads(resp.content)
+    github_user = simplejson.loads(resp.content)
 
     try:
-        user = user.objects.get(username=user['login'])
+        user = User.objects.get(username=github_user['login'])
     except:
         password = User.objects.make_random_password()
-        user = User(username=user['login'], is_active=True,
+        user = User(username=github_user['login'], is_active=True,
                     is_superuser=False, password=password)
 
     user.save()
 
-    profile = user.get_profile()
+    try:
+        profile = user.get_profile()
+    except:
+        profile = Profile(git_access_token=token, user=user)
+
     profile.git_access_token = token
     profile.save()
 
-    return redirect('http://www.codrspace.com/%s' % (user['login']))
+    # Fake auth b/c github already verified them and we aren't using our own
+    # passwords...yet?
+    user.auto_login = True
+    user = authenticate(username=user.username, password=user.password, user=user)
+    if user is not None:
+        return redirect('http://www.codrspace.com/%s' % (github_user['login']))
+    else:
+        raise Exception("User not logged in")
