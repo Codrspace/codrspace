@@ -3,6 +3,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import simplejson
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
 
 from settings import GITHUB_CLIENT_ID
 from codrspace.models import CodrSpace
@@ -14,11 +15,12 @@ import requests
 def index(request, template_name="base.html"):
     return render(request, template_name)
 
+
 def add(request, template_name="add.html"):
     """ Add a post """
     if request.method == "POST":
         form = CodrForm(request.POST, user=request.user)
-        if form.is_valid(): 
+        if form.is_valid():
             codr_space = form.save(commit=False)
             return render(request, template_name, {'form':form})
 
@@ -46,10 +48,12 @@ def signin_start(request, slug=None, template_name="signin.html"):
     return redirect('https://github.com/login/oauth/authorize?client_id=%s' % (
                     GITHUB_CLIENT_ID))
 
+
 def signout(request):
     if request.user.is_authenticate():
         request.user.logout()
     return redirect(reverse('signout'))
+
 
 def _validate_github_response(resp):
     """Raise exception if given response has error"""
@@ -84,12 +88,14 @@ def signin_callback(request, slug=None, template_name="base.html"):
     try:
         user = user.objects.get(username=user['login'])
     except:
-        pass # create user here
+        password = User.objects.make_random_password()
+        user = User(username=user['login'], is_active=True,
+                    is_superuser=False, password=password)
 
-    try:
-        profile = user.get_profile()
-    except:
-        pass # create profile here
+    user.save()
 
+    profile = user.get_profile()
+    profile.git_access_token = token
+    profile.save()
 
     return redirect('http://www.codrspace.com/%s' % (user['login']))
