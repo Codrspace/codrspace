@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{{ TAGLINE }}{% endblock %}
+
+{% block header %} 
+<div id="header" class="shadowee">
+    <div class="logo"><a href="{% url homepage %}">Codrspace</a></div>
+    <div class="tagline">Why you no write tutorial?</div>
+</div>
+{% endblock %}
+
+{% block nav %}{% endblock %}
+
+{% block content %} 
+    <div id="content">
+        <h3>What is Codrspace?</h3>
+        <p>It's a place where you can write tutorials, show-off code, and let the world know you are 1337.</p>
+        <h3>Why Codrspace?</h3>
+        <p>Because a 1337 developer deserves a 1337 product.</p>
+        {% if not user.is_authenticated %}
+            <a class="get-started" href="{% url signin_start %}">Get Started &rarr;</a>
+        {% else %}
+            <a href="{% url signout %}">Sign Out</a>
+        {% endif %}
+    </div>
+{% endblock %}
+
+
+{% block footer %}
+<div id="footer" class="shadowee">Created by Luke Lee, Glen Zangirolami, and Eloy Zuniga for Django Dash 2011</div>
+{% endblock %}
