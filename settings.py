@@ -4,9 +4,7 @@ import sys
 # Paths
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 APPS_PATH = os.path.join(PROJECT_ROOT, 'apps')
-LIBS_PATH = os.path.join(PROJECT_ROOT, 'libs')
 sys.path.insert(0, APPS_PATH)
-sys.path.insert(0, LIBS_PATH)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -111,7 +109,6 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'dash.urls'
 
 TEMPLATE_DIRS = (
-    os.path.join(PROJECT_ROOT, "apps", "codrspace", "templates"),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -128,6 +125,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'codrspace'
 )
 
 # A sample logging configuration. The only tangible logging
