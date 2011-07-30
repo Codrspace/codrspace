@@ -15,29 +15,38 @@
           })();
 
         </script>
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}codrspace.css">
     </head>
     <body>
-        <div id="header">
-            {% block header %} 
-            {% endblock %}
-        </div>
-
-        <ul id="nav">
-            {% block nav %} 
-                <li><a href="#">Home</a></li>
-                <li><a href="/signin/">Signin</a></li>
-            {% endblock %}
-        </ul>
-
         <div id="content">
-            {% block content %} 
-                <p>Welcome</p>
-            {% endblock %}
-        </div>
-        
-        <div id="footer">
-            {% block footer %} 
-            {% endblock %}
+            <div id="header">
+                {% block header %} 
+                    <div class="header">
+                        <div class="logo">Codrspace</div>
+                        <div class="tagline">Why you no write tutorial?</div>
+                    </div>
+                {% endblock %}
+            </div>
+
+            <ul id="nav">
+                {% block nav %}
+                {% endblock %}
+            </ul>
+
+            <div id="content">
+                {% block content %} 
+                    <h3>What is Codrspace?</h3>
+                    <p>It's a place where you can write tutorials, show-off code, and let the world know you are 1337.</p>
+                    <h3>Why Codrspace?</h3>
+                    <p>Because a 1337 developer deserves a 1337 product.</p>
+                    <a class="get-started" href="/signin/">Get Started &rarr;</a>
+                {% endblock %}
+            </div>
+            
+            <div id="footer">
+                {% block footer %} 
+                {% endblock %}
+            </div>
         </div>
         <script type="text/javascript" src="http://include.reinvigorate.net/re_.js"></script>
         <script type="text/javascript">

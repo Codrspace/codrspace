@@ -1,1 +1,2 @@
 django
+-e git://github.com/kennethreitz/requests.git#egg=requests
