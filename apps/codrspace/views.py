@@ -18,4 +18,4 @@ def signin_start(request, slug=None, template_name="signin.html"):
 
 def signin_callback(request, slug=None, template_name="base.html"):
     """Callback from Github OAuth"""
-    return render_to_response(template_name, {}, )
+    print request.GET
