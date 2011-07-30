@@ -2,5 +2,21 @@
 
 
 {% block content %} 
-{{ form }}
+    <form id="edit-post" action="" method="POST">
+        {% csrf_token %}
+        <div id="title">{{ form.title }}</div>
+        <div id="content">{{ form.content }}</div>
+        <div id="submit-btn"><input type="submit" /></div>
+    </form>
+
+    {% if codr_spaces %}
+    <ol id="post-list">
+    {% for codr_space in codr_spaces|slice:":10" %}
+        <li><a href="{% url edit codr_space.pk %}">
+            {{ forloop.counter }}. {{ codr_space.title }} - <span class="content-summary">{{ codr_space.content }} {{ codr_space.create_dt }}</span>
+        </a></li>
+    {% endfor %}
+    </ol>
+    {% endif %}
+
 {% endblock %}

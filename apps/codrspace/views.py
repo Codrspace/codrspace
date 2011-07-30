@@ -25,25 +25,26 @@ def add(request, template_name="add.html"):
         form = CodrForm(request.POST)
         if form.is_valid(): 
             codr_space = form.save()
-            return render(request, template_name, {'form':form, 'codr_spaces':codr_spaces})
+            return render(request, template_name, {'form':form, 'codr_spaces':codr_spaces })
 
     form = CodrForm()
-    return render(request, template_name, {'form':form, 'codr_spaces':codr_spaces})
+    return render(request, template_name, {'form':form, 'codr_spaces':codr_spaces })
 
 
 def edit(request, pk=0, template_name="edit.html"):
     """ Edit a post """
     codr_space = get_object_or_404(CodrSpace, pk=pk)
+    codr_spaces = CodrSpace.objects.all().order_by('-pk')
 
     if request.method == "POST":
         form = CodrForm(request.POST, instance=codr_space)
 
         if form.is_valid():
-            codr_space = form.save(commit=False)
-            return render(request, template_name, {'form':form})
+            codr_space = form.save()
+            return render(request, template_name, {'form':form, 'codr_spaces':codr_spaces })
 
-    form = CodrForm()
-    return render(request, template_name, {'form':form})
+    form = CodrForm(instance=codr_space)
+    return render(request, template_name, {'form':form, 'codr_spaces':codr_spaces })
 
 
 def signin_start(request, slug=None, template_name="signin.html"):

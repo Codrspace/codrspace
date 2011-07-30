@@ -62,7 +62,49 @@ form#add-post #submit-btn input {
   font-weight: bold;
 }
 
+form#edit-post #title input {
+  font-size: 30px;
+  width: 500px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #DDD;
+}
+
+form#edit-post #content {
+  padding: 0;
+}
+
+form#edit-post #content textarea {
+  font-size: 14px;
+  width: 500px;
+  border: 1px solid #DDD;
+  padding: 10px;
+}
+
+form#edit-post #submit-btn input {
+  font-size: 150%;
+  font-weight: bold;
+}
+
 #post-list .content-summary {
   color: #AAA;
   font-size: .9em;
+}
+
+#post-list a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+ol#post-list {
+  padding-left: 0;
+  list-style-type: none;
+}
+#post-list li {
+  padding: 5px;
+}
+
+#post-list li:hover {
+  color: white;
+  background-color: black;
 }
