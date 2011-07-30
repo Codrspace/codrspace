@@ -20,16 +20,13 @@
     <body>
         <div id="header" class="shadowee">
             {% block header %} 
-                <div class="logo">Codrspace</div>
+                <div class="logo"><a href="{% url homepage %}">Codrspace</a></div>
                 <div class="tagline">Why you no write tutorial?</div>
             {% endblock %}
         </div>
 
         <ul id="nav">
             {% block nav %}
-                {% if user.is_authenticated %}
-                    Hello, {{ user.username }}.
-                {% endif %}
             {% endblock %}
         </ul>
 
