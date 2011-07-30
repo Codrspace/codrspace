@@ -5,6 +5,7 @@ from django.utils import simplejson
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 from settings import GITHUB_CLIENT_ID, DEBUG
 from codrspace.models import Post
@@ -16,13 +17,14 @@ import requests
 
 def index(request, template_name="home.html"):
     if request.user.is_authenticated():
-        redirect(reverse("post_index", args=[request.user.username]))
+        return redirect(reverse("post_index", args=[request.user.username]))
 
     return render(request, template_name)
 
+@login_required
+def post_index(request, username, template_name="post_index.html"):
 
-def post_index(request, template_name="post_index.html"):
-    posts = Post.objects.filter(author=request.user.username)
+    posts = Post.objects.filter(author=request.user)
     posts = posts.order_by('-pk')
 
     return render(request, template_name, {
@@ -32,13 +34,17 @@ def post_index(request, template_name="post_index.html"):
 
 def add(request, template_name="add.html"):
     """ Add a post """
+
     posts = Post.objects.all().order_by('-pk')
 
     if request.method == "POST":
         form = PostForm(request.POST)
+
         if form.is_valid():
-            post = form.save()
-            return render(request, template_name, {'form': form, 'posts': posts})
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('edit', pk=post.pk)
 
     form = PostForm()
     return render(request, template_name, {'form': form, 'posts': posts})
@@ -50,22 +56,22 @@ def edit(request, pk=0, template_name="edit.html"):
     posts = Post.objects.all().order_by('-pk')
 
     if request.method == "POST":
-        form = PostForm(request.POST, instance=codr_space)
+        form = PostForm(request.POST, instance=post)
 
         if form.is_valid():
             post = form.save()
 
             return render(request, template_name, {
-                'form': form, 
-                'post': post,
-                'posts': posts
+                'form':form, 
+                'post':post,
+                'posts':posts
             })
 
     form = PostForm(instance=post)
     return render(request, template_name, {
-        'form': form,
-        'post': post,
-        'posts': posts
+        'form':form,
+        'post':post,
+        'posts':posts
     })
 
 

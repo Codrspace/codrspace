@@ -3,7 +3,6 @@ from django.conf.urls.defaults import patterns, url
 
 urlpatterns = patterns('codrspace.views',
     url(r'^$', 'index', name="homepage"),
-    url(r'^([\w\d]+)/$', 'post_index', name="post_index"),
     url(r'^add/$', 'add', name="add"),
     url(r'^edit/(?P<pk>\d+)/$', 'edit', name="edit"),
     url(r'^signin/$', 'signin_start', name="signin_start"),
@@ -14,4 +13,8 @@ urlpatterns = patterns('codrspace.views',
 urlpatterns += patterns('codrspace.mock_views',
     url(r'^authorize/$', 'authorize', name="authorize"),
     url(r'^access_token/$', 'access_token', name="access_token"),
+)
+
+urlpatterns += patterns('codrspace.views',
+    url(r'^(?P<username>[\w\d]+)/$', 'post_index', name="post_index"),
 )
