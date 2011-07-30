@@ -1,33 +1,41 @@
 {% extends "auth_base.html" %}
 
-{% load markup %}
-{% load short_codes %}
 
 {% block content %}
 <div id="edit-page">
 
+    <div id="edit-wrap">
     <table><tr><td>
 
-        {% if posts %}
-        <ol id="post-list">
-        {% for post in posts|slice:":10" %}
-            <li><a href="{% url edit post.pk %}">
-                {{ forloop.counter }}. {{ post.title }} <span class="content-summary">{{ post.content }} {{ post.create_dt }}</span>
-            </a></li>
-        {% endfor %}
-        </ol>
-        {% endif %}
+        <div id="mode-msg">Edit mode</div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="fieldWrapper">
+                {{ field.errors }}
+            </div>
+            {% endfor %}
+            <div id="title">{{ form.title }}</div>
+            <div id="content">{{ form.content }}</div>
+            <div id="status">{{ form.status }}</div>
+            <div id="submit-btn"><input type="submit" value="Save changes" /></div>
+        </form>
 
     </td><td>
 
-        <div id="mode-msg">Edit mode</div>
-        <form id="edit-post" action="" method="POST">
-            {% csrf_token %}
-            <div id="title">{{ form.title }}</div>
-            <div id="content">{{ form.content }}</div>
-            <div id="submit-btn"><input type="submit" /></div>
-        </form>
-
     </td></tr></table>
+    </div>
+
+    {% if posts %}
+    <ol id="post-list">
+    {% for post in posts|slice:":10" %}
+        <li><a href="{% url edit post.pk %}">
+            {{ forloop.counter }}. {{ post.title }} 
+            <span class="post-status {{ post.status }}">{{ post.status }}</span>
+            <span class="content-summary">{{ post.content }} {{ post.create_dt }}</span>
+        </a></li>
+    {% endfor %}
+    </ol>
+    {% endif %}
 
 {% endblock %}

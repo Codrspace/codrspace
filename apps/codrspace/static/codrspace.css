@@ -40,7 +40,7 @@ a.get-started { font-size: 24px; }
 
 /* add/edit form
 ----------------------------- */
-form#add-post #title input {
+#add-page form #title input {
   font-size: 30px;
   width: 500px;
   padding: 10px;
@@ -48,23 +48,23 @@ form#add-post #title input {
   border: 1px solid #DDD;
 }
 
-form#add-post #content {
+#add-page form #content {
   padding: 0;
 }
 
-form#add-post #content textarea {
+#add-page form #content textarea {
   font-size: 14px;
   width: 500px;
   border: 1px solid #DDD;
   padding: 10px;
 }
 
-form#add-post #submit-btn input {
+#add-page form #submit-btn input {
   font-size: 150%;
   font-weight: bold;
 }
 
-form#edit-post #title input {
+#edit-page form #title input {
   font-size: 30px;
   width: 500px;
   padding: 10px;
@@ -72,18 +72,18 @@ form#edit-post #title input {
   border: 1px solid #DDD;
 }
 
-form#edit-post #content {
+#edit-page form #content {
   padding: 0;
 }
 
-form#edit-post #content textarea {
+#edit-page form #content textarea {
   font-size: 14px;
   width: 500px;
   border: 1px solid #DDD;
   padding: 10px;
 }
 
-form#edit-post #submit-btn input {
+#edit-page form #submit-btn input {
   font-size: 150%;
   font-weight: bold;
 }
@@ -146,17 +146,42 @@ ol#post-list {
   background-color: #EEE;
   padding: 10px;
   margin: 0;
-  width: 400px;
+/*  width: 400px;*/
 }
 
 #edit-page #post-list {
   background-color: #EEE;
   padding: 10px;
   margin: 0;
-  width: 400px;
+/*  width: 400px;*/
 }
 
 #mode-msg {
   background-color: #FFE;
   padding: 5px;
 }
+
+#add-wrap {
+  margin-bottom: 10px;
+}
+
+#edit-wrap {
+  margin-bottom: 10px;
+}
+
+.post-status {
+  color: white;
+  font-size: 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 3px;
+}
+.post-status.draft {
+  background-color: orange;
+}
+
+.post-status.published {
+  background-color: green;
+}
+
