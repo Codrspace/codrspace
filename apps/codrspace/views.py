@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import simplejson
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 
 from settings import GITHUB_CLIENT_ID
 from codrspace.models import CodrSpace
@@ -106,4 +107,10 @@ def signin_callback(request, slug=None, template_name="base.html"):
     profile.git_access_token = token
     profile.save()
 
-    return redirect('http://www.codrspace.com/%s' % (github_user['login']))
+    # Fake auth b/c github already verified them and we aren't using our own
+    # passwords...yet?
+    user = authenticate(username=user.username, password=user.password)
+    if user is not None:
+        return redirect('http://www.codrspace.com/%s' % (github_user['login']))
+    else:
+        raise Exception("User not logged in")
