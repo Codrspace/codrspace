@@ -125,6 +125,11 @@ def signin_callback(request, slug=None, template_name="base.html"):
     user.auto_login = True
     user = authenticate(username=user.username, password=user.password, user=user)
     if user is not None:
-        return redirect('http://www.codrspace.com/%s' % (github_user['login']))
+        if DEBUG:
+            return redirect('http://localhost:8000/%s' % (
+                                                        github_user['login']))
+        else:
+            return redirect('http://www.codrspace.com/%s' % (
+                                                        github_user['login']))
     else:
         raise Exception("User not logged in")
