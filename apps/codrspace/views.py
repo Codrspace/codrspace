@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 
-from settings import GITHUB_CLIENT_ID
+from settings import GITHUB_CLIENT_ID, DEBUG
 from codrspace.models import CodrSpace
 from codrspace.forms import CodrForm
 from profile.models import Profile
@@ -51,8 +51,12 @@ def edit(request, pk=0, template_name="edit.html"):
 
 def signin_start(request, slug=None, template_name="signin.html"):
     """Start of OAuth signin"""
-    return redirect('https://github.com/login/oauth/authorize?client_id=%s' % (
-                    GITHUB_CLIENT_ID))
+
+    url = 'https://github.com/login/oauth/authorize'
+    if DEBUG:
+        url = 'http://localhost:8000/authorize'
+
+    return redirect('%s?client_id=%s' % (url, GITHUB_CLIENT_ID))
 
 
 def signout(request):
@@ -71,13 +75,17 @@ def _validate_github_response(resp):
 def signin_callback(request, slug=None, template_name="base.html"):
     """Callback from Github OAuth"""
 
+    url = 'https://github.com/login/oauth/access_token'
+    if DEBUG:
+        url = 'http://localhost:9000/access_token/'
+
     code = request.GET['code']
-    resp = requests.post(url='https://github.com/login/oauth/access_token',
-                        params={
-                            'client_id': GITHUB_CLIENT_ID,
-                            'client_secret':
-                                '2b40ac4251871e09441eb4147cbd5575be48bde9',
-                            'code': code})
+    resp = requests.post(url=url, data={
+                        'client_id': GITHUB_CLIENT_ID,
+                        'client_secret':
+                            '2b40ac4251871e09441eb4147cbd5575be48bde9',
+                        'code': code})
+
     # FIXME: Handle error
     _validate_github_response(resp)
 
