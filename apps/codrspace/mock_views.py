@@ -7,9 +7,9 @@ from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 
-token="1c21852a9f19b685d6f67f4409b5b4980a0c9d4f"
+token = "1c21852a9f19b685d6f67f4409b5b4980a0c9d4f"
 code = 100
-#code = random.randint(0,10000)
+
 
 def authorize(request):
     """Fake calling authorize for github api"""
@@ -18,6 +18,7 @@ def authorize(request):
         raise Exception("Authorize must specify client_id")
 
     return redirect("%s?code=%d" % (reverse('signin_callback'), code))
+
 
 def access_token(request):
     """Fake calling method to get access token for github api"""

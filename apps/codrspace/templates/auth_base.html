@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="auth-homepage">
+
+    <h1>{{ user.username }}</h1>
+
+    {% if codr_spaces %}
+    <div id="post-list">
+        {% for codr_space in codr_spaces %}
+        <div class="post-item">
+            <h3 class="post-title">
+                <a href="{% url edit codr_space.pk %}">{% firstof codr_space.title "Untitled" %} 
+                <span class="post-create-dt">{{ codr_space.create_dt }}<span></a>
+            </h3>
+            <div class="post-content">{{ codr_space.content }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

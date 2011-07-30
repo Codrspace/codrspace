@@ -1,13 +1,23 @@
 {% extends "base.html" %}
+{% load markup %}
 
 
-{% block content %} 
-    <form id="edit-post" action="" method="POST">
-        {% csrf_token %}
-        <div id="title">{{ form.title }}</div>
-        <div id="content">{{ form.content }}</div>
-        <div id="submit-btn"><input type="submit" /></div>
-    </form>
+{% block content %}
+
+    <table><tr><td>
+
+        <form id="edit-post" action="" method="POST">
+            {% csrf_token %}
+            <div id="title">{{ form.title }}</div>
+            <div id="content">{{ form.content }}</div>
+            <div id="submit-btn"><input type="submit" /></div>
+        </form>
+
+    </td><td>
+        {{ codr_space.title }}
+        {{ codr_space.content|markdown }}
+
+    </td></tr></table>
 
     {% if codr_spaces %}
     <ol id="post-list">
