@@ -87,13 +87,13 @@ def signin_callback(request, slug=None, template_name="base.html"):
                                                                         token))
     # FIXME: Handle error
     _validate_github_response(resp)
-    user = simplejson.loads(resp.content)
+    github_user = simplejson.loads(resp.content)
 
     try:
-        user = user.objects.get(username=user['login'])
+        user = User.objects.get(username=github_user['login'])
     except:
         password = User.objects.make_random_password()
-        user = User(username=user['login'], is_active=True,
+        user = User(username=github_user['login'], is_active=True,
                     is_superuser=False, password=password)
 
     user.save()
@@ -106,4 +106,4 @@ def signin_callback(request, slug=None, template_name="base.html"):
     profile.git_access_token = token
     profile.save()
 
-    return redirect('http://www.codrspace.com/%s' % (user['login']))
+    return redirect('http://www.codrspace.com/%s' % (github_user['login']))
