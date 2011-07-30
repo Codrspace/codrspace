@@ -154,7 +154,8 @@ def signin_callback(request, slug=None, template_name="base.html"):
         try:
             profile = user.get_profile()
         except:
-            profile = Profile(git_access_token=token, user=user)
+            profile = Profile(git_access_token=token, user=user,
+                              meta=github_user)
 
         profile.git_access_token = token
         profile.save()
