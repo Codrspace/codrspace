@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from settings import GITHUB_CLIENT_ID
 from codrspace.models import CodrSpace
 from codrspace.forms import CodrForm
+from profile.models import Profile
 
 import requests
 
@@ -97,7 +98,11 @@ def signin_callback(request, slug=None, template_name="base.html"):
 
     user.save()
 
-    profile = user.get_profile()
+    try:
+        profile = user.get_profile()
+    except:
+        profile = Profile(git_access_token=token, user=user)
+
     profile.git_access_token = token
     profile.save()
 
