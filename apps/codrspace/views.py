@@ -71,6 +71,13 @@ def _validate_github_response(resp):
         raise Exception('code: %u content: %s' % (resp.status_code,
                                                   resp.content))
 
+def _parse_github_access_token(content):
+    """Super hackish way of parsing github access token from request"""
+    # FIXME: Awful parsing w/ lots of assumptions
+    # String looks like this currently
+    # access_token=1c21852a9f19b685d6f67f4409b5b4980a0c9d4f&token_type=bearer
+    return content.split('&')[0].split('=')[1]
+
 
 def signin_callback(request, slug=None, template_name="base.html"):
     """Callback from Github OAuth"""
@@ -89,10 +96,7 @@ def signin_callback(request, slug=None, template_name="base.html"):
     # FIXME: Handle error
     _validate_github_response(resp)
 
-    # FIXME: Awful parsing w/ lots of assumptions
-    # String looks like this currently
-    # access_token=1c21852a9f19b685d6f67f4409b5b4980a0c9d4f&token_type=bearer
-    token = resp.content.split('&')[0].split('=')[1]
+    token = _parse_github_access_token(resp.content)
     resp = requests.get('https://api.github.com/user?access_token=%s' % (
                                                                         token))
     # FIXME: Handle error
