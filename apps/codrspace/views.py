@@ -31,4 +31,9 @@ def signin_callback(request, slug=None, template_name="base.html"):
                             'client_secret':
                                 '2b40ac4251871e09441eb4147cbd5575be48bde9',
                             'code': code})
-    print resp.content
+    # FIXME: Handle error
+    if resp != 200 or 'error' in resp.content:
+        return render(request, template_name)
+
+    token = resp.content['access_token']
+    return redirect('http://www.codrspace.com/%s' % (token))
