@@ -2,6 +2,20 @@
 
 
 {% block content %} 
-{{ form.as_p }}
-{{ form.title }}
+    <form id="add-post" action="" method="POST">
+        {% csrf_token %}
+        <div id="title">{{ form.title }}</div>
+        <div id="content">{{ form.content }}</div>
+        <div id="submit-btn"><input type="submit" /></div>
+    </form>
+
+
+    {% if codr_spaces %}
+    <ol id="post-list">
+    {% for codr_space in codr_spaces|slice:":10" %}
+        <li>{{ codr_space.title }} - <span class="content-summary">{{ codr_space.content }} {{ codr_space.create_dt }}</span></li>
+    {% endfor %}
+    </ol>
+    {% endif %}
+
 {% endblock %}

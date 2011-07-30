@@ -12,16 +12,20 @@ import requests
 def index(request, template_name="base.html"):
     return render(request, template_name)
 
+
 def add(request, template_name="add.html"):
     """ Add a post """
+
+    codr_spaces = CodrSpace.objects.all().order_by('-pk')
+
     if request.method == "POST":
-        form = CodrForm(request.POST, user=request.user)
+        form = CodrForm(request.POST)
         if form.is_valid(): 
-            codr_space = form.save(commit=False)
-            return render(request, template_name, {'form':form})
+            codr_space = form.save()
+            return render(request, template_name, {'form':form, 'codr_spaces':codr_spaces})
 
     form = CodrForm()
-    return render(request, template_name, {'form':form})
+    return render(request, template_name, {'form':form, 'codr_spaces':codr_spaces})
 
 
 def edit(request, pk=0, template_name="edit.html"):
@@ -29,7 +33,7 @@ def edit(request, pk=0, template_name="edit.html"):
     codr_space = get_object_or_404(CodrSpace, pk=pk)
 
     if request.method == "POST":
-        form = CodrForm(request.POST, instance=codr_space, user=request.user)
+        form = CodrForm(request.POST, instance=codr_space)
 
         if form.is_valid():
             codr_space = form.save(commit=False)

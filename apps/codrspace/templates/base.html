@@ -44,11 +44,18 @@
             Created by Luke Lee, Glen Zangirolami, and Eloy Zuniga for Django Dash 2011
             {% endblock %}
         </div>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}jquery.labelify.js"></script>
         <script type="text/javascript" src="http://include.reinvigorate.net/re_.js"></script>
         <script type="text/javascript">
         try {
         reinvigorate.track("1um08-10kraz8amt");
         } catch(err) {}
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#title input").labelify({ text: function(input) { return "Why you no give me title?"; } });
+            });
         </script>
     </body>
 </html>

@@ -35,3 +35,34 @@ a.get-started { font-size: 24px; }
    color: #fff;
    text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.8), 0 1px 1px rgba(255, 255, 255, 0.3);
 }
+
+/* add/edit form
+----------------------------- */
+form#add-post #title input {
+  font-size: 30px;
+  width: 500px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #DDD;
+}
+
+form#add-post #content {
+  padding: 0;
+}
+
+form#add-post #content textarea {
+  font-size: 14px;
+  width: 500px;
+  border: 1px solid #DDD;
+  padding: 10px;
+}
+
+form#add-post #submit-btn input {
+  font-size: 150%;
+  font-weight: bold;
+}
+
+#post-list .content-summary {
+  color: #AAA;
+  font-size: .9em;
+}
