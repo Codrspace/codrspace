@@ -3,6 +3,8 @@
 from django.shortcuts import render, redirect
 from settings import GITHUB_CLIENT_ID
 
+import requests
+
 
 def index(request, slug=None, template_name="base.html"):
     return render(request, template_name)
@@ -21,4 +23,12 @@ def signin_start(request, slug=None, template_name="signin.html"):
 
 def signin_callback(request, slug=None, template_name="base.html"):
     """Callback from Github OAuth"""
-    print request.GET
+
+    code = request.GET['code']
+    resp = requests.post(url='https://github.com/login/oauth/access_token',
+                        params={
+                            'client_id': GITHUB_CLIENT_ID,
+                            'client_secret':
+                                '2b40ac4251871e09441eb4147cbd5575be48bde9',
+                            'code': code})
+    print resp.content
