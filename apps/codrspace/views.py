@@ -156,6 +156,6 @@ def signin_callback(request, slug=None, template_name="base.html"):
         # passwords...yet?
         user.auto_login = True
         user = authenticate(user=user)
-        login(request, user)
+        login(request, user) 
 
     return redirect(reverse('homepage'))
