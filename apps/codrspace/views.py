@@ -17,12 +17,12 @@ import requests
 
 def index(request, template_name="home.html"):
     if request.user.is_authenticated():
-        return redirect(reverse("post_index", args=[request.user.username]))
+        return redirect(reverse("post_list", args=[request.user.username]))
 
     return render(request, template_name)
 
 @login_required
-def post_index(request, username, template_name="post_index.html"):
+def post_list(request, username, template_name="post_list.html"):
 
     posts = Post.objects.filter(author=request.user)
     posts = posts.order_by('-pk')
