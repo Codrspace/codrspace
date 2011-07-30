@@ -134,4 +134,29 @@ ol#post-list {
   font-size: .8em;
 }
 
+#add-page table td {
+  vertical-align: top;
+}
 
+#edit-page table td {
+  vertical-align: top;
+}
+
+#add-page #post-list {
+  background-color: #EEE;
+  padding: 10px;
+  margin: 0;
+  width: 400px;
+}
+
+#edit-page #post-list {
+  background-color: #EEE;
+  padding: 10px;
+  margin: 0;
+  width: 400px;
+}
+
+#mode-msg {
+  background-color: #FFE;
+  padding: 5px;
+}

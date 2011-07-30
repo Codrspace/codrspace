@@ -29,40 +29,43 @@ def index(request):
 def add(request, template_name="add.html"):
     """ Add a post """
 
-    codr_spaces = Post.objects.all().order_by('-pk')
+    posts = Post.objects.all().order_by('-pk')
 
     if request.method == "POST":
         form = PostForm(request.POST)
+
         if form.is_valid():
-            codr_space = form.save()
-            return render(request, template_name, {'form': form, 'codr_spaces': codr_spaces})
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('edit', pk=post.pk)
 
     form = PostForm()
-    return render(request, template_name, {'form': form, 'codr_spaces': codr_spaces})
+    return render(request, template_name, {'form': form, 'posts': posts})
 
 
 def edit(request, pk=0, template_name="edit.html"):
     """ Edit a post """
-    codr_space = get_object_or_404(Post, pk=pk)
-    codr_spaces = Post.objects.all().order_by('-pk')
+    post = get_object_or_404(Post, pk=pk)
+    posts = Post.objects.all().order_by('-pk')
 
     if request.method == "POST":
-        form = PostForm(request.POST, instance=codr_space)
+        form = PostForm(request.POST, instance=post)
 
         if form.is_valid():
-            codr_space = form.save()
+            post = form.save()
 
             return render(request, template_name, {
                 'form':form, 
-                'codr_space':codr_space,
-                'codr_spaces':codr_spaces
+                'post':post,
+                'posts':posts
             })
 
-    form = PostForm(instance=codr_space)
+    form = PostForm(instance=post)
     return render(request, template_name, {
         'form':form,
-        'codr_space':codr_space,
-        'codr_spaces':codr_spaces
+        'post':post,
+        'posts':posts
     })
 
 
