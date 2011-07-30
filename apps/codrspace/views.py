@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from settings import GITHUB_CLIENT_ID, DEBUG
 from codrspace.models import CodrSpace
 from codrspace.forms import CodrForm
-from profile.models import Profile
+from codrspace.models import Profile
 
 import requests
 
@@ -148,6 +148,6 @@ def signin_callback(request, slug=None, template_name="base.html"):
         # passwords...yet?
         user.auto_login = True
         user = authenticate(user=user)
-        login(request, user)
+        login(request, user) 
 
     return redirect(reverse('home_base'))

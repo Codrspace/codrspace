@@ -101,6 +101,16 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.contrib.messages.context_processors.messages',
+    'codrspace.context_processors.codrspace_contexts',
+)
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -130,7 +140,6 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'codrspace',
-    'profile',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -156,13 +165,21 @@ LOGGING = {
     }
 }
 
-# Auth Profile App
-AUTH_PROFILE_MODULE = 'profile.Profile'
-
+# Custom profile and authentication
+AUTH_PROFILE_MODULE = 'codrspace.Profile'
 AUTHENTICATION_BACKENDS = (
-    'profile.backend.ModelBackend',
+    'codrspace.backend.ModelBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
+
+# Domain Configuration
+SITE_PROTOCOL = 'http'
+SITE_DOMAIN = 'codrspace.com'
+SITE_PORT = 80
+SITE_URL = '%(protocol)s://%(domain)s' % {
+    'protocol': SITE_PROTOCOL,
+    'domain': SITE_PROTOCOL
+}
 
 # local settings for settings override
 try:
