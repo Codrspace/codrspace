@@ -29,8 +29,7 @@ def explosivo(value):
 
 
 def filter_gist(value):
-    # FIXME: Make case insensitive
-    pattern = re.compile('\[gist (\d+)\]')
+    pattern = re.compile('\[gist (\d+) *\]', flags=re.IGNORECASE)
 
     match = re.search(pattern, value)
     if match is None:
