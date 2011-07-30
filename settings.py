@@ -9,7 +9,7 @@ sys.path.insert(0, APPS_PATH)
 # Specific ID for app when it was registered with github
 GITHUB_CLIENT_ID='33642ce3ebbadb4a8787'
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
