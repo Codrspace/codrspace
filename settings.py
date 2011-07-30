@@ -1,4 +1,12 @@
-# Django settings for DjangoDash2 project.
+import os.path
+import sys
+
+# Paths
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+APPS_PATH = os.path.join(PROJECT_ROOT, 'apps')
+LIBS_PATH = os.path.join(PROJECT_ROOT, 'libs')
+sys.path.insert(0, APPS_PATH)
+sys.path.insert(0, LIBS_PATH)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -100,7 +108,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'DjangoDash2.urls'
+ROOT_URLCONF = 'dash.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
