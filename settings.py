@@ -157,3 +157,10 @@ LOGGING = {
 
 # Auth Profile App
 AUTH_PROFILE_MODULE = 'profile.Profile'
+
+# local settings for settings override
+try:
+    from local_settings import *
+except ImportError:
+    pass
+
