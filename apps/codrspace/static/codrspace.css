@@ -111,16 +111,39 @@ a.get-started { font-size: 24px; }
 
 #post-list-content .post-header {
   margin-bottom: 4px;
+  font-size: 30px;
 }
 
 #post-list-content .post-meta {
   font-style: italic;
   font-size: 12px;
   color: #777;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
 }
 
 #post-list-content .post-content {
   margin-top: 20px;
+}
+
+#post-list-content .post-content h1 {
+  font-size: 20px;
+  color: #555;
+}
+
+#post-list-content .post-content h2 {
+  font-size: 16px;
+  color: #555;
+}
+
+#post-list-content .post-content h3 {
+  font-size: 14px;
+  color: #555;
+}
+
+#post-list-content .post-content h4 {
+  font-size: 12px;
+  color: #555;
 }
 
 #post-list-content .post-options {
