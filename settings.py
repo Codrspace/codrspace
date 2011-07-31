@@ -173,7 +173,9 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Login Redirect
-LOGIN_REDIRECT_URL = '/signin/'
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/signin/'
+LOGOUT_UTL = '/signout/'
 
 # Domain Configuration
 SITE_PROTOCOL = 'http'
@@ -189,4 +191,3 @@ try:
     from local_settings import *
 except ImportError:
     pass
-
