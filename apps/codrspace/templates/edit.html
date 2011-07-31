@@ -53,7 +53,7 @@
             {% if media_set %}
             <div id="image-list">
             {% for media in media_set %}
-                <div class="image-item">![{{ media.filename }}]({{ media.file.url }})</div>
+                <div class="image-item">{{ media.shortcode }}</div>
             {% endfor %}
             </div>
             {% endif %}

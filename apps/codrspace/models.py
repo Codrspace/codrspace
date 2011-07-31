@@ -2,6 +2,7 @@ import os
 import re
 import uuid
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import User
 
 def file_directory(instance, filename):
@@ -30,6 +31,38 @@ class Media(models.Model):
     file = models.FileField(upload_to=file_directory, null=True)
     filename = models.CharField(max_length=200, editable=False)
     upload_dt = models.DateTimeField(auto_now_add=True)
+
+    def type(self):
+        ext = os.path.splitext(self.filename)[1].lower()
+
+        # map file-type to extension
+        types = {
+            'image' : ('.jpg','.jpeg','.gif','.png','.tif','.tiff','.bmp',),
+            'text' : ('.txt','.doc','.docx'),
+            'spreadsheet' : ('.csv','.xls','.xlsx'),
+            'powerpoint' : ('.ppt','.pptx'),
+            'pdf' : ('.pdf'),
+            'video' : ('.wmv','.mov','.mpg','.mp4','.m4v'),
+            'zip' : ('.zip'),
+            'code': ('.txt', '.py', '.htm', '.html', '.css', '.js', '.rb'),
+        }
+
+        for type in types:
+            if ext in types[type]:
+                return type
+
+        return ''
+
+    def shortcode(self):
+        shortcode = ''
+
+        if self.type() == 'image':
+            shortcode = "![%s](%s)" % (self.filename, self.file.url)
+        
+        if self.type() == 'code':
+            shortcode = "[raw %s]" % self.file.url
+
+        return shortcode
 
 
 class Profile(models.Model):
