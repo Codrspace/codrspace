@@ -29,7 +29,7 @@ def post_detail(request, username, slug, template_name="post_detail.html"):
         slug=slug,)
 
     if post.status == 'draft':
-        if post.status != request.user:
+        if post.author != request.user:
             raise Http404
 
     return render(request, template_name, {
@@ -46,6 +46,7 @@ def post_list(request, username, template_name="post_list.html"):
     posts = posts.order_by('-pk')
 
     return render(request, template_name, {
+        'username': username,
         'posts': posts,
         'meta': user.profile.get_meta(),
     })
