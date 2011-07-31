@@ -4,4 +4,4 @@
 - Glen Zangirolami
 - Eloy Zuniga
 
-*See INSTALL file for instructions on how to setup project and run locally.
+Installation Instructions: `https://github.com/durden/dash/blob/master/INSTALL.markdown`
