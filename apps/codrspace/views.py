@@ -97,7 +97,10 @@ def edit(request, pk=0, template_name="edit.html"):
     if hasattr(request, 'FILES'):
         media_form = MediaForm(request.POST, request.FILES)
         if media_form.is_valid():
-            media = media_form.save()
+            media = media_form.save(commit=False)
+            media.uploader = request.user
+            media.filename = unicode(media_form.cleaned_data.get('file', ''))
+            media.save()
 
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
