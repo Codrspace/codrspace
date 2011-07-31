@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% load markup %}
+{% load short_codes %}
+{% load syntax_color %}
+
 {% block content %}
     <div id="post-list-content">
         <div id="left-column">
@@ -17,7 +21,7 @@
                     <h2 class="post-header">{{ post.title }}</h2>
                     <div class="post-meta">{{ post.create_dt }}</div>
                     <div class="post-content">
-                        {{ post.content }}
+                        {{ post.content|explosivo:"" }}
                     </div>
                     {% if user.is_authenticated %}
                         <div class="post-options">
