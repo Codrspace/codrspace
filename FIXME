@@ -1,9 +1,6 @@
 - Make sure to run deployment script on linode one last time BEFORE 7:00pm
 - Add notes on supported short codes somewhere on post page
 - At least try to test installing site from a clean repo
-- List latest posts on sidebar or at bottom of homepage
-    - Should probably have who/what/where/why of codrspace at very top instead
-      of posts
 - Style 'join conversation' link to make it stand out more
 - Decrease cache timeouts
 - Do lots of testing with multiple short codes of each type in a single post
@@ -11,4 +8,3 @@
 - Add caching to post list page
 - Test caching on deployment server (file permissions)
 - Bug with short codes when combining [local] and images
-- 'Get started' image on homepage is covered up by footer
