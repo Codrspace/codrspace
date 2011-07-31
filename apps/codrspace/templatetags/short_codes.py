@@ -2,18 +2,24 @@
 
 
 import requests
+import mimetypes
 import re
+import os
+import markdown
 
 from django.utils import simplejson
 from django import template
 from django.utils.safestring import mark_safe
+
+from settings import MEDIA_ROOT
+
 from codrspace.templatetags.syntax_color import _colorize_table
-import markdown
+
 register = template.Library()
 
 
 @register.filter(name='explosivo')
-def explosivo(value, lang):
+def explosivo(value):
     """
     Search text for any references to supported short codes and explode them
     """
@@ -26,14 +32,14 @@ def explosivo(value, lang):
     
     for name, var in vars(module).items():
         if type(var) == types.FunctionType and name.startswith('filter_'):
-            value, match = var(value, lang)
+            value, match = var(value)
             if not match:
                 value = markdown.markdown(value)
 
     return mark_safe(value)
 
 
-def filter_gist(value, lang):
+def filter_gist(value):
     pattern = re.compile('\[gist (\d+) *\]', flags=re.IGNORECASE)
 
     match = re.search(pattern, value)
@@ -55,13 +61,10 @@ def filter_gist(value, lang):
             _colorize_table(content['files'][name]['content'], None)
         )
 
-    return (
-        re.sub(pattern, gist_text, markdown.markdown(value)), 
-        match
-    )
+    return (re.sub(pattern, gist_text, markdown.markdown(value)), match)
 
 
-def filter_url(value, lang):
+def filter_url(value):
     pattern = re.compile('\[url (\S+) *\]', flags=re.IGNORECASE)
 
     match = re.search(pattern, value)
@@ -76,14 +79,37 @@ def filter_url(value, lang):
     if resp.status_code != 200:
         return value
 
-    return (
-        re.sub(pattern, _colorize_table(resp.content, None), markdown.markdown(value)),
-        match
-    )
+    return (re.sub(pattern, _colorize_table(resp.content, None),
+               markdown.markdown(value)), match)
 
 
-def filter_upload(value, lang):
-    return value, None
+def filter_upload(value):
+    pattern = re.compile('\[local (\S+) *\]', flags=re.IGNORECASE)
 
-if __name__ == "__main__":
-    explosivo('test')
+    match = re.search(pattern, value)
+    if match is None:
+        return (value, None)
+
+    file_path = os.path.join(MEDIA_ROOT, match.group(1))
+    (file_type, encoding) = mimetypes.guess_type(file_path)
+
+    if file_type is None:
+        return (value, None)
+
+    # FIXME: Can we trust the 'guessed' mimetype?
+    if not file_type.startswith('text'):
+        return (value, None)
+
+    # FIXME: Limit to 1MB right now
+    try:
+        f = open(file_path)
+    except IOError:
+        return (value, None)
+
+    text = f.read(1048576)
+    f.close()
+
+    text = _colorize_table(text, None)
+
+    # FIXME: Assume all files are only intepreted for code, not markdown?
+    return (text, True)
