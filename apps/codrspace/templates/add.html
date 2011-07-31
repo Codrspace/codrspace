@@ -29,9 +29,6 @@
         <div id="status">
             {{ form.status }}
             <input type="submit" name="submit_post" value="Save changes" />
-            <span id="shortcode-examples">
-                Shortcode examples: [gist 1044977] [local 6e977188bba81.py]
-            </span>
         </div>
         </div>
 
@@ -50,6 +47,16 @@
     </td><td align="right" id="media-region">
 
         <div id="media-wrap">
+
+            <div id="guide">
+                <h3>Shortcode and MarkDown Examples</h3>
+                <ol id="shortcode-list">
+                    <li><strong>[gist 1044977]</strong> <span>Use Gist ID's from https://gist.github.com/</span></li>
+                    <li><strong>[url http://eloyz.com/robots.txt]</strong> <span>Include any markup from any public URL.</span></li>
+                    <li><strong>[local example.txt]</strong> <span>Upload files below and click them to insert into your post</span></li>
+                    <li><strong>![image-name](/site_media/media/8192454cbba61.JPG)</strong> <span>Upload images below and click them to insert into your post</span></li>
+                </ol>
+            </div>
 
             <div id="media-form-wrap">
                 {% csrf_token %}
@@ -84,6 +91,10 @@
     $(".media-item a").click(function(){
         $("#id_content").insertAtCaret($(this).text());
         return false;
+    });
+
+    $("#shortcode-examples a").click(function(){
+       $("#guide").toggle('slow'); 
     });
 
     /* slug autogenerate */

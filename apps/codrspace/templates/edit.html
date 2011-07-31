@@ -28,9 +28,6 @@
                 {{ form.status }}
                 <input type="submit" value="Save changes" />
                 <a id="view-post-link" href="{{ post.get_absolute_url }}">View Post &raquo;</a>
-                <span id="shortcode-examples">
-                    Shortcode examples: [gist 1044977] [local 6e977188bba81.py]
-                </span>
             </div>
         </form>
         </div>
@@ -51,6 +48,16 @@
 
         <div id="media-wrap">
 
+            <div id="guide">
+                <h3>Shortcode and MarkDown Examples</h3>
+                <ol id="shortcode-list">
+                    <li><strong>[gist 1044977]</strong> <span>Use Gist ID's from https://gist.github.com/</span></li>
+                    <li><strong>[url http://eloyz.com/robots.txt]</strong> <span>Include any markup from any public URL.</span></li>
+                    <li><strong>[local example.txt]</strong> <span>Upload files below and click them to insert into your post</span></li>
+                    <li><strong>![image-name](/site_media/media/8192454cbba61.JPG)</strong> <span>Upload images below and click them to insert into your post</span></li>
+                </ol>
+            </div>
+
             <div id="media-form-wrap">
                 <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -62,7 +69,7 @@
             {% if media_set %}
             <div id="media-list">
             {% for media in media_set %}
-                <div class="media-item" title="Click to insert shortcode"><a href="javascript:;">{{ media.shortcode }}</a></div>
+                <div class="media-item" title="Click to insert shortcode"><a href="javascript:;"><span>{{ media.shortcode }}</span></a></div>
             {% endfor %}
             </div>
             {% endif %}

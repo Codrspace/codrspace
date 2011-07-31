@@ -479,7 +479,7 @@ ol#post-list {
 }
 
 #media-form-wrap input#id_file {
-  width: 160px;
+
 }
 
 #media-list .media-item {
@@ -587,10 +587,37 @@ p.github_convo {
   font-size: 12px;
 }
 
-.highlighttable .lineos {
+.highlighttable .linenos {
   vertical-align: top;
 
 }
 .highlighttable .highlight {
   overflow: auto; width: 635px;
+}
+
+#guide {
+  text-align: left;
+  font-size: 12px;
+  background-color: #EEE;
+  padding: 20px 5px 5px 15px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+#guide h3 {
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+#guide ol {
+  margin: 0;
+  margin-bottom: 15px;
+  padding-left: 20px;
+}
+
+#guide ol span {
+  display: block;
+  margin-bottom: 5px;
 }
