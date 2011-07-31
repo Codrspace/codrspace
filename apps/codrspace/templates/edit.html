@@ -15,7 +15,7 @@
         <ol id="post-list">
         {% for post in posts|slice:":10" %}
             <li><a href="{% url edit post.pk %}">
-                {{ forloop.counter }}. {{ post.title }} <span class="content-summary">{{ post.content|explosivo:""|markdown|colorize_table}} {{ post.create_dt }}</span>
+                {{ forloop.counter }}. {{ post.title }} <span class="content-summary">{{ post.content|explosivo:"" }} {{ post.create_dt }}</span>
             </a></li>
         {% endfor %}
         </ol>
