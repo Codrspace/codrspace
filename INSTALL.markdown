@@ -1,4 +1,4 @@
-# General information
+# Installation Instruction
 
 The following steps are required to install a local verison of codrspace.com.
 You can see the full hosted solution via linode at http://www.codrspace.com.
