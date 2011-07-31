@@ -32,17 +32,7 @@
         </div>
         </div>
 
-        {% if posts %}
-        <ol id="post-list">
-        {% for post in posts|slice:":10" %}
-            <li><a href="{% url edit post.pk %}">
-                {{ forloop.counter }}. {{ post.title }} 
-                <span class="post-status {{ post.status }}">{{ post.status }}</span>
-                <span class="content-summary">{{ post.content }} {{ post.publish_dt|date }}</span>
-            </a></li>
-        {% endfor %}
-        </ol>
-        {% endif %}
+        {% include "partial-post-list.html" %}
 
     </td><td align="right" id="media-region">
 
@@ -57,13 +47,7 @@
                 <input type="submit" name="submit_file" value="Upload File" />
             </div>
 
-            {% if media_set %}
-            <div id="media-list">
-            {% for media in media_set %}
-                <div class="media-item" title="Click to insert shortcode"><a href="javascript:;">{{ media.shortcode }}</a></div>
-            {% endfor %}
-            </div>
-            {% endif %}
+            {% include "partial-media-list.html" %}
 
         </div>
 

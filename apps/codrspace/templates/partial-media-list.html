@@ -1,0 +1,7 @@
+{% if media_set %}
+    <div id="media-list">
+    {% for media in media_set|slice:":15" %}
+        <div class="media-item" title="Click to insert shortcode"><a href="javascript:;">{{ media.shortcode }}</a></div>
+    {% endfor %}
+    </div>
+{% endif %}
