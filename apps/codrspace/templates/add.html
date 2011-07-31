@@ -50,7 +50,7 @@
             {% if media_set %}
             <div id="media-list">
             {% for media in media_set %}
-                <div class="media-item"><a href="">{{ media.shortcode }}</a></div>
+                <div class="media-item" title="Click to append shortcode"><a href="javascript:;">{{ media.shortcode }}</a></div>
             {% endfor %}
             </div>
             {% endif %}

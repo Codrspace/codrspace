@@ -463,3 +463,7 @@ div#latest-posts ul li:hover {
     -moz-border-radius: 3px;
     border-radius: 3px;
 }
+
+.post-content img {
+  max-width: 650px;
+}
