@@ -3,9 +3,10 @@
 {% block header %}
     <div id="auth-header" class="shadowee">
         <ul>
+            <li><a href="{% url homepage %}">CoderSpace.com</a></li>
             <li>Wecome, {{ user.username }}</li>
             <li><a href="{% url add %}">Add Post</a></li>
-            <li><a href="{% url post_list user.username %}">Preview Blog &rarr;</a></li>
+            <li><a href="{% url post_list user.username %}">Go to posts &rarr;</a></li>
         </ul>
     </div>
     <div class="clear"><!-- &nbsp; --></div>
