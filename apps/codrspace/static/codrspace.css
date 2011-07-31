@@ -584,3 +584,11 @@ p.github_convo {
   color: black;
   font-size: 12px;
 }
+
+.highlighttable .lineos {
+  vertical-align: top;
+
+}
+.highlighttable .highlight {
+  overflow: auto; width: 635px;
+}
