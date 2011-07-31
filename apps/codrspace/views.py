@@ -71,17 +71,26 @@ def add(request, template_name="add.html"):
             media.save()
 
     if request.method == "POST":
-        form = PostForm(request.POST)
 
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
+        # media post
+        if 'file' in request.FILES:
+            media_form = MediaForm(request.POST, request.FILES)
+            if media_form.is_valid():
+                media = media_form.save(commit=False)
+                media.uploader = request.user
+                media.filename = unicode(media_form.cleaned_data.get('file', ''))
+                media.save()
 
-            if post.status == 'published':
-                post.publish_dt = datetime.now()
-
-            post.save()
-            return redirect('edit', pk=post.pk)
+        # post post  hehe
+        if 'title' in request.POST:
+            form = PostForm(request.POST)
+            if form.is_valid():
+                post = form.save(commit=False)
+                post.author = request.user
+                if post.status == 'published':
+                    post.publish_dt = datetime.now()
+                post.save()
+                return redirect('edit', pk=post.pk)
 
     form = PostForm()
     return render(request, template_name, {
@@ -100,35 +109,35 @@ def edit(request, pk=0, template_name="edit.html"):
     media_set = Media.objects.filter(uploader=request.user).order_by('-pk')
     media_form = MediaForm()
 
-    if hasattr(request, 'FILES'):
-        media_form = MediaForm(request.POST, request.FILES)
-        if media_form.is_valid():
-            media = media_form.save(commit=False)
-            media.uploader = request.user
-            media.filename = unicode(media_form.cleaned_data.get('file', ''))
-            media.save()
-
     if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
+        # media post
+        if 'file' in request.FILES:
+            media_form = MediaForm(request.POST, request.FILES)
+            if media_form.is_valid():
+                media = media_form.save(commit=False)
+                media.uploader = request.user
+                media.filename = unicode(media_form.cleaned_data.get('file', ''))
+                media.save()
 
-        if form.is_valid():
-            post = form.save(commit=False)
+        # post post  hehe
+        if 'title' in request.POST:
+            form = PostForm(request.POST, instance=post)
+            if form.is_valid():
+                post = form.save(commit=False)
+                if post.status == 'published':
+                    if not post.publish_dt:
+                        post.publish_dt = datetime.now()
+                if post.status == "draft":
+                    post.publish_dt = None;
+                post.save()
+                return render(request, template_name, {
+                    'form':form, 
+                    'post':post,
+                    'posts':posts,
+                    'media_set': media_set,
+                    'media_form': media_form,
+                })
 
-            if post.status == 'published':
-                if not post.publish_dt:
-                    post.publish_dt = datetime.now()
-
-            if post.status == "draft":
-                post.publish_dt = None;
-            
-            post.save()
-            return render(request, template_name, {
-                'form':form, 
-                'post':post,
-                'posts':posts,
-                'media_set': media_set,
-                'media_form': media_form,
-            })
 
     form = PostForm(instance=post)
     return render(request, template_name, {
