@@ -26,7 +26,9 @@ def explosivo(value, lang):
     
     for name, var in vars(module).items():
         if type(var) == types.FunctionType and name.startswith('filter_'):
-            value = var(value, lang)
+            value, match = var(value, lang)
+            if not match:
+                value = markdown.markdown(value)
 
     return mark_safe(value)
 
@@ -36,7 +38,7 @@ def filter_gist(value, lang):
 
     match = re.search(pattern, value)
     if match is None:
-        return value
+        return value, None
 
     gist_id = int(match.group(1))
     resp = requests.get('https://api.github.com/gists/%d' % (gist_id))
@@ -53,7 +55,10 @@ def filter_gist(value, lang):
             _colorize_table(content['files'][name]['content'], None)
         )
 
-    return re.sub(pattern, gist_text, markdown.markdown(value))
+    return (
+        re.sub(pattern, gist_text, markdown.markdown(value)), 
+        match
+    )
 
 
 def filter_url(value, lang):
@@ -61,7 +66,7 @@ def filter_url(value, lang):
 
     match = re.search(pattern, value)
     if match is None:
-        return value
+        return value, None
 
     url = match.group(1)
 
@@ -71,11 +76,14 @@ def filter_url(value, lang):
     if resp.status_code != 200:
         return value
 
-    return re.sub(pattern, _colorize_table(resp.content, None), markdown.markdown(value))
+    return (
+        re.sub(pattern, _colorize_table(resp.content, None), markdown.markdown(value)),
+        match
+    )
 
 
 def filter_upload(value, lang):
-    return value
+    return value, None
 
 if __name__ == "__main__":
     explosivo('test')

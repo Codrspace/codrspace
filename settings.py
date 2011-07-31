@@ -172,6 +172,9 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+# Login Redirect
+LOGIN_REDIRECT_URL = '/signin/'
+
 # Domain Configuration
 SITE_PROTOCOL = 'http'
 SITE_DOMAIN = 'codrspace.com'

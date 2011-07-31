@@ -4,7 +4,7 @@ body {
     margin: 0;
 }
 
-#content { padding: 20px; }
+#home-content { padding: 20px; }
 #header { border-bottom: 1px solid #ccc; padding: 10px; }
 #header .logo { font-size: 36px; }
 #header .logo a { color: white; text-decoration: none; }
