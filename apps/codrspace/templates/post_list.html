@@ -9,7 +9,7 @@
     <div id="post-list-content">
         <div id="left-column">
             {% include "user_detail.html" with meta=meta %}
-            {% if user.is_authenticated %}
+            {% ifequal username user.username %}
                 <ul id="auth-options">
                     <li><a href="{% url add %}">Add Post</a></li>
                     <li><a href="{% url signout %}">Sign Out</a></li>
