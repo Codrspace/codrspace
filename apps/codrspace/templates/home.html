@@ -14,9 +14,16 @@
 {% block content %} 
     <div id="home-content">
         <h3>What is Codrspace?</h3>
-        <p>It's a place where you can write tutorials, show-off code, and let the world know you are 1337.</p>
+        <p>It's a blogging plarform for coders.</p>
+        <h3>What makes it special?</h3>
+        <ol>
+            <li>Integrated with GitHub. An already accelerated coding community</li>
+            <li>Easily add gists and raw code through shortcodes.</li>
+            <li>No wysiwyg. Use markdown to create your posts easily.</li>
+            <li>No themeing. Auto generated styling of code and text.</li>
+        </ol>
         <h3>Why Codrspace?</h3>
-        <p>Because a 1337 developer deserves a 1337 product.</p>
+        <p>Less headache, more <strong>focus on writing about code</strong>, and because it's a <a href="http://djangodash.com/">Django Dash Project</a> and we would love your support!.</p>
         {% if not user.is_authenticated %}
             <a class="get-started" href="{% url signin_start %}">Get Started &rarr;</a>
         {% else %}
