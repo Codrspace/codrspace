@@ -88,10 +88,13 @@ def filter_upload(value):
 
     match = re.search(pattern, value)
     if match is None:
-        return value, None
+        return (value, None)
 
-    (file_type, encoding) = mimetypes.guess_type(
-                                            os.path.join(MEDIA_ROOT, value))
+    file_path = os.path.join(MEDIA_ROOT, match.group(1))
+    (file_type, encoding) = mimetypes.guess_type(file_path)
+
+    if file_type is None:
+        return (value, None)
 
     # FIXME: Can we trust the 'guessed' mimetype?
     if not file_type.startswith('text'):
@@ -99,7 +102,7 @@ def filter_upload(value):
 
     # FIXME: Limit to 1MB right now
     try:
-        f = open(value)
+        f = open(file_path)
     except IOError:
         return (value, None)
 
