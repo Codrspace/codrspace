@@ -278,6 +278,22 @@ a.get-started {
   border: 1px solid #DDD;
 }
 
+#add-page form #slug input {
+  font-size: 10px;
+  width: 97%;
+  padding: 3px;
+  margin-bottom: 10px;
+  border: 1px solid #DDD;
+}
+
+#edit-page form #slug input {
+  font-size: 10px;
+  width: 97%;
+  padding: 3px;
+  margin-bottom: 10px;
+  border: 1px solid #DDD;
+}
+
 #add-page form #content {
   padding: 0;
 }
