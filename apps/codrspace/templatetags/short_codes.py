@@ -27,9 +27,10 @@ def explosivo(value):
     # Round-robin through all functions as if they are filter methods so we
     # don't have to update some silly list of available ones when they are
     # added
-    import sys, types
+    import sys
+    import types
     module = sys.modules[__name__]
-    
+
     for name, var in vars(module).items():
         if type(var) == types.FunctionType and name.startswith('filter_'):
             value, match = var(value)
@@ -58,8 +59,7 @@ def filter_gist(value):
     # Go through all files in gist and smash 'em together
     for name in content['files']:
         gist_text += "%s" % (
-            _colorize_table(content['files'][name]['content'], None)
-        )
+            _colorize_table(content['files'][name]['content'], None))
 
     if content['comments'] > 0:
         gist_text += '<hr>Join the conversation on ' + \

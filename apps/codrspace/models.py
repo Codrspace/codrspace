@@ -12,6 +12,7 @@ def file_directory(instance, filename):
     filename, ext = os.path.splitext(filename)
     return '%s%s' % (uuid.uuid1().hex[:13], ext)
 
+
 class Post(models.Model):
 
     STATUS_CHOICES = (
@@ -37,7 +38,7 @@ class Post(models.Model):
                     break
                 else:
                     count += 1
-                    self.slug = '%s-%d' % (self.slug , count)
+                    self.slug = '%s-%d' % (self.slug, count)
         super(Post, self).save(*args, **kwargs)
 
     @models.permalink
@@ -56,13 +57,14 @@ class Media(models.Model):
 
         # map file-type to extension
         types = {
-            'image' : ('.jpg','.jpeg','.gif','.png','.tif','.tiff','.bmp',),
-            'text' : ('.txt','.doc','.docx'),
-            'spreadsheet' : ('.csv','.xls','.xlsx'),
-            'powerpoint' : ('.ppt','.pptx'),
-            'pdf' : ('.pdf'),
-            'video' : ('.wmv','.mov','.mpg','.mp4','.m4v'),
-            'zip' : ('.zip'),
+            'image': ('.jpg', '.jpeg', '.gif', '.png', '.tif', '.tiff',
+                      '.bmp',),
+            'text': ('.txt', '.doc', '.docx'),
+            'spreadsheet': ('.csv', '.xls', '.xlsx'),
+            'powerpoint': ('.ppt', '.pptx'),
+            'pdf': ('.pdf'),
+            'video': ('.wmv', '.mov', '.mpg', '.mp4', '.m4v'),
+            'zip': ('.zip'),
             'code': ('.txt', '.py', '.htm', '.html', '.css', '.js', '.rb'),
         }
 
@@ -77,7 +79,7 @@ class Media(models.Model):
 
         if self.type() == 'image':
             shortcode = "![%s](%s)" % (self.filename, self.file.url)
-        
+
         if self.type() == 'code':
             shortcode = "[local %s]" % self.file.name
 
@@ -88,7 +90,6 @@ class Profile(models.Model):
     git_access_token = models.CharField(max_length=75, null=True)
     user = models.OneToOneField(User)
     meta = models.TextField(null=True)
-
 
     def get_meta(self):
         from django.utils import simplejson
