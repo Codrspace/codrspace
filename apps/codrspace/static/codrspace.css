@@ -54,11 +54,12 @@ a.get-started { font-size: 24px; }
 #auth-header ul {
   list-style-type: none;
   float: left;
+  padding: 3px 0 3px 5px;
 }
 
 #auth-header ul li {
   float: left;
-  padding-right: 15px;
+  padding-right: 25px;
 }
 
 #auth-header ul li a {

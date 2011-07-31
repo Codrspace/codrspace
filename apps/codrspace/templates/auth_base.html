@@ -3,7 +3,7 @@
 {% block header %}
     <div id="auth-header" class="shadowee">
         <ul>
-            <li><a href="{% url homepage %}">CoderSpace.com</a></li>
+            <li><a href="{% url homepage %}">CodrSpace.com</a></li>
             <li>Wecome, {{ user.username }}</li>
             <li><a href="{% url add %}">Add Post</a></li>
             <li><a href="{% url post_list user.username %}">Go to posts &rarr;</a></li>
@@ -19,6 +19,6 @@
 
 {% block footer %}
     <div id="auth-footer" class="shadowee">
-        2011 Codrspace&nbsp;&nbsp;<a href="{% url signout %}">Sign Out</a>
+        2011 CodrSpace.com&nbsp;&nbsp;<a href="{% url signout %}">Sign Out</a>
     </div>
 {% endblock %}
