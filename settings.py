@@ -119,7 +119,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
-ROOT_URLCONF = 'dash.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".

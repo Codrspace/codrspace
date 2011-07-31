@@ -68,6 +68,8 @@ callbacks for local testing.  Unforunately it requires a bit of manual setup.
 
   - `git clone git://github.com/durden/dash.git codrspace`
   - `git clone git://github.com/durden/dash.git codrspace_oauth_instance`
+  - `cd codrspace`
+  - `cp example_local_settings.py local_settings.py`
   - `cd codrspace_oauth_instance`
   - `cp example_local_settings.py local_settings.py`
   - set `GITHUB_USER` in your local settings to your github username
