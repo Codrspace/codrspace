@@ -119,9 +119,6 @@ def filter_upload(value):
     if not len(files):
         return value, None
 
-    # Smashed together text for all files
-    full_text = ""
-
     for file_path in files:
         file_path = os.path.join(MEDIA_ROOT, file_path)
         (file_type, encoding) = mimetypes.guess_type(file_path)
@@ -143,8 +140,8 @@ def filter_upload(value):
         f.close()
 
         text = _colorize_table(text, None)
+        text += '<hr><br>'
 
-        # FIXME: Assume all files are only intepreted for code, not markdown?
-        full_text += '%s<hr><br>' % (text)
+        value = re.sub(pattern, text, markdown.markdown(value), count=1)
 
-    return (full_text, True)
+    return (value, True)

@@ -20,6 +20,10 @@
                 <li><a href="{% url homepage %}">CodrSpace &raquo;</a></li>
             </ul>
         </div>
+
+        {% load cache %}
+        {% cache 300 post_list user.pk %}
+
         <div id="right-column">
             {% for post in posts %}
                 <div class="post">
@@ -47,5 +51,8 @@
                 {% endif %}
             {% endfor %}
         </div>
+
+        {% endcache %}
+
     </div>
 {% endblock %}

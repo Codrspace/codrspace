@@ -2,9 +2,16 @@ import os
 import re
 import uuid
 from django.db import models
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from django.utils.hashcompat import md5_constructor
+from django.core.cache import cache
+from django.utils.http import urlquote
+
+def invalidate_cache_key(fragment_name, *variables):
+   args = md5_constructor(u':'.join([urlquote(var) for var in variables]))
+   cache_key = 'template.cache.%s.%s' % (fragment_name, args.hexdigest())
+   cache.delete(cache_key)
 
 
 def file_directory(instance, filename):
@@ -58,6 +65,11 @@ class Post(models.Model):
                 break
 
         super(Post, self).save(*args, **kwargs)
+
+        # Invalidate cache for all individual posts and the list of posts
+        invalidate_cache_key('content', self.pk)
+        invalidate_cache_key('post_list', self.author.pk)
+
 
     @models.permalink
     def get_absolute_url(self):
