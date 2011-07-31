@@ -30,6 +30,7 @@ def post_detail(request, username, slug, template_name="post_detail.html"):
     )
 
     return render(request, template_name, {
+        'username': username,
         'post': post,
         'meta': user.profile.get_meta(),
     })
