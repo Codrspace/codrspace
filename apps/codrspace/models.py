@@ -79,7 +79,7 @@ class Media(models.Model):
             shortcode = "![%s](%s)" % (self.filename, self.file.url)
         
         if self.type() == 'code':
-            shortcode = "[raw %s]" % self.file.url
+            shortcode = "[local %s]" % self.file.name
 
         return shortcode
 
