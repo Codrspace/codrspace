@@ -29,7 +29,12 @@
                         </div>
                     {% endif %}
                 </div>
-            {% endfor %}     
+            {% empty %}
+                <div id="no-posts-message">
+                    <p>A little empty ...</p> 
+                    <p><a href="{% url add %}">Let's add some posts!</a></p>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

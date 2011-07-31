@@ -149,7 +149,7 @@ a.get-started { font-size: 24px; }
 #post-list-content .post-options {
   background-color: #f2f2f2;
   padding: 5px;
-  margin-top: 20px;
+  margin-top: 15px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -163,6 +163,16 @@ a.get-started { font-size: 24px; }
 
 #post-list-content ul#auth-options li {
   margin-top: 5px;
+}
+
+#no-posts-message {
+  background-color: #ebebeb;
+  padding: 20px;
+  font-size: 30px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  text-align: center;
 }
 
 /* user detail */
