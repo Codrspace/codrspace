@@ -4,12 +4,12 @@ body {
     margin: 0;
 }
 
-#content { padding: 20px; }
+#home-content { padding: 20px; }
 #header { border-bottom: 1px solid #ccc; padding: 10px; }
 #header .logo { font-size: 36px; }
 #header .logo a { color: white; text-decoration: none; }
 #header .logo a:hover { text-decoration: underline; }
-#header .tagline { padding-left: 5px; }
+#header .tagline { padding-left: 195px; }
 a.get-started { font-size: 24px; }
 #footer { 
     position: fixed;
@@ -54,11 +54,12 @@ a.get-started { font-size: 24px; }
 #auth-header ul {
   list-style-type: none;
   float: left;
+  padding: 3px 0 3px 5px;
 }
 
 #auth-header ul li {
   float: left;
-  padding-right: 15px;
+  padding-right: 25px;
 }
 
 #auth-header ul li a {

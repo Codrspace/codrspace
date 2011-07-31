@@ -16,9 +16,6 @@ import requests
 
 
 def index(request, template_name="home.html"):
-    if request.user.is_authenticated():
-        return redirect(reverse("post_list", args=[request.user.username]))
-
     return render(request, template_name)
 
 @login_required
@@ -33,6 +30,7 @@ def post_list(request, username, template_name="post_list.html"):
     })
 
 
+@login_required
 def add(request, template_name="add.html"):
     """ Add a post """
 
@@ -70,6 +68,7 @@ def add(request, template_name="add.html"):
     })
 
 
+@login_required
 def edit(request, pk=0, template_name="edit.html"):
     """ Edit a post """
     post = get_object_or_404(Post, pk=pk)
@@ -205,4 +204,4 @@ def signin_callback(request, slug=None, template_name="base.html"):
         user = authenticate(user=user)
         login(request, user) 
 
-    return redirect(reverse('homepage'))
+    return redirect(reverse('post_list', args=[user.username]))

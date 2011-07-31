@@ -172,6 +172,11 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+# Login Redirect
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/signin/'
+LOGOUT_UTL = '/signout/'
+
 # Domain Configuration
 SITE_PROTOCOL = 'http'
 SITE_DOMAIN = 'codrspace.com'
@@ -186,4 +191,3 @@ try:
     from local_settings import *
 except ImportError:
     pass
-
