@@ -1,3 +1,11 @@
 django
 Markdown==2.0.3
+Pygments
 -e git://github.com/kennethreitz/requests.git#egg=requests
+
+#-e git://github.com/lethain/django-syntax-colorize.git#egg=django-syntax-colorize
+#- NOTE: django-syntax-colorize isn't installed via pip b/c it doesn't have
+#        a setup.py so it won't install this way.
+#        - Not a big deal b/c we can easily 'install' it by moving
+#          syntax_color.py to our templatetags directory
+#        - Thus, this file will have to be committed.
