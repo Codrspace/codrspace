@@ -7,3 +7,7 @@
 - Style 'join conversation' link to make it stand out more
 - Decrease cache timeouts
 - Do lots of testing with multiple short codes of each type in a single post
+- Invalidate cache pages on post edits
+- Add caching to post list page
+- Test caching on deployment server (file permissions)
+- Bug with short codes when combining [local] and images
