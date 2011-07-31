@@ -13,7 +13,7 @@ register = template.Library()
 
 
 @register.filter(name='explosivo')
-def explosivo(value, lang):
+def explosivo(value):
     """
     Search text for any references to supported short codes and explode them
     """
@@ -26,14 +26,14 @@ def explosivo(value, lang):
     
     for name, var in vars(module).items():
         if type(var) == types.FunctionType and name.startswith('filter_'):
-            value, match = var(value, lang)
+            value, match = var(value)
             if not match:
                 value = markdown.markdown(value)
 
     return mark_safe(value)
 
 
-def filter_gist(value, lang):
+def filter_gist(value):
     pattern = re.compile('\[gist (\d+) *\]', flags=re.IGNORECASE)
 
     match = re.search(pattern, value)
@@ -55,13 +55,10 @@ def filter_gist(value, lang):
             _colorize_table(content['files'][name]['content'], None)
         )
 
-    return (
-        re.sub(pattern, gist_text, markdown.markdown(value)), 
-        match
-    )
+    return (re.sub(pattern, gist_text, markdown.markdown(value)), match)
 
 
-def filter_url(value, lang):
+def filter_url(value):
     pattern = re.compile('\[url (\S+) *\]', flags=re.IGNORECASE)
 
     match = re.search(pattern, value)
@@ -76,13 +73,11 @@ def filter_url(value, lang):
     if resp.status_code != 200:
         return value
 
-    return (
-        re.sub(pattern, _colorize_table(resp.content, None), markdown.markdown(value)),
-        match
-    )
+    return (re.sub(pattern, _colorize_table(resp.content, None),
+               markdown.markdown(value)), match)
 
 
-def filter_upload(value, lang):
+def filter_upload(value):
     return value, None
 
 if __name__ == "__main__":
