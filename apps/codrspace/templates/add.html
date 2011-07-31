@@ -29,7 +29,7 @@
             <li><a href="{% url edit post.pk %}">
                 {{ forloop.counter }}. {{ post.title }} 
                 <span class="post-status {{ post.status }}">{{ post.status }}</span>
-                <span class="content-summary">{{ post.content }} {{ post.create_dt }}</span>
+                <span class="content-summary">{{ post.content }} {{ post.publish_dt|date }}</span>
             </a></li>
         {% endfor %}
         </ol>
@@ -50,7 +50,7 @@
             {% if media_set %}
             <div id="image-list">
             {% for media in media_set %}
-                <img src="{{ media.file.url }}" width="100" height="100" />
+                <div class="image-item">{{ media.filename }}</div>
             {% endfor %}
             </div>
             {% endif %}

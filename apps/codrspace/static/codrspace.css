@@ -225,7 +225,7 @@ a.get-started { font-size: 24px; }
 
 #edit-page form #title input {
   font-size: 30px;
-  width: 98%;
+  width: 97%;
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #DDD;
@@ -237,7 +237,7 @@ a.get-started { font-size: 24px; }
 
 #edit-page form #content textarea {
   font-size: 14px;
-  width: 500px;
+  width: 97%;
   border: 1px solid #DDD;
   padding: 10px;
 }
@@ -294,7 +294,7 @@ ol#post-list {
 }
 
 #add-page {
-  margin-top: 75px;
+  margin-top: 50px;
 }
 
 #add-page table td {
@@ -313,7 +313,7 @@ ol#post-list {
 }
 
 #edit-page {
-  margin-top: 75px;  
+  margin-top: 50px;  
 }
 
 #edit-page #post-list {
@@ -360,6 +360,14 @@ ol#post-list {
   width: 400px;
 }
 
+#edit-wrap table {
+  width: 100%;
+}
+
+#edit-wrap td#media-region {
+  width: 400px;
+}
+
 #media-wrap {
   width: 400px;
 }
@@ -367,6 +375,16 @@ ol#post-list {
 #media-form-wrap {
   background-color: #EEE;
   padding: 10px;
+  margin-bottom: 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+#image-list .image-item {
+  padding: 10px;
+  background-color: #FAFAFA;
+  text-align: left;
   margin-bottom: 10px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;

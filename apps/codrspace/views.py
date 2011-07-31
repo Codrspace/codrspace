@@ -42,8 +42,11 @@ def add(request, template_name="add.html"):
 
     if hasattr(request, 'FILES'):
         media_form = MediaForm(request.POST, request.FILES)
+        print 'asdfasdfasdfs'
         if media_form.is_valid():
-            media = media_form.save()
+            media = media_form.save(commit=False)
+            media.filename = unicode(media_form.cleaned_data.get('file', ''))
+            media.save()
 
     if request.method == "POST":
         form = PostForm(request.POST)
@@ -71,6 +74,13 @@ def edit(request, pk=0, template_name="edit.html"):
     """ Edit a post """
     post = get_object_or_404(Post, pk=pk)
     posts = Post.objects.all().order_by('-pk')
+    media_set = Media.objects.all().order_by('-pk')
+    media_form = MediaForm()
+
+    if hasattr(request, 'FILES'):
+        media_form = MediaForm(request.POST, request.FILES)
+        if media_form.is_valid():
+            media = media_form.save()
 
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
@@ -89,14 +99,18 @@ def edit(request, pk=0, template_name="edit.html"):
             return render(request, template_name, {
                 'form':form, 
                 'post':post,
-                'posts':posts
+                'posts':posts,
+                'media_set': media_set,
+                'media_form': media_form,
             })
 
     form = PostForm(instance=post)
     return render(request, template_name, {
         'form':form,
         'post':post,
-        'posts':posts
+        'posts':posts,
+        'media_set': media_set,
+        'media_form': media_form,
     })
 
 
