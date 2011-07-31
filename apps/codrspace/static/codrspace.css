@@ -389,6 +389,7 @@ ol#post-list {
 
 #add-page {
   margin-top: 56px;
+  margin-bottom: 40px;
 }
 
 #add-page table td {
@@ -407,7 +408,8 @@ ol#post-list {
 }
 
 #edit-page {
-  margin-top: 56px;  
+  margin-top: 56px;
+  margin-bottom: 40px;
 }
 
 #edit-page #post-list {
@@ -587,4 +589,12 @@ p.github_convo {
 #view-post-link {
   color: black;
   font-size: 12px;
+}
+
+.highlighttable .lineos {
+  vertical-align: top;
+
+}
+.highlighttable .highlight {
+  overflow: auto; width: 635px;
 }
