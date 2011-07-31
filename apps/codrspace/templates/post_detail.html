@@ -4,16 +4,18 @@
 {% load short_codes %}
 {% load syntax_color %}
 
+{% block title %}{% firstof post.title "Django training" %} by {{ post.author.username }}{% endblock %}
+
 {% block content %}
     <div id="post-list-content">
         <div id="left-column">
             {% include "user_detail.html" with meta=meta %}
-            {% if user.is_authenticated %}
+            {% ifequal user post.author %}
                 <ul id="auth-options">
                     <li><a href="{% url add %}">Add Post</a></li>
                     <li><a href="{% url signout %}">Sign Out</a></li>
                 <ul>
-            {% endif %}
+            {% endifequal %}
         </div>
         <div id="right-column">
                 <div class="post">
@@ -25,11 +27,11 @@
                             {{ post.content|explosivo }}
                         {% endcache %}
                     </div>
-                    {% if user.is_authenticated %}
+                    {% ifequal user post.author %}
                         <div class="post-options">
                             <a href="{% url edit post.pk %}">Edit Post</a>
                         </div>
-                    {% endif %}
+                    {% endifequal %}
                 </div>
         </div>
     </div>

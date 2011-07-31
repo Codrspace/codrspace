@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load codrspace_tags %}
+
 {% block title %}{{ TAGLINE }}{% endblock %}
 
 {% block header %} 
@@ -13,6 +15,8 @@
 
 {% block content %} 
     <div id="home-content">
+        <h3>Latest Posts</h3>
+        <div id="latest-posts-wrapper">{% latest_posts 4 %}</div>
         <h3>What is Codrspace?</h3>
         <p>It's a blogging plarform for coders.</p>
         <h3>What makes it special?</h3>
