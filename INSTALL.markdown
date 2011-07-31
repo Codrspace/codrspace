@@ -17,36 +17,35 @@ version:
    assumes your the same user.  However, you can modify this in your
    local_settings.py using `GITHUB_USER`. It defaults to user `durden`
 
-* See section on 'Running project' for information on how to run both
-* instances locally
+**See section on 'Running project' for information on how to run both instances locally**
 
 ## General environment setup
 
 ### Non-virtualenv install
 
-- Install python 2.6 or 2.7
+- Install python 2.6 or 2.7 `http://www.python.org`
 - Install setuptools
     - Download project from: `http://pypi.python.org/pypi/setuptools#files`
-    - Run the following: `sh setuptools-0.6c9-py2.4.egg (replace with egg file from above)`
+    - Run the following: `sh setuptools-0.6c9-py2.4.egg` (replace with egg file from above)
 - install pip
     - `easy_install pip`
 - Clone project
     - `git clone git@github.com:durden/dash.git`
 - Use pip to install all project dependencies
-    - `pip install -r requirements.pip (requirements file is in root of project)`
+    - `pip install -r requirements.pip` (requirements file is in root of project)
 
 ### Install with virtualenv
 
-- Use python 2.6 or 2.7
+- Install python 2.6 or 2.7 `http://www.python.org`
 - Install virtualenv
     - `pip install virtualenv`
     - `pip install virtualenvwrapper`
-- Add the following to your .bashrc and restart your shell
+- Add the following lines to your .bashrc and restart your shell
 
-    export WORKON_HOME=$HOME/.virtualenv
-    source /usr/local/bin/virtualenvwrapper.sh
-    export PIP_VIRTUALENV_BASE=$WORKON_HOME
-    export PIP_RESPECT_VIRTUALENV=true
+    - `export WORKON_HOME=$HOME/.virtualenv`
+    - `source /usr/local/bin/virtualenvwrapper.sh`
+    - `export PIP_VIRTUALENV_BASE=$WORKON_HOME`
+    - `export PIP_RESPECT_VIRTUALENV=true`
 
 - Make a virtualenv called `codrspace`
     - `mkvirtualenv codrspace`
