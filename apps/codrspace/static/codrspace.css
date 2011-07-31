@@ -353,6 +353,7 @@ a.get-started {
 ol#post-list {
   padding-left: 0;
   list-style-type: none;
+  border-top: 1px solid silver;
 }
 #post-list li {
   padding: 5px;
@@ -562,4 +563,19 @@ div#top-posters ul li:hover {
 
 .post-content img {
   max-width: 650px;
+}
+
+#shortcode-examples {
+  font-size: 10px;
+  float: right;
+  margin-right: 10px;
+}
+
+#post-wrap {
+  padding-bottom: 20px;
+}
+
+#view-post-link {
+  color: black;
+  font-size: 12px;
 }

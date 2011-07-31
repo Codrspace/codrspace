@@ -9,9 +9,11 @@
     <div id="mode-msg">Add mode</div>
 
     <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
     <table><tr><td>
 
-        {% csrf_token %}
+        <div id="post-wrap">
         {% for field in form %}
         <div class="fieldWrapper">
             {{ field.errors }}
@@ -23,6 +25,10 @@
         <div id="status">
             {{ form.status }}
             <input type="submit" name="submit_post" value="Save changes" />
+            <span id="shortcode-examples">
+                Shortcode examples: [gist 1044977] [local 6e977188bba81.py]
+            </span>
+        </div>
         </div>
 
         {% if posts %}
