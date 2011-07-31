@@ -3,11 +3,13 @@
 {% load short_codes %}
 {% load codrspace_tags %}
 
+{% block title %}Latest posts by {{ username }}{% endblock %}
+
 {% block content %}
     <div id="post-list-content">
         <div id="left-column">
             {% include "user_detail.html" with meta=meta %}
-            {% if user.is_authenticated %}
+            {% ifequal username user.username %}
                 <ul id="auth-options">
                     <li><a href="{% url add %}">Add Post</a></li>
                     <li><a href="{% url signout %}">Sign Out</a></li>
@@ -15,6 +17,7 @@
             {% endif %}
             <ul id="other-links">
                 <li><a href="{% random_blog %}">Random Blog &raquo;</a></li>
+                <li><a href="{% url homepage %}">CodrSpace &raquo;</a></li>
             </ul>
         </div>
         <div id="right-column">
@@ -32,7 +35,7 @@
                     {% endif %}
                 </div>
             {% empty %}
-                {% if username == request.user.username %}
+                {% if username == user.username %}
                     <div id="no-posts-message">
                         <p>A little empty ...</p> 
                         <p><a href="{% url add %}">Let's add some posts!</a></p>

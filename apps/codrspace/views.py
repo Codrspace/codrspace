@@ -48,6 +48,7 @@ def post_list(request, username, template_name="post_list.html"):
     posts = posts.order_by('-pk')
 
     return render(request, template_name, {
+        'username': username,
         'posts': posts,
         'meta': user.profile.get_meta(),
     })
