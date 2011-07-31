@@ -13,8 +13,8 @@ from django.conf import settings
 from codrspace.models import Post, Profile, Media
 from codrspace.forms import PostForm, MediaForm
 
-GITHUB_USER = getattr(settings, 'GITHUB_USER', 'durden')
-GITHUB_CLIENT_ID = getattr(settings, 'GITHUB_CLIENT_ID', '33642ce3ebbadb4a8787')
+GITHUB_USER = getattr(settings, 'GITHUB_USER') or 'durden'
+GITHUB_CLIENT_ID = getattr(settings, 'GITHUB_CLIENT_ID') or '33642ce3ebbadb4a8787'
 DEBUG = getattr(settings, 'DEBUG', False)
 
 

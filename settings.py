@@ -182,7 +182,7 @@ CACHE_MIDDLEWARE_KEY_PREFIX = 'codrspace'
 
 # Github information
 # Specific ID for app when it was registered with github
-GITHUB_CLIENT_ID =''
+GITHUB_CLIENT_ID = ''
 GITHUB_USER = ''
 
 # Custom profile and authentication
