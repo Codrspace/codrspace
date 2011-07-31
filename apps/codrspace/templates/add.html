@@ -7,23 +7,23 @@
 
     <div id="add-wrap">
     <div id="mode-msg">Add mode</div>
+
+    <form action="" method="POST" enctype="multipart/form-data">
     <table><tr><td>
 
-        <form action="" method="POST">
-            {% csrf_token %}
-            {% for field in form %}
-            <div class="fieldWrapper">
-                {{ field.errors }}
-            </div>
-            {% endfor %}
-            <div id="title">{{ form.title }}</div>
-            <div id="slug">{{ form.slug }}</div>
-            <div id="content">{{ form.content }}</div>
-            <div id="status">
-                {{ form.status }}
-                <input type="submit" value="Save changes" />
-            </div>
-        </form>
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+        </div>
+        {% endfor %}
+        <div id="title">{{ form.title }}</div>
+        <div id="slug">{{ form.slug }}</div>
+        <div id="content">{{ form.content }}</div>
+        <div id="status">
+            {{ form.status }}
+            <input type="submit" value="Save changes" />
+        </div>
 
         {% if posts %}
         <ol id="post-list">
@@ -42,11 +42,9 @@
         <div id="media-wrap">
 
             <div id="media-form-wrap">
-                <form action="" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ media_form.file }}
-                    <input type="submit" value="Upload File" />
-                </form>
+                {% csrf_token %}
+                {{ media_form.file }}
+                <input type="submit" value="Upload File" />
             </div>
 
             {% if media_set %}
@@ -60,8 +58,9 @@
         </div>
 
     </td></tr></table>
-    </div>
+    </form>
 
+    </div>
 </div>
 {% endblock %}
 
