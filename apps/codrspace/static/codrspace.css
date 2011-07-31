@@ -155,6 +155,8 @@ a.get-started {
 
 /* post-list content */
 #post-list-content {
+  margin: 0 auto;
+  margin-top: 50px;
   width: 1000px;
 }
 
