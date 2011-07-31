@@ -423,6 +423,10 @@ ol#post-list {
   border-radius: 5px;
 }
 
+#media-list .media-item a {
+  text-align: none;
+}
+
 /* latest posts */
 div#latest-posts ul {
     list-style-type: none;
