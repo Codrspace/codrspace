@@ -4,7 +4,7 @@
 
 {% block header %} 
 <div id="header" class="shadowee">
-    <div class="logo"><a href="{% url homepage %}">Codrspace</a></div>
+    <div class="logo"><a href="{% url homepage %}"><img src="{{ STATIC_URL }}codrspace.png" /></a></div>
     <div class="tagline">Why you no write tutorial?</div>
 </div>
 {% endblock %}
@@ -28,7 +28,7 @@
 {% block extra_body %}
     {{ block.super }}
     <script type="text/javascript">
-        $('body').css({ 'background': 'url('/static/body-bg.jpg');' });
+        $('body').css('background', 'url("{{ STATIC_URL }}body-bg.jpg")');
     </script>
 {% endblock %}
 

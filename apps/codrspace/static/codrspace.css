@@ -9,7 +9,7 @@ body {
 #header .logo { font-size: 36px; }
 #header .logo a { color: white; text-decoration: none; }
 #header .logo a:hover { text-decoration: underline; }
-#header .tagline { padding-left: 5px; }
+#header .tagline { padding-left: 195px; }
 a.get-started { font-size: 24px; }
 #footer { 
     position: fixed;
