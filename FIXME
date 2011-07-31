@@ -2,3 +2,8 @@
 - At least try to test installing site from a clean repo
     - Add more instructions on how to run locally with extra server for github
       mocks?
+- Add link to side bar when viewing a person's profile/posts that can go back
+  to the root (either codrspace.com or codrspace.com/me)
+- Style 'join conversation' link to make it stand out more
+- Decrease cache timeouts
+- Do lots of testing with multiple short codes of each type in a single post
