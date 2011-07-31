@@ -565,6 +565,11 @@ div#top-posters ul li:hover {
   max-width: 650px;
 }
 
+p.github_convo {
+    padding: 5px;
+    background-color: #c0e3fa;
+}
+
 #shortcode-examples {
   font-size: 10px;
   float: right;

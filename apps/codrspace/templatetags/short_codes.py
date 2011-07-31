@@ -64,8 +64,8 @@ def filter_gist(value):
                 _colorize_table(content['files'][name]['content'], None))
 
         if content['comments'] > 0:
-            gist_text += '<hr>Join the conversation on ' + \
-                            '<a href="%s#comments">github</a> (%d comments)' % (
+            gist_text += '<hr><p class="github_convo">Join the conversation on ' + \
+                            '<a href="%s#comments">github</a> (%d comments)</p>' % (
                                 content['html_url'], content['comments'])
 
         # Replace just first instance of the short code found
