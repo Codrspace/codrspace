@@ -627,3 +627,12 @@ p.github_convo {
   display: block;
   margin-bottom: 5px;
 }
+
+div#recent-codrs-wrapper {
+  clear: both;
+}
+
+div#recent-codrs-wrapper img {
+  border: 3px solid #DDD;
+  margin-right: 5px;
+}
