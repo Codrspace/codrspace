@@ -62,3 +62,16 @@
 
 </div>
 {% endblock %}
+
+{% block extra_body %}
+<script type="text/javascript">
+
+    $(".media-item a").click(function(){
+        console.log('read me fast');
+        $("#id_content").val($('#id_content').val()+ $(this).text());
+        $("#id_content")[0].scrollTop = $("#id_content")[0].scrollHeight;
+        return false;
+    });
+
+</script>
+{% endblock %}

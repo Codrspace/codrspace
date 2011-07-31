@@ -414,17 +414,24 @@ ol#post-list {
 
 #media-list .media-item {
   font-size: 10px;
-  padding: 10px;
   background-color: #FAFAFA;
   text-align: left;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
 
 #media-list .media-item a {
-  text-align: none;
+  color: black;
+  text-decoration: none;
+  display: block;
+  padding: 10px;
+}
+
+#media-list .media-item a:hover {
+  color: white;
+  background-color: black;
 }
 
 /* latest posts */

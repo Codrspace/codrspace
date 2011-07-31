@@ -54,7 +54,7 @@
             {% if media_set %}
             <div id="media-list">
             {% for media in media_set %}
-                <div class="media-item"><a href="">{{ media.shortcode }}</a></div>
+                <div class="media-item"><a href="javascript:;">{{ media.shortcode }}</a></div>
             {% endfor %}
             </div>
             {% endif %}
@@ -65,4 +65,17 @@
     </div>
 
 </div>
+{% endblock %}
+
+{% block extra_body %}
+<script type="text/javascript">
+
+    $(".media-item a").click(function(){
+        console.log('read me fast');
+        $("#id_content").val($('#id_content').val()+ $(this).text());
+        $("#id_content")[0].scrollTop = $("#id_content")[0].scrollHeight;
+        return false;
+    });
+
+</script>
 {% endblock %}
