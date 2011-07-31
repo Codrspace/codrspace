@@ -4,7 +4,7 @@
     <li><a href="{% url edit post.pk %}">
         {{ forloop.counter }}. {{ post.title }} 
         <span class="post-status {{ post.status }}">{{ post.status }}</span>
-        <span class="content-summary">{{ post.content }} {{ post.publish_dt|date }}</span>
+        <span class="content-summary">{{ post.content|truncatewords:40 }} {{ post.publish_dt|date }}</span>
     </a></li>
 {% endfor %}
 </ol>
