@@ -7,3 +7,4 @@
 *.script
 local_settings.py
 site_media
+cache
