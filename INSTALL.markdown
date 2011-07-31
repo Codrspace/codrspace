@@ -10,10 +10,12 @@ version:
     2. You will not be able to have a nice profile and missing a lot of Github
        integration if you run locally without an external Internet connection.
        Please connect to the Internet :)
-    3. The 'faked' Github OAuth instance will always authenticate you as the
-       same user, 'durden'.  This is because we can't know ahead of time what
-       user will be running locally, so the 'faked' instance will always return
-       the access token for user 'durden.'
+    3. Running locally will always authenticate and setup profile as the same
+       github user.  This is because we can't get a real access token running
+       locally from the 'faked' instance.  So, the local instance always
+       assumes your the same user.  However, you can modify this in your
+       local_settings.py to at least run as your own user locally or just use
+       the default user, 'durden'.
 
     * See section on 'Running project' for information on how to run both
     * instances locally
@@ -64,6 +66,8 @@ callbacks for local testing.  Unforunately it requires a bit of manual setup.
             - git clone git://github.com/durden/dash.git fake_oauth_instance
             - cd /var/tmp/fake_oauth_instance
             - cp example_local_settings.py local_settings.py
+            - Edit local_settings.py to use your own github user name if you
+              want to run as someone other than the default 'durden'
             - python manage.py sncydb
             - python manage.py runserver localhost:9000
 
