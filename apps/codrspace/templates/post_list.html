@@ -28,7 +28,11 @@
             {% for post in posts %}
                 <div class="post">
                     <h2 class="post-header"><a href="{{ post.get_absolute_url }}">{% firstof post.title "Untitled" %}</a></h2>
-                    <div class="post-meta">{{ post.create_dt }}</div>
+                    <div class="post-meta">{{ post.create_dt }} 
+                        {% if post.author == user %}
+                            <span class="post-status {{ post.status }}">{{ post.status }}</span>
+                        {% endif %}
+                    </div>
                     <div class="post-content">
                         {{ post.content|explosivo }}
                     </div>
