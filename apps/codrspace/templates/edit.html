@@ -28,9 +28,6 @@
                 {{ form.status }}
                 <input type="submit" value="Save changes" />
                 <a id="view-post-link" href="{{ post.get_absolute_url }}">View Post &raquo;</a>
-                <span id="shortcode-examples">
-                    Shortcode examples: [gist 1044977] [local 6e977188bba81.py]
-                </span>
             </div>
         </form>
         </div>
@@ -52,6 +49,8 @@
         <div id="media-wrap">
 
             <div id="media-form-wrap">
+            {% include "shortcode_help.html" %}
+
                 <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ media_form.file }}
