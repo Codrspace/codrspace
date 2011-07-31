@@ -17,7 +17,7 @@ body {
 }
 
 #home-content { padding: 20px; }
-#home-content h3 { font-family: 'OCRAStdRegular'; font-size: 30px;}
+#home-content h3 { font-family: 'OCRAStdRegular'; font-size: 20px;}
 #header { border-bottom: 1px solid #ccc; padding: 10px; }
 #header .logo { font-size: 36px; }
 #header .logo a { color: white; text-decoration: none; }
@@ -421,4 +421,34 @@ ol#post-list {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+}
+
+/* latest posts */
+div#latest-posts ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+div#latest-posts-wrapper {
+  width: 300px;
+}
+
+div#latest-posts ul li {
+    margin: 0 0 10px 0;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+div#latest-posts ul li img {
+    vertical-align: middle;
+    padding-right: 5px;
+}
+
+div#latest-posts ul li:hover {
+    background-color: #ccc;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
 }

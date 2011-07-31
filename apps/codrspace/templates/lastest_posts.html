@@ -1,0 +1,12 @@
+<div id="latest-posts">
+    <ul>
+    {% for post in posts %}
+        <li>
+            <img src="{{ post.author.profile.get_meta.avatar_url }}" width="40" height="40" /> 
+            <a href="{{ post.get_absolute_url }}">{{ post.title|truncatewords:10 }}</a> by {{ post.author.username }}
+        </li>
+    {% empty %}
+        <li>No posts available yet</li>
+    {% endfor %}
+    </ul>
+</div>
