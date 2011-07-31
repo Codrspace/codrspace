@@ -28,8 +28,8 @@ class Post(models.Model):
     )
 
     title = models.CharField(max_length=200, blank=True)
-    content = models.TextField()
-    slug = models.SlugField(editable=False, unique=True)
+    content = models.TextField(blank=True)
+    slug = models.SlugField(unique=True, editable=False)
     author = models.ForeignKey(User, editable=False)
     status = models.CharField(max_length=30, choices=STATUS_CHOICES, default=0)
     publish_dt = models.DateTimeField(editable=False, null=True)
@@ -37,15 +37,23 @@ class Post(models.Model):
     update_dt = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            self.slug = slugify(self.title)
-            count = 1
-            while True:
-                if not Post.objects.filter(slug=self.slug):
-                    break
-                else:
-                    count += 1
-                    self.slug = '%s-%d' % (self.slug, count)
+
+        # slug via title
+        slug = slugify(self.title)
+        self.slug = slug
+
+        # if no slug aka via no title
+        if not self.slug:
+            self.slug = Post.objects.count()+1
+
+        # if slug exists
+        count = 1
+        while True:
+            if Post.objects.filter(slug=self.slug):
+                count += 1
+                self.slug = '%s-%d' % (slug, count)
+            else: break
+
         super(Post, self).save(*args, **kwargs)
 
         invalidate_cache_key('content', self.pk)

@@ -18,6 +18,7 @@
             </div>
             {% endfor %}
             <div id="title">{{ form.title }}</div>
+            <div id="slug">{{ form.slug }}</div>
             <div id="content">{{ form.content }}</div>
             <div id="status">
             {{ form.status }}
@@ -75,6 +76,17 @@
         $("#id_content").val($('#id_content').val()+ $(this).text());
         $("#id_content")[0].scrollTop = $("#id_content")[0].scrollHeight;
         return false;
+    });
+
+    /* slug autogenerate */
+    var title_field = $('#id_title');
+    var slug_field = $('#id_slug');
+    title_field.keyup(function() {
+        var value = $(this).val();
+        value = value.replace(/[^\w]+/ig,'-');
+        value = value.toLowerCase();
+        value = value.substring(0, 45);
+        slug_field.val(value);
     });
 
 </script>

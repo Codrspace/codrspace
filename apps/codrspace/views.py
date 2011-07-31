@@ -66,7 +66,11 @@ def add(request, template_name="add.html"):
     media_set = Media.objects.filter(uploader=request.user).order_by('-pk')
     media_form = MediaForm()
 
-    if hasattr(request, 'FILES'):
+    if request.method == "POST":
+
+        # # media post
+        # if 'file' in request.FILES:
+
         media_form = MediaForm(request.POST, request.FILES)
         if media_form.is_valid():
             media = media_form.save(commit=False)
@@ -74,29 +78,23 @@ def add(request, template_name="add.html"):
             media.filename = unicode(media_form.cleaned_data.get('file', ''))
             media.save()
 
-    if request.method == "POST":
+        # # post post  hehe
+        # if 'title' in request.POST:
 
-        # media post
-        if 'file' in request.FILES:
-            media_form = MediaForm(request.POST, request.FILES)
-            if media_form.is_valid():
-                media = media_form.save(commit=False)
-                media.uploader = request.user
-                media.filename = unicode(media_form.cleaned_data.get('file', ''))
-                media.save()
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            if post.status == 'published':
+                post.publish_dt = datetime.now()
+            post.save()
+            return redirect('edit', pk=post.pk)
+        else:
+            print list(form.errors)
 
-        # post post  hehe
-        if 'title' in request.POST:
-            form = PostForm(request.POST)
-            if form.is_valid():
-                post = form.save(commit=False)
-                post.author = request.user
-                if post.status == 'published':
-                    post.publish_dt = datetime.now()
-                post.save()
-                return redirect('edit', pk=post.pk)
+    else:
+        form = PostForm()
 
-    form = PostForm()
     return render(request, template_name, {
         'form': form,
         'posts': posts,

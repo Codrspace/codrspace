@@ -7,22 +7,23 @@
 
     <div id="add-wrap">
     <div id="mode-msg">Add mode</div>
+
+    <form action="" method="POST" enctype="multipart/form-data">
     <table><tr><td>
 
-        <form action="" method="POST">
-            {% csrf_token %}
-            {% for field in form %}
-            <div class="fieldWrapper">
-                {{ field.errors }}
-            </div>
-            {% endfor %}
-            <div id="title">{{ form.title }}</div>
-            <div id="content">{{ form.content }}</div>
-            <div id="status">
-                {{ form.status }}
-                <input type="submit" value="Save changes" />
-            </div>
-        </form>
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+        </div>
+        {% endfor %}
+        <div id="title">{{ form.title }}</div>
+        <div id="slug">{{ form.slug }}</div>
+        <div id="content">{{ form.content }}</div>
+        <div id="status">
+            {{ form.status }}
+            <input type="submit" value="Save changes" />
+        </div>
 
         {% if posts %}
         <ol id="post-list">
@@ -41,11 +42,9 @@
         <div id="media-wrap">
 
             <div id="media-form-wrap">
-                <form action="" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ media_form.file }}
-                    <input type="submit" value="Upload File" />
-                </form>
+                {% csrf_token %}
+                {{ media_form.file }}
+                <input type="submit" value="Upload File" />
             </div>
 
             {% if media_set %}
@@ -59,8 +58,9 @@
         </div>
 
     </td></tr></table>
-    </div>
+    </form>
 
+    </div>
 </div>
 {% endblock %}
 
@@ -72,6 +72,17 @@
         $("#id_content").val($('#id_content').val()+ $(this).text());
         $("#id_content")[0].scrollTop = $("#id_content")[0].scrollHeight;
         return false;
+    });
+
+    /* slug autogenerate */
+    var title_field = $('#id_title');
+    var slug_field = $('#id_slug');
+    title_field.keyup(function() {
+        var value = $(this).val();
+        value = value.replace(/[^\w]+/ig,'-');
+        value = value.toLowerCase();
+        value = value.substring(0, 45);
+        slug_field.val(value);
     });
 
 </script>
