@@ -19,6 +19,11 @@ body {
 
 #home-content { padding: 20px; padding-bottom: 60px;}
 #home-content h3 { font-size: 20px;}
+#home-content { float: left; }
+#home-content #home-col1 { float: left; width: 400px;}
+#home-content #home-col2 { float: left; padding-left: 50px;}
+#home-content #home-col3 { float: left; padding-left: 50px;}
+
 ul#home-navigation {
   list-style-type: none;
   margin: 0;
@@ -504,6 +509,35 @@ div#latest-posts ul li img {
 }
 
 div#latest-posts ul li:hover {
+    background-color: #ccc;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+div#top-posts-wrapper {
+  width: 400px;
+}
+
+div#top-posters ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+div#top-posters ul li {
+    margin: 0 0 10px 0;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+div#top-posters ul li img {
+    vertical-align: middle;
+    padding-right: 5px;
+}
+
+div#top-posters ul li:hover {
     background-color: #ccc;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
