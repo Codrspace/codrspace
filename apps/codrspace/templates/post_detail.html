@@ -24,7 +24,11 @@
         <div id="right-column">
                 <div class="post">
                     <h1 class="post-header">{% firstof post.title "Untitled tutorial" %}</h1>
-                    <div class="post-meta">{{ post.create_dt }}</div>
+                    <div class="post-meta">{{ post.create_dt }} 
+                        {% if post.author == user %}
+                            <span class="post-status {{ post.status }}">{{ post.status }}</span>
+                        {% endif %}
+                    </div>
                     <div class="post-content">
                         {% load cache %}
                         {% cache 300 content post.pk %}
