@@ -67,19 +67,19 @@ callbacks for local testing.  Unforunately it requires a bit of manual setup.
 
 1. Clone the project twice (1 for the 'normal' access and 1 for faked Github OAuth.
 
-    - `git clone git://github.com/durden/dash.git codrspace`
-    - `git clone git://github.com/durden/dash.git codrspace_oauth_instance`
-    - `cd codrspace_oauth_instance`
-    - `cp example_local_settings.py local_settings.py`
-    - set `GITHUB_USER` in your local settings to your github username
-    - `python manage.py syncdb`
-    - `python manage.py runserver localhost:9000`
+  - `git clone git://github.com/durden/dash.git codrspace`
+  - `git clone git://github.com/durden/dash.git codrspace_oauth_instance`
+  - `cd codrspace_oauth_instance`
+  - `cp example_local_settings.py local_settings.py`
+  - set `GITHUB_USER` in your local settings to your github username
+  - `python manage.py syncdb`
+  - `python manage.py runserver localhost:9000`
 
 Next sync and start the main codrspace instance.
 
-    - `cd codrspace`
-    - `python manage.py sncydb`
-    - `python manage.py runserver`
+  - `cd codrspace`
+  - `python manage.py sncydb`
+  - `python manage.py runserver`
 
 Now you have two instances of the django development server running.
 One for `codrspace` and one for `codrspace_oauth_instance`. 
