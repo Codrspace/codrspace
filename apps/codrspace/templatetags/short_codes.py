@@ -6,8 +6,11 @@ import re
 
 from django.utils import simplejson
 from django import template
-
+from django.utils.safestring import mark_safe
+from codrspace.templatetags.syntax_color import _colorize_table
+import markdown
 register = template.Library()
+
 
 @register.filter(name='explosivo')
 def explosivo(value, lang):
@@ -25,7 +28,7 @@ def explosivo(value, lang):
         if type(var) == types.FunctionType and name.startswith('filter_'):
             value = var(value, lang)
 
-    return value
+    return mark_safe(value)
 
 
 def filter_gist(value, lang):
@@ -46,10 +49,11 @@ def filter_gist(value, lang):
 
     # Go through all files in gist and smash 'em together
     for name in content['files']:
-        gist_text += "file: %s content: %s<br>" % (
-                                    name, content['files'][name]['content'])
+        gist_text += "%s" % (
+            _colorize_table(content['files'][name]['content'], None)
+        )
 
-    return re.sub(pattern, gist_text, value)
+    return re.sub(pattern, gist_text, markdown.markdown(value))
 
 
 def filter_url(value, lang):
@@ -63,7 +67,11 @@ def filter_url(value, lang):
 
     # FIXME: Validate that value is actually a url
     resp = requests.get(url)
-    return re.sub(pattern, resp.content, value)
+
+    if resp.status_code != 200:
+        return value
+
+    return re.sub(pattern, _colorize_table(resp.content, None), markdown.markdown(value))
 
 
 def filter_upload(value, lang):

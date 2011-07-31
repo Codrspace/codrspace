@@ -93,15 +93,75 @@ a.get-started { font-size: 24px; }
 
 #post-list-content #left-column {
     float: left;
-    border-right: 1px solid #ccc;
-    padding: 10px;
+    border-right: 1px dotted #ccc;
+    padding: 10px 20px 10px 10px;
     width: 175px;
+    text-align: center;
 }
 
 #post-list-content #right-column {
     float: left;
-    padding: 10px 10px 10px 20px;
+    padding: 10px 10px 10px 50px;
     width: 650px;
+}
+
+#post-list-content .post {
+  margin-bottom: 50px;
+}
+
+#post-list-content .post-header {
+  margin-bottom: 4px;
+}
+
+#post-list-content .post-meta {
+  font-style: italic;
+  font-size: 12px;
+  color: #777;
+}
+
+#post-list-content .post-content {
+  margin-top: 20px;
+}
+
+#post-list-content .post-options {
+  background-color: #f2f2f2;
+  padding: 5px;
+  margin-top: 20px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+#post-list-content ul#auth-options {
+  list-style-type: none;
+  margin: 20px 0 0 0;
+  padding: 0;
+}
+
+#post-list-content ul#auth-options li {
+  margin-top: 5px;
+}
+
+/* user detail */
+#user-detail p {
+  margin: 5px 0 5px 0;
+  color: #222;
+}
+
+#user-detail p.bio {
+  margin-top: 15px;
+  color: #777;
+}
+
+#user-detail p.divider {
+  margin-top: 20px;
+}
+
+#user-detail img.user-detail-image {
+  border: 10px solid #e2e2e2;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
 }
 
 /* add/edit form

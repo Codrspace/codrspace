@@ -4,11 +4,24 @@
 {% block content %}
 
 {% load short_codes %}
+{% load syntax_color %}
 
 <div id="edit-page">
 
     <div id="edit-wrap">
     <table><tr><td>
+
+        {% if posts %}
+        <ol id="post-list">
+        {% for post in posts|slice:":10" %}
+            <li><a href="{% url edit post.pk %}">
+                {{ forloop.counter }}. {{ post.title }} <span class="content-summary">{{ post.content|explosivo:""|markdown|colorize_table}} {{ post.create_dt }}</span>
+            </a></li>
+        {% endfor %}
+        </ol>
+        {% endif %}
+
+    </td><td>
 
         <div id="mode-msg">Edit mode</div>
         <form action="" method="POST">

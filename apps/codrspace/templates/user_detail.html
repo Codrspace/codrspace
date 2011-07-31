@@ -1,10 +1,13 @@
-<h2><a href="{{meta.url}}">{{meta.login}}</a></h2>
-<dt>
-    <dl>Real Name: {{meta.name}}</dl>
-    <dl>Location: {{meta.location}}</dl>
-    <dl>For Hire: {{meta.hireable}}</dl>
-    <dl>Info: {{meta.bio}}</dl>
-    <dl>Public Repos: {{meta.public_repos}}</dl>
-    <dl>Followers: {{meta.followers}}</dl>
-    <dl>Following: {{meta.following}}</dl>
-</dt>
+<div id="user-detail">
+    <a href="{{ meta.html_url }}"><img class="user-detail-image" src="{{ meta.avatar_url }}" alt="GitHub &ndash; {{ meta.login }}"/></a>
+    <p>{% firstof meta.name meta.login %}</p>
+    {% if meta.location %}
+        <p>{{ meta.location }}</p>
+    {% endif %}
+    {% if meta.bio %}
+        <p class="bio">{{ meta.bio }}</p>
+    {% endif %}
+    <p class="divider">Public Repos: {{meta.public_repos}}</p>
+    <p>Followers: {{meta.followers}}</p>
+    <p>Following: {{meta.following}}</p>
+</div>
