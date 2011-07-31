@@ -22,7 +22,7 @@
         <div id="content">{{ form.content }}</div>
         <div id="status">
             {{ form.status }}
-            <input type="submit" value="Save changes" />
+            <input type="submit" name="submit_post" value="Save changes" />
         </div>
 
         {% if posts %}
@@ -44,7 +44,7 @@
             <div id="media-form-wrap">
                 {% csrf_token %}
                 {{ media_form.file }}
-                <input type="submit" value="Upload File" />
+                <input type="submit" name="submit_file" value="Upload File" />
             </div>
 
             {% if media_set %}
@@ -68,7 +68,6 @@
 <script type="text/javascript">
 
     $(".media-item a").click(function(){
-        console.log('read me fast');
         $("#id_content").val($('#id_content').val()+ $(this).text());
         $("#id_content")[0].scrollTop = $("#id_content")[0].scrollHeight;
         return false;

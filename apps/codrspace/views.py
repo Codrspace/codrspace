@@ -68,9 +68,7 @@ def add(request, template_name="add.html"):
 
     if request.method == "POST":
 
-        # # media post
-        # if 'file' in request.FILES:
-
+        # media
         media_form = MediaForm(request.POST, request.FILES)
         if media_form.is_valid():
             media = media_form.save(commit=False)
@@ -78,19 +76,18 @@ def add(request, template_name="add.html"):
             media.filename = unicode(media_form.cleaned_data.get('file', ''))
             media.save()
 
-        # # post post  hehe
-        # if 'title' in request.POST:
-
+        # post
         form = PostForm(request.POST)
-        if form.is_valid():
+        if form.is_valid() and 'submit_post' in request.POST:
             post = form.save(commit=False)
-            post.author = request.user
-            if post.status == 'published':
-                post.publish_dt = datetime.now()
-            post.save()
-            return redirect('edit', pk=post.pk)
-        else:
-            print list(form.errors)
+
+            # if something to submit
+            if post.title or post.content:
+                post.author = request.user
+                if post.status == 'published':
+                    post.publish_dt = datetime.now()
+                post.save()
+                return redirect('edit', pk=post.pk)
 
     else:
         form = PostForm()
