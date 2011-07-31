@@ -43,6 +43,7 @@ def add(request, template_name="add.html"):
         print 'asdfasdfasdfs'
         if media_form.is_valid():
             media = media_form.save(commit=False)
+            media.uploader = request.user
             media.filename = unicode(media_form.cleaned_data.get('file', ''))
             media.save()
 
