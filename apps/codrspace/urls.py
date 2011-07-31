@@ -16,5 +16,6 @@ urlpatterns += patterns('codrspace.mock_views',
 )
 
 urlpatterns += patterns('codrspace.views',
+    url(r'^(?P<username>[\w\d]+)/(?P<slug>[\w\d\-]+)/$', 'post_detail', name="post_detail"),
     url(r'^(?P<username>[\w\d]+)/$', 'post_list', name="post_list"),
 )

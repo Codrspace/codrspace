@@ -18,15 +18,33 @@ import requests
 def index(request, template_name="home.html"):
     return render(request, template_name)
 
+
+def post_detail(request, username, slug, template_name="post_detail.html"):
+    user = get_object_or_404(User, username=username)
+
+    post = get_object_or_404(
+        Post,
+        author=user,
+        slug=slug,
+        status="published"
+    )
+
+    return render(request, template_name, {
+        'post': post,
+        'meta': user.profile.get_meta(),
+    })
+
+
 @login_required
 def post_list(request, username, template_name="post_list.html"):
+    user = get_object_or_404(User, username=username)
 
-    posts = Post.objects.filter(author=request.user, status="published")
+    posts = Post.objects.filter(author=user, status="published")
     posts = posts.order_by('-pk')
 
     return render(request, template_name, {
         'posts': posts,
-        'meta': request.user.profile.get_meta(),
+        'meta': user.profile.get_meta(),
     })
 
 
@@ -40,7 +58,6 @@ def add(request, template_name="add.html"):
 
     if hasattr(request, 'FILES'):
         media_form = MediaForm(request.POST, request.FILES)
-        print 'asdfasdfasdfs'
         if media_form.is_valid():
             media = media_form.save(commit=False)
             media.filename = unicode(media_form.cleaned_data.get('file', ''))
