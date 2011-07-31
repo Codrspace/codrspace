@@ -1,1 +1,16 @@
-404
+{% extends "base.html" %}
+
+{% load codrspace_tags %}
+
+{% block title %}404 Page Not Found{% endblock %}
+
+{% block content %}
+<h2>Awwwww man, why you no work URL?</h2>
+<img src="{{ STATIC_URL }}404.jpg" title="Glenbot and Eloy workin' the code"/>
+<p>Looks like the URL in the address bar doesn't exist.</p>
+<p>You can try:</p>
+<ol>
+    <li><a href="{% url homepage %}">CodrSpace.com &raquo;</a></li>
+    <li><a href="{% random_blog %}">Random Blog &raquo;</a></li>
+</ol>
+{% endblock %}

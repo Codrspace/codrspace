@@ -62,30 +62,25 @@ version:
 ### Running project locally after environment setup
 
 Due to limitation #1, we have developed a solution to 'fake' out the OAuth
-callbacks for local testing.  Unforunately it requires a bit of manual setup.
+callbacks for local testing.  Unforunately it requires running two Django dev servers.
 
-1. Clone the project twice (1 for the 'normal' access and 1 for faked Github OAuth.
+1. Clone the project, copy the example local_settings, start the server on port 9000 for oAuth.
 
-  - `git clone git://github.com/durden/dash.git codrspace`
-  - `git clone git://github.com/durden/dash.git codrspace_oauth_instance`
-  - `cd codrspace`
-  - `cp example_local_settings.py local_settings.py`
-  - `cd codrspace_oauth_instance`
+  - `git clone git://github.com/durden/dash.git codrspace_app`
+  - `cd codrspace_app`
+  - `workon codrspace` (only if you used the virtualenv route)
   - `cp example_local_settings.py local_settings.py`
   - set `GITHUB_USER` in your local settings to your github username
   - `python manage.py syncdb`
   - `python manage.py runserver localhost:9000`
 
-Next sync and start the main codrspace instance.
+2. Open another shell and start the dev server on port 8000 for the site.
 
-  - `cd codrspace`
-  - `python manage.py syncdb`
-  - `python manage.py runserver`
+  - `cd codrspace_app`
+  - `workon codrspace` (only if you used the virtualenv route)
+  - `python manage.py runserver localhost:8000`
 
 Now you have two instances of the django development server running.
-One for `codrspace` and one for `codrspace_oauth_instance`. 
+The instance on port 9000 is only for fake oAuth validation.
 
-The `codrspace_oauth_instance` is only to **fake validate** the user so you don't 
-have to set up a new application on github. 
-
-Use the site as you normally would through `http://121.0.0.1:8000`
+Use the site as you normally would through `http://localhost:8000`.

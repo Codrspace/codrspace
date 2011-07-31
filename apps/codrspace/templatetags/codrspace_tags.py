@@ -45,3 +45,14 @@ def latest_posts(context, amount):
         'posts': posts
     })
     return context
+
+
+@register.inclusion_tag("recent_codrs.html", takes_context=True)
+def recent_codrs(context, amount):
+    codrs = User.objects.all().order_by('-last_login')
+    if codrs:
+        codrs = codrs[:int(amount)]
+    context.update({
+        'codrs': codrs
+    })
+    return context

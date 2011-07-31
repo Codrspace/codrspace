@@ -1,1 +1,9 @@
-500
+{% extends "base.html" %}
+
+{% block title %}Fail Whale!{% endblock %}
+
+{% block content %}
+<h2>Awwwww man, why you no work?</h2>
+<img src="{{ STATIC_URL }}500.gif" title="Eloy is really, really upset"/>
+<p>A problem happened with our system and we were notified. Thanks!</p>
+{% endblock %}

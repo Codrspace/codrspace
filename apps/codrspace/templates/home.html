@@ -4,6 +4,10 @@
 
 {% block title %}{{ TAGLINE }}{% endblock %}
 
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}tipsy.css">
+{% endblock %}
+
 {% block header %} 
 <div id="header" class="shadowee">
     <div class="logo"><a href="{% url homepage %}"><img src="{{ STATIC_URL }}codrspace.png" /></a></div>
@@ -47,12 +51,20 @@
             <h3>Top Posters</h3>
             <div id="top-posts-wrapper">{% top_posters 4 %}</div>
         </div>
+        <div id="recent-codrs-wrapper">
+            <h4>Awesome Codrs</h4>
+            {% recent_codrs 20 %}
+        </div>
     </div>
 {% endblock %}
 
 {% block extra_body %}
     {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}jquery.tipsy.js"></script>
     <script type="text/javascript">
+        $('#recent-codrs .recent-codr-image').tipsy({
+            gravity: 's'
+        });
         $('body').css('background', 'url("{{ STATIC_URL }}body-bg.jpg")');
     </script>
 {% endblock %}
