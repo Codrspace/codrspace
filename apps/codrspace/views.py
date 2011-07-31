@@ -94,7 +94,7 @@ def add(request, template_name="add.html"):
 @login_required
 def edit(request, pk=0, template_name="edit.html"):
     """ Edit a post """
-    post = get_object_or_404(Post, pk=pk)
+    post = get_object_or_404(Post, pk=pk, author=request.user)
     posts = Post.objects.filter(author=request.user).order_by('-pk')
     media_set = Media.objects.filter(uploader=request.user).order_by('-pk')
     media_form = MediaForm()
