@@ -28,9 +28,10 @@
         <script type="text/javascript" src="{{ STATIC_URL }}jquery.labelify.js"></script>
         <script type="text/javascript" src="http://include.reinvigorate.net/re_.js"></script>
         <script type="text/javascript">
-        try {
-        reinvigorate.track("1um08-10kraz8amt");
-        } catch(err) {}
+            try {
+            var re_name_tag = "{% firstof user.username 'lurker' %}";
+            re_("1um08-10kraz8amt");
+            } catch(err) {}
         </script>
         <script type="text/javascript">
             $(document).ready(function(){
