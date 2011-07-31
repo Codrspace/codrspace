@@ -5,20 +5,20 @@ You can see the full hosted solution via linode at http://www.codrspace.com.
 Please keep in mind that there are a few limitations to running just the local
 version:
 
-    1. We are using Github OAuth for signup/authentication, which only allows a
-       single callback url for the final part of the OAuth process.  Thus, this
-       callback url is set to the hosted version.
-    2. You will not be able to have a nice profile and missing a lot of Github
-       integration if you run locally without an external Internet connection.
-       Please connect to the Internet :)
-    3. Running locally will always authenticate and use the same github user.
-       This is because we can't get a real access token running
-       locally from the 'faked' instance.  So, the local instance always
-       assumes your the same user.  However, you can modify this in your
-       local_settings.py using `GITHUB_USER`. It defaults to user `durden`
+  1. We are using Github OAuth for signup/authentication, which only allows a
+     single callback url for the final part of the OAuth process.  Thus, this
+     callback url is set to the hosted version.
+  2. You will not be able to have a nice profile and missing a lot of Github
+     integration if you run locally without an external Internet connection.
+     Please connect to the Internet :)
+  3. Running locally will always authenticate and use the same github user.
+     This is because we can't get a real access token running
+     locally from the 'faked' instance.  So, the local instance always
+     assumes your the same user.  However, you can modify this in your
+     local_settings.py using `GITHUB_USER`. It defaults to user `durden`
 
-    * See section on 'Running project' for information on how to run both
-    * instances locally
+  * See section on 'Running project' for information on how to run both
+  * instances locally
 
 ## General environment setup
 
@@ -65,23 +65,23 @@ version:
 Due to limitation #1, we have developed a solution to 'fake' out the OAuth
 callbacks for local testing.  Unforunately it requires a bit of manual setup.
 
-    1. Clone the project twice (1 for the 'normal' access and 1 for faked
-       Github OAuth.
-        Example setup:
-            - `git clone git://github.com/durden/dash.git codrspace`
-            - `git clone git://github.com/durden/dash.git codrspace_oauth_instance`
-            - cd codrspace_oauth_instance
-            - cp example_local_settings.py local_settings.py
-            - set `GITHUB_USER` in your local settings to your github username
-            - python manage.py sncydb
-            - python manage.py runserver localhost:9000
+  1. Clone the project twice (1 for the 'normal' access and 1 for faked
+     Github OAuth.
+      Example setup:
+          - `git clone git://github.com/durden/dash.git codrspace`
+          - `git clone git://github.com/durden/dash.git codrspace_oauth_instance`
+          - cd codrspace_oauth_instance
+          - cp example_local_settings.py local_settings.py
+          - set `GITHUB_USER` in your local settings to your github username
+          - python manage.py sncydb
+          - python manage.py runserver localhost:9000
 
-            ** Now you have your local github OAuth instance running that your
-            main instance can authenticate against.
+          ** Now you have your local github OAuth instance running that your
+          main instance can authenticate against.
 
-            - cd codrspace
-            - python manage.py sncydb
-            - python manage.py runserver
+          - cd codrspace
+          - python manage.py sncydb
+          - python manage.py runserver
 
 Now you have two instances of the django development server running. One for 
 `codrspace` and one for `codrspace_oauth_instance`. The `codrspace_oauth_instance`
