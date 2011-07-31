@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 
-{% load markup %}
 {% load short_codes %}
-{% load syntax_color %}
+{% load codrspace_tags %}
 
 {% block title %}{% firstof post.title "Django training" %} by {{ post.author.username }}{% endblock %}
 
@@ -14,8 +13,13 @@
                 <ul id="auth-options">
                     <li><a href="{% url add %}">Add Post</a></li>
                     <li><a href="{% url signout %}">Sign Out</a></li>
-                <ul>
+                </sul>
             {% endifequal %}
+            <ul id="other-links">
+                <li><a href="{% url post_list username %}">All posts by {{ username }} &raquo;</a></li>
+                <li><a href="{% random_blog %}">Random Blog &raquo;</a></li>
+                <li><a href="{% url homepage %}">CodrSpace &raquo;</a></li>
+            </ul>
         </div>
         <div id="right-column">
                 <div class="post">
@@ -33,7 +37,7 @@
                         </div>
                     {% endifequal %}
                 </div>
-                <a href="{% url post_list username %}">&laquo;&nbsp;See all of {{ username }}'s posts</a>
+                <a href="{% url post_list username %}">&laquo;&nbsp;See all posts by {{ username }}</a>
         </div>
     </div>
 {% endblock %}
