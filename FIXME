@@ -1,1 +1,4 @@
 - Add notes on supported short codes somewhere on post page
+- At least try to test installing site from a clean repo
+    - Add more instructions on how to run locally with extra server for github
+      mocks?

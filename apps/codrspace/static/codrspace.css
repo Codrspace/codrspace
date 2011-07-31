@@ -191,6 +191,16 @@ a.get-started { font-size: 24px; }
   text-align: center;
 }
 
+#post-list-content ul#other-links {
+  list-style-type: none;
+  margin: 20px 0 0 0;
+  padding: 0;
+}
+
+#post-list-content ul#other-links li {
+  margin-top: 5px;
+}
+
 /* user detail */
 #user-detail p {
   margin: 5px 0 5px 0;

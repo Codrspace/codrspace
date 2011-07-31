@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 
-{% load markup %}
 {% load short_codes %}
-{% load syntax_color %}
+{% load codrspace_tags %}
 
 {% block content %}
     <div id="post-list-content">
@@ -12,8 +11,11 @@
                 <ul id="auth-options">
                     <li><a href="{% url add %}">Add Post</a></li>
                     <li><a href="{% url signout %}">Sign Out</a></li>
-                <ul>
+                </ul>
             {% endif %}
+            <ul id="other-links">
+                <li><a href="{% random_blog %}">Random Blog &raquo;</a></li>
+            </ul>
         </div>
         <div id="right-column">
             {% for post in posts %}
@@ -30,10 +32,16 @@
                     {% endif %}
                 </div>
             {% empty %}
-                <div id="no-posts-message">
-                    <p>A little empty ...</p> 
-                    <p><a href="{% url add %}">Let's add some posts!</a></p>
-                </div>
+                {% if username == request.username %}
+                    <div id="no-posts-message">
+                        <p>A little empty ...</p> 
+                        <p><a href="{% url add %}">Let's add some posts!</a></p>
+                    </div>
+                {% else %}
+                    <div id="no-posts-message">
+                        <p>This person hasn't posted yet :(</p>
+                    </div>                
+                {% endif %}
             {% endfor %}
         </div>
     </div>
