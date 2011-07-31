@@ -1,0 +1,19 @@
+<div id="top-posters">
+    <ul>
+    {% for tps in top_ps %}
+        <li>
+            {% with tps.author.profile.get_meta as git_meta %}
+            <img src="{{ git_meta.avatar_url }}" width="40" height="40" /> 
+            <a href="{% url post_list tps.author.username %}">
+                {% if git_meta.name %}
+                    {{ git_meta.name }}&nbsp;&ndash;&nbsp;
+                {% endif %}
+                {{ tps.author.username }}
+            </a>
+            {% endwith %}
+        </li>
+    {% empty %}
+        <li>No posts available yet</li>
+    {% endfor %}
+    </ul>
+</div>
