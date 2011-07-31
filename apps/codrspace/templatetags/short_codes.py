@@ -2,13 +2,19 @@
 
 
 import requests
+import mimetypes
 import re
+import os
+import markdown
 
 from django.utils import simplejson
 from django import template
 from django.utils.safestring import mark_safe
+
+from settings import MEDIA_ROOT
+
 from codrspace.templatetags.syntax_color import _colorize_table
-import markdown
+
 register = template.Library()
 
 
@@ -78,7 +84,29 @@ def filter_url(value):
 
 
 def filter_upload(value):
-    return value, None
+    pattern = re.compile('\[local (\S+) *\]', flags=re.IGNORECASE)
 
-if __name__ == "__main__":
-    explosivo('test')
+    match = re.search(pattern, value)
+    if match is None:
+        return value, None
+
+    (file_type, encoding) = mimetypes.guess_type(
+                                            os.path.join(MEDIA_ROOT, value))
+
+    # FIXME: Can we trust the 'guessed' mimetype?
+    if not file_type.startswith('text'):
+        return (value, None)
+
+    # FIXME: Limit to 1MB right now
+    try:
+        f = open(value)
+    except IOError:
+        return (value, None)
+
+    text = f.read(1048576)
+    f.close()
+
+    text = _colorize_table(text, None)
+
+    # FIXME: Assume all files are only intepreted for code, not markdown?
+    return (text, True)
