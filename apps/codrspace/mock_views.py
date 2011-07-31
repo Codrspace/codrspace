@@ -5,12 +5,6 @@ from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 
-try:
-    from local_settings import GITHUB_API_TOKEN
-except ImportError:
-    # Will always authenticate as 'durden' and only for codrspace app
-    GITHUB_API_TOKEN = "1c21852a9f19b685d6f67f4409b5b4980a0c9d4f"
-
 
 def authorize(request):
     """Fake calling authorize for github api"""
@@ -38,5 +32,8 @@ def access_token(request):
     if 'code' not in request.POST:
         raise Exception("Authorize must specify code")
 
-    return HttpResponse("access_token=%s&token_type=bearer" % (
-                                    GITHUB_API_TOKEN), mimetype="text/plain")
+    # Just using junk for token b/c it won't be used locally, just need to get
+    # the flow
+    token = '2341342fdsffkjl234'
+    return HttpResponse("access_token=%s&token_type=bearer" % (token),
+                        mimetype="text/plain")
