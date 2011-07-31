@@ -2,6 +2,7 @@ import os.path
 import sys
 
 # Paths
+PROJECT_ROOT_NAME = os.path.basename(os.path.dirname(__file__))
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 APPS_PATH = os.path.join(PROJECT_ROOT, 'apps')
 sys.path.insert(0, APPS_PATH)
@@ -119,7 +120,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = '%s.urls' % PROJECT_ROOT_NAME
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
