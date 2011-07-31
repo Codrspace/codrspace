@@ -2,6 +2,9 @@
 
 
 {% block content %}
+
+{% load short_codes %}
+
 <div id="edit-page">
 
     <div id="edit-wrap">
@@ -24,6 +27,7 @@
     </td><td>
 
     </td></tr></table>
+
     </div>
 
     {% if posts %}
@@ -32,7 +36,7 @@
         <li><a href="{% url edit post.pk %}">
             {{ forloop.counter }}. {{ post.title }} 
             <span class="post-status {{ post.status }}">{{ post.status }}</span>
-            <span class="content-summary">{{ post.content }} {{ post.create_dt }}</span>
+            <span class="content-summary">{{ post.content }} {{ post.publish_dt|date }}</span>
         </a></li>
     {% endfor %}
     </ol>

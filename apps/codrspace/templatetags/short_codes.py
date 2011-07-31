@@ -10,7 +10,7 @@ from django import template
 register = template.Library()
 
 @register.filter(name='explosivo')
-def explosivo(value):
+def explosivo(value, lang):
     """
     Search text for any references to supported short codes and explode them
     """
@@ -23,14 +23,13 @@ def explosivo(value):
     
     for name, var in vars(module).items():
         if type(var) == types.FunctionType and name.startswith('filter_'):
-            value = var(value)
+            value = var(value, lang)
 
     return value
 
 
-def filter_gist(value):
-    # FIXME: Make case insensitive
-    pattern = re.compile('\[gist (\d+)\]')
+def filter_gist(value, lang):
+    pattern = re.compile('\[gist (\d+) *\]', flags=re.IGNORECASE)
 
     match = re.search(pattern, value)
     if match is None:
@@ -53,11 +52,21 @@ def filter_gist(value):
     return re.sub(pattern, gist_text, value)
 
 
-def filter_url(value):
-    return value
+def filter_url(value, lang):
+    pattern = re.compile('\[url (\S+) *\]', flags=re.IGNORECASE)
+
+    match = re.search(pattern, value)
+    if match is None:
+        return value
+
+    url = match.group(1)
+
+    # FIXME: Validate that value is actually a url
+    resp = requests.get(url)
+    return re.sub(pattern, resp.content, value)
 
 
-def filter_upload(value):
+def filter_upload(value, lang):
     return value
 
 if __name__ == "__main__":

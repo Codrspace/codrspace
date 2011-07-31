@@ -5,9 +5,9 @@
 <div id="add-page">
 
     <div id="add-wrap">
+    <div id="mode-msg">Add mode</div>
     <table><tr><td>
 
-        <div id="mode-msg">Add mode</div>
         <form action="" method="POST">
             {% csrf_token %}
             {% for field in form %}
@@ -17,24 +17,48 @@
             {% endfor %}
             <div id="title">{{ form.title }}</div>
             <div id="content">{{ form.content }}</div>
-            <div id="status">{{ form.status }}</div>
-            <div id="submit-btn"><input type="submit" value="Save changes" /></div>
+            <div id="status">
+                {{ form.status }}
+                <input type="submit" value="Save changes" />
+            </div>
         </form>
 
-    </td><td>
+        {% if posts %}
+        <ol id="post-list">
+        {% for post in posts|slice:":10" %}
+            <li><a href="{% url edit post.pk %}">
+                {{ forloop.counter }}. {{ post.title }} 
+                <span class="post-status {{ post.status }}">{{ post.status }}</span>
+                <span class="content-summary">{{ post.content }} {{ post.create_dt }}</span>
+            </a></li>
+        {% endfor %}
+        </ol>
+        {% endif %}
+
+    </td><td align="right" id="media-region">
+
+        <div id="media-wrap">
+
+            <div id="media-form-wrap">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ media_form.file }}
+                    <input type="submit" value="Upload File" />
+                </form>
+            </div>
+
+            {% if media_set %}
+            <div id="image-list">
+            {% for media in media_set %}
+                <img src="{{ media.file.url }}" width="100" height="100" />
+            {% endfor %}
+            </div>
+            {% endif %}
+
+        </div>
 
     </td></tr></table>
     </div>
-
-    {% if posts %}
-    <ol id="post-list">
-    {% for post in posts|slice:":10" %}
-        <li><a href="{% url edit post.pk %}">
-            {{ forloop.counter }}. {{ post.title }} <span class="content-summary">{{ post.content }} {{ post.create_dt }}</span>
-        </a></li>
-    {% endfor %}
-    </ol>
-    {% endif %}
 
 </div>
 {% endblock %}

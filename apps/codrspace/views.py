@@ -1,5 +1,6 @@
 """Main codrspace views"""
 
+from datetime import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import simplejson
 from django.core.urlresolvers import reverse
@@ -8,27 +9,27 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from settings import GITHUB_CLIENT_ID, DEBUG
-from codrspace.models import Post
-from codrspace.forms import PostForm
-from codrspace.models import Profile
+from codrspace.models import Post, Profile, Media
+from codrspace.forms import PostForm, MediaForm
 
 import requests
 
 
 def index(request, template_name="home.html"):
     if request.user.is_authenticated():
-        return redirect(reverse("post_index", args=[request.user.username]))
+        return redirect(reverse("post_list", args=[request.user.username]))
 
     return render(request, template_name)
 
 @login_required
-def post_index(request, username, template_name="post_index.html"):
+def post_list(request, username, template_name="post_list.html"):
 
     posts = Post.objects.filter(author=request.user)
     posts = posts.order_by('-pk')
 
     return render(request, template_name, {
         'posts': posts,
+        'meta': request.user.profile.get_meta(),
     })
 
 
@@ -36,6 +37,13 @@ def add(request, template_name="add.html"):
     """ Add a post """
 
     posts = Post.objects.all().order_by('-pk')
+    media_set = Media.objects.all().order_by('-pk')
+    media_form = MediaForm()
+
+    if hasattr(request, 'FILES'):
+        media_form = MediaForm(request.POST, request.FILES)
+        if media_form.is_valid():
+            media = media_form.save()
 
     if request.method == "POST":
         form = PostForm(request.POST)
@@ -43,11 +51,20 @@ def add(request, template_name="add.html"):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
+
+            if post.status == 'published':
+                post.publish_dt = datetime.now()
+
             post.save()
             return redirect('edit', pk=post.pk)
 
     form = PostForm()
-    return render(request, template_name, {'form': form, 'posts': posts})
+    return render(request, template_name, {
+        'form': form, 
+        'posts': posts,
+        'media_set': media_set,
+        'media_form': media_form,
+    })
 
 
 def edit(request, pk=0, template_name="edit.html"):
@@ -59,8 +76,16 @@ def edit(request, pk=0, template_name="edit.html"):
         form = PostForm(request.POST, instance=post)
 
         if form.is_valid():
-            post = form.save()
+            post = form.save(commit=False)
 
+            if post.status == 'published':
+                if not post.publish_dt:
+                    post.publish_dt = datetime.now()
+
+            if post.status == "draft":
+                post.publish_dt = None;
+            
+            post.save()
             return render(request, template_name, {
                 'form':form, 
                 'post':post,
@@ -154,7 +179,8 @@ def signin_callback(request, slug=None, template_name="base.html"):
         try:
             profile = user.get_profile()
         except:
-            profile = Profile(git_access_token=token, user=user)
+            profile = Profile(git_access_token=token, user=user,
+                              meta=resp.content)
 
         profile.git_access_token = token
         profile.save()
