@@ -472,6 +472,7 @@ ol#post-list {
   background-color: #EEE;
   padding: 10px;
   margin-bottom: 10px;
+  margin-top: 20px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -573,9 +574,12 @@ p.github_convo {
 }
 
 #shortcode-examples {
-  font-size: 10px;
-  float: right;
-  margin-right: 10px;
+  margin-bottom: 20px;
+  font-size: 12px;
+}
+
+#shortcode-examples li {
+    padding: 3px;
 }
 
 #post-wrap {

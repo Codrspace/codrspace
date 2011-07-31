@@ -1,4 +1,3 @@
 - Make sure to run deployment script on linode one last time BEFORE 7:00pm
-- Add notes on supported short codes somewhere on post page
 - At least try to test installing site from a clean repo
 - Do lots of testing with multiple short codes of each type in a single post

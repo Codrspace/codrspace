@@ -1,4 +1,3 @@
-from django.conf import settings
 
 
 def codrspace_contexts(request):
@@ -7,7 +6,6 @@ def codrspace_contexts(request):
     """
     contexts = {}
     contexts.update({
-        'SITE_URL': settings.SITE_URL,
         'TAGLINE': "Why you no write tutorial?"
     })
 

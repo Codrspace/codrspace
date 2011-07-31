@@ -1,5 +1,5 @@
 """Main codrspace views"""
-
+import requests
 from datetime import datetime
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
@@ -8,18 +8,14 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
-try:
-    from local_settings import GITHUB_USER
-except ImportError:
-    # Will always authenticate as 'durden' and only for codrspace app
-    GITHUB_USER = "durden"
-
-from settings import GITHUB_CLIENT_ID, DEBUG
 from codrspace.models import Post, Profile, Media
 from codrspace.forms import PostForm, MediaForm
 
-import requests
+GITHUB_USER = getattr(settings, 'GITHUB_USER') or 'durden'
+GITHUB_CLIENT_ID = getattr(settings, 'GITHUB_CLIENT_ID') or '33642ce3ebbadb4a8787'
+DEBUG = getattr(settings, 'DEBUG', False)
 
 
 def index(request, template_name="home.html"):

@@ -59,6 +59,8 @@
             </div>
 
             <div id="media-form-wrap">
+            {% include "shortcode_help.html" %}
+
                 <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ media_form.file }}

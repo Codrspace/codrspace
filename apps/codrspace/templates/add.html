@@ -59,6 +59,7 @@
             </div>
 
             <div id="media-form-wrap">
+            {% include "shortcode_help.html" %}
                 {% csrf_token %}
                 {{ media_form.file }}
                 <input type="submit" name="submit_file" value="Upload File" />
