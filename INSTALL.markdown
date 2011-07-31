@@ -77,7 +77,7 @@ callbacks for local testing.  Unforunately it requires a bit of manual setup.
 Next sync and start the main codrspace instance.
 
   - `cd codrspace`
-  - `python manage.py sncydb`
+  - `python manage.py syncdb`
   - `python manage.py runserver`
 
 Now you have two instances of the django development server running.
