@@ -105,6 +105,7 @@ def edit(request, pk=0, template_name="edit.html"):
     media_form = MediaForm()
 
     if request.method == "POST":
+
         # media post
         if 'file' in request.FILES:
             media_form = MediaForm(request.POST, request.FILES)
@@ -117,7 +118,7 @@ def edit(request, pk=0, template_name="edit.html"):
         # post post  hehe
         if 'title' in request.POST:
             form = PostForm(request.POST, instance=post)
-            if form.is_valid():
+            if form.is_valid() and 'submit_post' in request.POST:
                 post = form.save(commit=False)
                 if post.status == 'published':
                     if not post.publish_dt:
@@ -132,11 +133,7 @@ def edit(request, pk=0, template_name="edit.html"):
                     'media_set': media_set,
                     'media_form': media_form,
                 })
-
-            if post.status == "draft":
-                post.publish_dt = None
-
-            post.save()
+        
             return render(request, template_name, {
                 'form': form,
                 'post': post,

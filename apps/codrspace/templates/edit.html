@@ -11,11 +11,13 @@
 
     <div id="edit-wrap">
     <div id="mode-msg">Edit mode</div>
+
+    <form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
     <table><tr><td>
 
         <div id="post-wrap">
-        <form action="" method="POST">
-            {% csrf_token %}
             {% for field in form %}
             <div class="fieldWrapper">
                 {{ field.errors }}
@@ -26,10 +28,9 @@
             <div id="content">{{ form.content }}</div>
             <div id="status">
                 {{ form.status }}
-                <input type="submit" value="Save changes" />
+                <input type="submit" name="submit_post" value="Save changes" />
                 <a id="view-post-link" href="{{ post.get_absolute_url }}">View Post &raquo;</a>
             </div>
-        </form>
         </div>
 
         {% if posts %}
@@ -51,11 +52,9 @@
             {% include "shortcode_help.html" %}
 
             <div id="media-form-wrap">
-                <form action="" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ media_form.file }}
-                    <input type="submit" value="Upload File" />
-                </form>
+                {% csrf_token %}
+                {{ media_form.file }}
+                <input type="submit" name="submit_file" value="Upload File" />
             </div>
 
             {% if media_set %}
@@ -69,6 +68,7 @@
         </div>
 
     </td></tr></table>
+    </form>
     </div>
 
 </div>
