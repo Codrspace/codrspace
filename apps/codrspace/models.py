@@ -56,7 +56,9 @@ class Post(models.Model):
 
         super(Post, self).save(*args, **kwargs)
 
+        # Invalidate cache for all individual posts and the list of posts
         invalidate_cache_key('content', self.pk)
+        invalidate_cache_key('post_list', self.author.pk)
 
 
     @models.permalink
