@@ -38,7 +38,7 @@ def top_posters(context, amount):
 
 @register.inclusion_tag("lastest_posts.html", takes_context=True)
 def latest_posts(context, amount):
-    posts = Post.objects.filter(status="published").order_by('-pk')
+    posts = Post.objects.filter(status="published").order_by('-publish_dt')
     if posts:
         posts = posts[:int(amount)]
     context.update({
