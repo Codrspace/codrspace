@@ -35,7 +35,7 @@ def add(request, template_name="add.html"):
     """ Add a post """
 
     posts = Post.objects.filter(author=request.user).order_by('-pk')
-    media_set = Media.objects.filter(author=request.user).order_by('-pk')
+    media_set = Media.objects.filter().order_by('-pk')
     media_form = MediaForm()
 
     if hasattr(request, 'FILES'):
@@ -73,7 +73,7 @@ def edit(request, pk=0, template_name="edit.html"):
     """ Edit a post """
     post = get_object_or_404(Post, pk=pk)
     posts = Post.objects.filter(author=request.user).order_by('-pk')
-    media_set = Media.objects.filter(author=request.user).order_by('-pk')
+    media_set = Media.objects.filter().order_by('-pk')
     media_form = MediaForm()
 
     if hasattr(request, 'FILES'):
