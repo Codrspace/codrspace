@@ -11,7 +11,15 @@
 </div>
 {% endblock %}
 
-{% block nav %}{% endblock %}
+{% block nav %}
+    {% if user.is_authenticated %}
+        <ul id="home-navigation">
+            <li><a href="{% url post_list user.username %}">My Posts</a></li>
+            <li><a href="{% url add %}">Add a Post</a></li>
+            <li><a href="{% url signout %}">Sign Out</a></li>
+        </ul>
+    {% endif %}
+{% endblock %}
 
 {% block content %} 
     <div id="home-content">
@@ -30,8 +38,6 @@
         <p>Less headache, more <strong>focus on writing about code</strong>, and because it's a <a href="http://djangodash.com/">Django Dash Project</a> and we would love your support!.</p>
         {% if not user.is_authenticated %}
             <a class="get-started" href="{% url signin_start %}">Get Started &rarr;</a>
-        {% else %}
-            <a class="get-started" href="{% url add %}">Add a Post&rarr;</a>
         {% endif %}
     </div>
 {% endblock %}

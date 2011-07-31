@@ -26,8 +26,7 @@ def post_detail(request, username, slug, template_name="post_detail.html"):
     post = get_object_or_404(
         Post,
         author=user,
-        slug=slug,
-    )
+        slug=slug,)
 
     if post.status == 'draft':
         if post.author != request.user:
@@ -36,8 +35,7 @@ def post_detail(request, username, slug, template_name="post_detail.html"):
     return render(request, template_name, {
         'username': username,
         'post': post,
-        'meta': user.profile.get_meta(),
-    })
+        'meta': user.profile.get_meta(), })
 
 
 @login_required
@@ -94,7 +92,7 @@ def add(request, template_name="add.html"):
 
     form = PostForm()
     return render(request, template_name, {
-        'form': form, 
+        'form': form,
         'posts': posts,
         'media_set': media_set,
         'media_form': media_form,
@@ -138,12 +136,23 @@ def edit(request, pk=0, template_name="edit.html"):
                     'media_form': media_form,
                 })
 
+            if post.status == "draft":
+                post.publish_dt = None
+
+            post.save()
+            return render(request, template_name, {
+                'form': form,
+                'post': post,
+                'posts': posts,
+                'media_set': media_set,
+                'media_form': media_form,
+            })
 
     form = PostForm(instance=post)
     return render(request, template_name, {
-        'form':form,
-        'post':post,
-        'posts':posts,
+        'form': form,
+        'post': post,
+        'posts': posts,
         'media_set': media_set,
         'media_form': media_form,
     })
@@ -172,6 +181,7 @@ def _validate_github_response(resp):
     if resp.status_code != 200 or 'error' in resp.content:
         raise Exception('code: %u content: %s' % (resp.status_code,
                                                   resp.content))
+
 
 def _parse_github_access_token(content):
     """Super hackish way of parsing github access token from request"""
@@ -203,9 +213,7 @@ def signin_callback(request, slug=None, template_name="base.html"):
     # access_token=1c21852a9f19b685d6f67f4409b5b4980a0c9d4f&token_type=bearer
     token = resp.content.split('&')[0].split('=')[1]
     resp = requests.get(
-        'https://api.github.com/user?access_token=%s' % (
-        token
-    ))
+        'https://api.github.com/user?access_token=%s' % (token))
 
     # FIXME: Handle error
     _validate_github_response(resp)
@@ -219,8 +227,8 @@ def signin_callback(request, slug=None, template_name="base.html"):
             'username': github_user['login'],
             'is_active': True,
             'is_superuser': False,
-            'password': password
-        }
+            'password': password}
+
         user = User(**user_defaults)
 
     if user:
@@ -234,10 +242,10 @@ def signin_callback(request, slug=None, template_name="base.html"):
         profile.git_access_token = token
         profile.save()
 
-        # Fake auth b/c github already verified them and we aren't using our own
-        # passwords...yet?
+        # Fake auth b/c github already verified them and we aren't using our
+        # own #passwords...yet?
         user.auto_login = True
         user = authenticate(user=user)
-        login(request, user) 
+        login(request, user)
 
     return redirect(reverse('post_list', args=[user.username]))
