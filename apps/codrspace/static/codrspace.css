@@ -16,8 +16,9 @@ body {
 
 }
 
+
 #home-content { padding: 20px; padding-bottom: 60px;}
-#home-content h3 { font-family: 'OCRAStdRegular'; font-size: 20px;}
+#home-content h3 { font-size: 20px;}
 ul#home-navigation {
   list-style-type: none;
   margin: 0;
