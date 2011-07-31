@@ -61,6 +61,11 @@ def filter_gist(value):
             _colorize_table(content['files'][name]['content'], None)
         )
 
+    if content['comments'] > 0:
+        gist_text += '<hr>Join the conversation on ' + \
+                        '<a href="%s#comments">github</a> (%d comments)' % (
+                            content['html_url'], content['comments'])
+
     return (re.sub(pattern, gist_text, markdown.markdown(value)), match)
 
 
