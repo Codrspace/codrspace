@@ -23,15 +23,9 @@ def get_setting(setting):
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-# You can get this token from github.com by doing the following:
-#   - Login to your account
-#   - Click 'Account Settings' at top
-#   - Click 'Account Admin' on left (middle of page
-#   - Copy/paste token under 'API Token' section below
-
-# Replace with your own github API token to run locally and have faked OAuth
-# instance always authorize as you
-#GITHUB_API_TOKEN = ''
+# Replace with your own github username to run locally and have your profile
+# filled out automatically without an access token from the fake Oauth instance
+#GITHUB_USER = ''
 
 # Overrides for middleware to avoid having the CSRF protection when running
 # locally
