@@ -49,10 +49,20 @@ class Post(models.Model):
         # if slug exists
         count = 1
         while True:
-            if Post.objects.filter(slug=self.slug):
+
+            if self.pk:
+                slug_exists = Post.objects.filter(
+                    slug=self.slug).exclude(
+                    pk=self.pk).exists()
+            else:
+                slug_exists = Post.objects.filter(
+                    slug=self.slug).exists()
+
+            if slug_exists:
                 count += 1
                 self.slug = '%s-%d' % (slug, count)
-            else: break
+            else:
+                break
 
         super(Post, self).save(*args, **kwargs)
 

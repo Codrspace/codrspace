@@ -13,7 +13,7 @@
     <div id="mode-msg">Edit mode</div>
     <table><tr><td>
 
-        <div >
+        <div id="post-wrap">
         <form action="" method="POST">
             {% csrf_token %}
             {% for field in form %}
@@ -25,9 +25,12 @@
             <div id="slug">{{ form.slug }}</div>
             <div id="content">{{ form.content }}</div>
             <div id="status">
-            {{ form.status }}
-            <input type="submit" value="Save changes" />
-            <a href="{{ post.get_absolute_url }}">View Post</a>
+                {{ form.status }}
+                <input type="submit" value="Save changes" />
+                <a id="view-post-link" href="{{ post.get_absolute_url }}">View Post &raquo;</a>
+                <span id="shortcode-examples">
+                    Shortcode examples: [gist 1044977] [local 6e977188bba81.py]
+                </span>
             </div>
         </form>
         </div>
@@ -59,7 +62,7 @@
             {% if media_set %}
             <div id="media-list">
             {% for media in media_set %}
-                <div class="media-item" title="Click to append shortcode"><a href="javascript:;">{{ media.shortcode }}</a></div>
+                <div class="media-item" title="Click to insert shortcode"><a href="javascript:;">{{ media.shortcode }}</a></div>
             {% endfor %}
             </div>
             {% endif %}
