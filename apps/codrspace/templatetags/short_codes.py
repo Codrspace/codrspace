@@ -6,6 +6,7 @@ import mimetypes
 import re
 import os
 import markdown
+import urlparse
 
 from django.utils import simplejson
 from django import template
@@ -73,19 +74,36 @@ def filter_gist(value):
     return (value, True)
 
 
+def _validate_url(url):
+    """Validate a url, return None if not value or url if valid"""
+    parsed_url = urlparse.urlparse(url)
+
+    if parsed_url.scheme != 'http' and parsed_url.scheme != 'https':
+        return None
+
+    if parsed_url.netloc == '':
+        return None
+
+    return url
+
+
 def filter_url(value):
     pattern = re.compile('\[url (\S+) *\]', flags=re.IGNORECASE)
 
     urls = re.findall(pattern, value)
     if not len(urls):
-        return value, None
+        return (value, None)
 
     for url in urls:
-        # FIXME: Validate that value is actually a url
+        url = _validate_url(url)
+        if url is None:
+            return (value, None)
+
+        # Validate that value is actually a url
         resp = requests.get(url)
 
         if resp.status_code != 200:
-            return value
+            return (value, None)
 
         value = re.sub(pattern, _colorize_table(resp.content, None),
                                                     markdown.markdown(value),

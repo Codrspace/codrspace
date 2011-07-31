@@ -9,6 +9,12 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
+try:
+    from local_settings import GITHUB_USER
+except ImportError:
+    # Will always authenticate as 'durden' and only for codrspace app
+    GITHUB_USER = "durden"
+
 from settings import GITHUB_CLIENT_ID, DEBUG
 from codrspace.models import Post, Profile, Media
 from codrspace.forms import PostForm, MediaForm
@@ -190,6 +196,11 @@ def signin_callback(request, slug=None, template_name="base.html"):
 
     user = None
     url = 'https://github.com/login/oauth/access_token'
+
+    # Just request user setup locally if debug to prevent using the token
+    # that was faked out
+    user_url = 'https://api.github.com/users/%s' % (GITHUB_USER)
+
     if DEBUG:
         url = 'http://localhost:9000/access_token/'
 
@@ -206,8 +217,12 @@ def signin_callback(request, slug=None, template_name="base.html"):
     # String looks like this currently
     # access_token=1c21852a9f19b685d6f67f4409b5b4980a0c9d4f&token_type=bearer
     token = resp.content.split('&')[0].split('=')[1]
-    resp = requests.get(
-        'https://api.github.com/user?access_token=%s' % (token))
+
+    if not DEBUG:
+        # Use token to request logged in user when running normally
+        user_url = 'https://api.github.com/user?access_token=%s' % (token)
+
+    resp = requests.get(user_url)
 
     # FIXME: Handle error
     _validate_github_response(resp)
