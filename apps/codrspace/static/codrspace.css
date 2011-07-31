@@ -4,7 +4,20 @@ body {
     margin: 0;
 }
 
+@font-face {
+    font-family: 'OCRAStdRegular';
+    src: url('ocrastd-webfont.eot');
+    src: url('ocrastd-webfont.eot?#iefix') format('embedded-opentype'),
+         url('ocrastd-webfont.woff') format('woff'),
+         url('ocrastd-webfont.ttf') format('truetype'),
+         url('ocrastd-webfont.svg#OCRAStdRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 #home-content { padding: 20px; }
+#home-content h3 { font-family: 'OCRAStdRegular'; font-size: 30px;}
 #header { border-bottom: 1px solid #ccc; padding: 10px; }
 #header .logo { font-size: 36px; }
 #header .logo a { color: white; text-decoration: none; }
@@ -17,6 +30,10 @@ a.get-started { font-size: 24px; }
     right: 0;
     left: 0;
     padding: 10px;
+}
+
+.coder-font {
+  font-family: 'OCRAStdRegular'; 
 }
 
 .shadowee {
