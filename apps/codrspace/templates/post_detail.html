@@ -27,7 +27,7 @@
                     <div class="post-meta">{{ post.create_dt }}</div>
                     <div class="post-content">
                         {% load cache %}
-                        {% cache 3600 content %}
+                        {% cache 300 content post.pk %}
                             {{ post.content|explosivo }}
                         {% endcache %}
                     </div>
