@@ -30,6 +30,7 @@ class Post(models.Model):
 class Media(models.Model):
     file = models.FileField(upload_to=file_directory, null=True)
     filename = models.CharField(max_length=200, editable=False)
+    uploader = models.ForeignKey(User, editable=False)
     upload_dt = models.DateTimeField(auto_now_add=True)
 
     def type(self):
