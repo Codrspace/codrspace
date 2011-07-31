@@ -32,7 +32,7 @@
                     {% endif %}
                 </div>
             {% empty %}
-                {% if username == request.username %}
+                {% if username == request.user.username %}
                     <div id="no-posts-message">
                         <p>A little empty ...</p> 
                         <p><a href="{% url add %}">Let's add some posts!</a></p>
