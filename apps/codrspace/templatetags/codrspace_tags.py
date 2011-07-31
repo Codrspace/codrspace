@@ -24,9 +24,9 @@ def random_blog(parser, token):
 @register.inclusion_tag("top_posters.html", takes_context=True)
 def top_posters(context, amount):
     top_ps = Post.objects.raw("""
-        SELECT id, author_id, count(*) 
+        SELECT id, author_id, count(*) as post_count
         FROM codrspace_post WHERE status='published' 
-        GROUP BY author_id
+        GROUP BY author_id ORDER by post_count
     """)
     if top_ps:
         top_ps = top_ps[:int(amount)]
