@@ -1,14 +1,15 @@
 """Mock views for testing OAuth with Github API locally"""
 
 
-import random
-
 from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 
-token = "1c21852a9f19b685d6f67f4409b5b4980a0c9d4f"
-code = 100
+try:
+    from local_settings import GITHUB_API_TOKEN
+except ImportError:
+    # Will always authenticate as 'durden' and only for codrspace app
+    GITHUB_API_TOKEN = "1c21852a9f19b685d6f67f4409b5b4980a0c9d4f"
 
 
 def authorize(request):
@@ -17,6 +18,8 @@ def authorize(request):
     if 'client_id' not in request.GET:
         raise Exception("Authorize must specify client_id")
 
+    # Just send some code back, doesn't matter for testing
+    code = 100
     return redirect("%s?code=%d" % (reverse('signin_callback'), code))
 
 
@@ -35,5 +38,5 @@ def access_token(request):
     if 'code' not in request.POST:
         raise Exception("Authorize must specify code")
 
-    return HttpResponse("access_token=%s&token_type=bearer" % (token),
-                        mimetype="text/plain")
+    return HttpResponse("access_token=%s&token_type=bearer" % (
+                                    GITHUB_API_TOKEN), mimetype="text/plain")
