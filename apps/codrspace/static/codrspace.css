@@ -295,7 +295,7 @@ ol#post-list {
 }
 
 #add-page {
-  margin-top: 50px;
+  margin-top: 56px;
 }
 
 #add-page table td {
@@ -314,7 +314,7 @@ ol#post-list {
 }
 
 #edit-page {
-  margin-top: 50px;  
+  margin-top: 56px;  
 }
 
 #edit-page #post-list {
@@ -380,9 +380,15 @@ ol#post-list {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  text-align: left;
+}
+
+#media-form-wrap input#id_file {
+  width: 160px;
 }
 
 #image-list .image-item {
+  font-size: 10px;
   padding: 10px;
   background-color: #FAFAFA;
   text-align: left;

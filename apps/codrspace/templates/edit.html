@@ -9,6 +9,7 @@
     <div id="mode-msg">Edit mode</div>
     <table><tr><td>
 
+        <div >
         <form action="" method="POST">
             {% csrf_token %}
             {% for field in form %}
@@ -23,6 +24,7 @@
             <input type="submit" value="Save changes" />
             </div>
         </form>
+        </div>
 
         {% if posts %}
         <ol id="post-list">
@@ -51,7 +53,7 @@
             {% if media_set %}
             <div id="image-list">
             {% for media in media_set %}
-                <div class="image-item">{{ media.filename }}</div>
+                <div class="image-item">![{{ media.filename }}]({{ media.file.url }})</div>
             {% endfor %}
             </div>
             {% endif %}
