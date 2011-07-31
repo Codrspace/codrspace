@@ -34,8 +34,8 @@ def post_list(request, username, template_name="post_list.html"):
 def add(request, template_name="add.html"):
     """ Add a post """
 
-    posts = Post.objects.all().order_by('-pk')
-    media_set = Media.objects.all().order_by('-pk')
+    posts = Post.objects.filter(author=request.user).order_by('-pk')
+    media_set = Media.objects.filter(author=request.user).order_by('-pk')
     media_form = MediaForm()
 
     if hasattr(request, 'FILES'):
@@ -72,8 +72,8 @@ def add(request, template_name="add.html"):
 def edit(request, pk=0, template_name="edit.html"):
     """ Edit a post """
     post = get_object_or_404(Post, pk=pk)
-    posts = Post.objects.all().order_by('-pk')
-    media_set = Media.objects.all().order_by('-pk')
+    posts = Post.objects.filter(author=request.user).order_by('-pk')
+    media_set = Media.objects.filter(author=request.user).order_by('-pk')
     media_form = MediaForm()
 
     if hasattr(request, 'FILES'):
