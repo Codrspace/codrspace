@@ -78,8 +78,6 @@ def _validate_url(url):
     """Validate a url, return None if not value or url if valid"""
     parsed_url = urlparse.urlparse(url)
 
-    print parsed_url
-
     if parsed_url.scheme != 'http' and parsed_url.scheme != 'https':
         return None
 
