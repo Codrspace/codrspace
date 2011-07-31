@@ -6,9 +6,6 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 APPS_PATH = os.path.join(PROJECT_ROOT, 'apps')
 sys.path.insert(0, APPS_PATH)
 
-# Specific ID for app when it was registered with github
-GITHUB_CLIENT_ID='33642ce3ebbadb4a8787'
-
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
@@ -183,6 +180,11 @@ CACHE_MIDDLEWARE_ALIAS = 'default'
 CACHE_MIDDLEWARE_SECONDS = 3600
 CACHE_MIDDLEWARE_KEY_PREFIX = 'codrspace'
 
+# Github information
+# Specific ID for app when it was registered with github
+GITHUB_CLIENT_ID =''
+GITHUB_USER = ''
+
 # Custom profile and authentication
 AUTH_PROFILE_MODULE = 'codrspace.Profile'
 AUTHENTICATION_BACKENDS = (
@@ -194,15 +196,6 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/signin/'
 LOGOUT_URL = '/signout/'
-
-# Domain Configuration
-SITE_PROTOCOL = 'http'
-SITE_DOMAIN = 'codrspace.com'
-SITE_PORT = 80
-SITE_URL = '%(protocol)s://%(domain)s' % {
-    'protocol': SITE_PROTOCOL,
-    'domain': SITE_PROTOCOL
-}
 
 # local settings for settings override
 try:
