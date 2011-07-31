@@ -52,9 +52,9 @@
             </div>
 
             {% if media_set %}
-            <div id="image-list">
+            <div id="media-list">
             {% for media in media_set %}
-                <div class="image-item">{{ media.shortcode }}</div>
+                <div class="media-item"><a href="">{{ media.shortcode }}</a></div>
             {% endfor %}
             </div>
             {% endif %}
