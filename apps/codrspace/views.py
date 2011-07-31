@@ -21,7 +21,7 @@ def index(request, template_name="home.html"):
 @login_required
 def post_list(request, username, template_name="post_list.html"):
 
-    posts = Post.objects.filter(author=request.user)
+    posts = Post.objects.filter(author=request.user, status="published")
     posts = posts.order_by('-pk')
 
     return render(request, template_name, {
