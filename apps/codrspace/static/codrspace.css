@@ -104,8 +104,6 @@ a.get-started { font-size: 24px; }
 
 /* post-list content */
 #post-list-content {
-  margin: 0 auto;
-  margin-top: 50px;
   width: 1000px;
 }
 
@@ -128,7 +126,7 @@ a.get-started { font-size: 24px; }
 }
 
 #post-list-content .post-header {
-  margin-bottom: 4px;
+  margin: 0 0 4px 0;
   font-size: 30px;
 }
 

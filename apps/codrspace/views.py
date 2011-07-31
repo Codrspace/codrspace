@@ -1,6 +1,7 @@
 """Main codrspace views"""
 
 from datetime import datetime
+from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import simplejson
 from django.core.urlresolvers import reverse
@@ -26,8 +27,11 @@ def post_detail(request, username, slug, template_name="post_detail.html"):
         Post,
         author=user,
         slug=slug,
-        status="published"
     )
+
+    if post.status == 'draft':
+        if post.status != request.user:
+            raise Http404
 
     return render(request, template_name, {
         'post': post,
