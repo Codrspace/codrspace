@@ -36,7 +36,7 @@
                     <div class="post-content">
                         {{ post.content|explosivo }}
                     </div>
-                    {% if user.is_authenticated %}
+                    {% if username == user.username %}
                         <div class="post-options">
                             <a href="{% url edit post.pk %}">Edit Post</a>
                         </div>
