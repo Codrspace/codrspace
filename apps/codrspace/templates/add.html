@@ -2,6 +2,10 @@
 
 {% block title %}Add a post{% endblock %}
 
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}tipsy.css">
+{% endblock %}
+
 {% block content %}
 <div id="add-page">
 
@@ -50,7 +54,7 @@
             {% if media_set %}
             <div id="media-list">
             {% for media in media_set %}
-                <div class="media-item" title="Click to append shortcode"><a href="javascript:;">{{ media.shortcode }}</a></div>
+                <div class="media-item" title="Click to insert shortcode"><a href="javascript:;">{{ media.shortcode }}</a></div>
             {% endfor %}
             </div>
             {% endif %}
@@ -65,11 +69,14 @@
 {% endblock %}
 
 {% block extra_body %}
+<script type="text/javascript" src="{{ STATIC_URL }}jquery.tipsy.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}jquery.insertat.js"></script>
 <script type="text/javascript">
-
+    $('.media-item').tipsy({
+        gravity: 'e'
+    });
     $(".media-item a").click(function(){
-        $("#id_content").val($('#id_content').val()+ $(this).text());
-        $("#id_content")[0].scrollTop = $("#id_content")[0].scrollHeight;
+        $("#id_content").insertAtCaret($(this).text());
         return false;
     });
 
