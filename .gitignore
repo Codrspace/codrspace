@@ -6,6 +6,5 @@
 *.swo
 *.script
 local_settings.py
-production_settings.py
 site_media
 cache

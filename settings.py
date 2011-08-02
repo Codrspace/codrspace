@@ -168,12 +168,7 @@ LOGGING = {
 
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': os.path.join(PROJECT_ROOT, 'cache'),
-        'TIMEOUT': 3600,
-        'OPTIONS': {
-                'MAX_ENTRIES': 1000
-        }
+        'BACKEND': 'django.core.cache.backends.filebased.DummyCache'
     }
 }
 
