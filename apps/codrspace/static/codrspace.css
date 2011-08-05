@@ -645,3 +645,16 @@ div#recent-codrs-wrapper img {
   border: 3px solid #DDD;
   margin-right: 5px;
 }
+
+#wmd-button-bar {
+  width: 50%;
+  background: none;
+}
+
+#wmd-button-bar, .wmd-panel {
+  margin: 0;
+}
+
+#wmd-help-button {
+  display: none;
+}
