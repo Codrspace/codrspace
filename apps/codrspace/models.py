@@ -8,10 +8,11 @@ from django.utils.hashcompat import md5_constructor
 from django.core.cache import cache
 from django.utils.http import urlquote
 
+
 def invalidate_cache_key(fragment_name, *variables):
-   args = md5_constructor(u':'.join([urlquote(var) for var in variables]))
-   cache_key = 'template.cache.%s.%s' % (fragment_name, args.hexdigest())
-   cache.delete(cache_key)
+    args = md5_constructor(u':'.join([urlquote(var) for var in variables]))
+    cache_key = 'template.cache.%s.%s' % (fragment_name, args.hexdigest())
+    cache.delete(cache_key)
 
 
 def file_directory(instance, filename):
@@ -44,7 +45,7 @@ class Post(models.Model):
 
         # if no slug aka via no title
         if not self.slug:
-            self.slug = Post.objects.count()+1
+            self.slug = Post.objects.count() + 1
 
         # if slug exists
         count = 1
@@ -69,7 +70,6 @@ class Post(models.Model):
         # Invalidate cache for all individual posts and the list of posts
         invalidate_cache_key('content', self.pk)
         invalidate_cache_key('post_list', self.author.pk)
-
 
     @models.permalink
     def get_absolute_url(self):

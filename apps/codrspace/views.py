@@ -108,7 +108,8 @@ def edit(request, pk=0, template_name="edit.html"):
             if media_form.is_valid():
                 media = media_form.save(commit=False)
                 media.uploader = request.user
-                media.filename = unicode(media_form.cleaned_data.get('file', ''))
+                media.filename = unicode(media_form.cleaned_data.get(
+                                                                'file', ''))
                 media.save()
 
         # post post  hehe
@@ -120,16 +121,16 @@ def edit(request, pk=0, template_name="edit.html"):
                     if not post.publish_dt:
                         post.publish_dt = datetime.now()
                 if post.status == "draft":
-                    post.publish_dt = None;
+                    post.publish_dt = None
                 post.save()
                 return render(request, template_name, {
-                    'form':form, 
-                    'post':post,
-                    'posts':posts,
+                    'form': form,
+                    'post': post,
+                    'posts': posts,
                     'media_set': media_set,
                     'media_form': media_form,
                 })
-        
+
             return render(request, template_name, {
                 'form': form,
                 'post': post,

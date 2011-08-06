@@ -4,7 +4,8 @@ from bundle_config import config
 DEBUG = False
 
 # Media and Static file
-MEDIA_ROOT = os.path.join(os.getenv('EPIO_DATA_DIRECTORY', PROJECT_ROOT), 'media')
+MEDIA_ROOT = os.path.join(os.getenv('EPIO_DATA_DIRECTORY', PROJECT_ROOT),
+                                                                    'media')
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'site_media/static/')
 
 # Github setup
@@ -16,7 +17,7 @@ GITHUB_AUTH = {
     'access_token_url': 'https://github.com/login/oauth/access_token',
 
     # Get information of authenticated user
-    'user_url':'https://api.github.com/user',
+    'user_url': 'https://api.github.com/user',
 }
 
 # Database Settings

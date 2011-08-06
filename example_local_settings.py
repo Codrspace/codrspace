@@ -11,6 +11,7 @@ The are 2 main reasons for using local_settings.py when running locally:
           it doesn't serve a lot of purpose.
 """
 
+
 def get_setting(setting):
     """
     Get a setting from settings.py
