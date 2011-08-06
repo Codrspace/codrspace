@@ -13,10 +13,6 @@ from django.conf import settings
 from codrspace.models import Post, Profile, Media
 from codrspace.forms import PostForm, MediaForm
 
-GITHUB_USER = getattr(settings, 'GITHUB_USER') or 'durden'
-GITHUB_CLIENT_ID = getattr(settings, 'GITHUB_CLIENT_ID') or '33642ce3ebbadb4a8787'
-DEBUG = getattr(settings, 'DEBUG', False)
-
 
 def index(request, template_name="home.html"):
     return render(request, template_name)
@@ -155,11 +151,10 @@ def edit(request, pk=0, template_name="edit.html"):
 def signin_start(request, slug=None, template_name="signin.html"):
     """Start of OAuth signin"""
 
-    url = 'https://github.com/login/oauth/authorize'
-    if DEBUG:
-        url = 'http://localhost:8000/authorize'
-
-    return redirect('%s?client_id=%s' % (url, GITHUB_CLIENT_ID))
+    return redirect('%s?client_id=%s&redirect_uri=%s' % (
+                    settings.GITHUB_AUTH['auth_url'],
+                    settings.GITHUB_AUTH['client_id'],
+                    settings.GITHUB_AUTH['callback_url']))
 
 
 def signout(request):
@@ -188,22 +183,13 @@ def _parse_github_access_token(content):
 def signin_callback(request, slug=None, template_name="base.html"):
     """Callback from Github OAuth"""
 
-    user = None
-    url = 'https://github.com/login/oauth/access_token'
-
-    # Just request user setup locally if debug to prevent using the token
-    # that was faked out
-    user_url = 'https://api.github.com/users/%s' % (GITHUB_USER)
-
-    if DEBUG:
-        url = 'http://localhost:9000/access_token/'
-
+    # FIXME: Handle exception
     code = request.GET['code']
-    resp = requests.post(url=url, data={
-                        'client_id': GITHUB_CLIENT_ID,
-                        'client_secret':
-                        '2b40ac4251871e09441eb4147cbd5575be48bde9',
-                        'code': code})
+
+    resp = requests.post(url=settings.GITHUB_AUTH['access_token_url'],
+                         data={'client_id': settings.GITHUB_AUTH['client_id'],
+                               'client_secret': settings.GITHUB_AUTH['secret'],
+                               'code': code})
 
     _validate_github_response(resp)
 
@@ -212,9 +198,12 @@ def signin_callback(request, slug=None, template_name="base.html"):
     # access_token=1c21852a9f19b685d6f67f4409b5b4980a0c9d4f&token_type=bearer
     token = resp.content.split('&')[0].split('=')[1]
 
-    if not DEBUG:
-        # Use token to request logged in user when running normally
-        user_url = 'https://api.github.com/user?access_token=%s' % (token)
+    # Don't use token unless running in production b/c mocked service won't
+    # know a valid token
+    user_url = settings.GITHUB_AUTH['user_url']
+
+    if not settings.DEBUG:
+        user_url = '%s?access_token=%s' % (user_url, token)
 
     resp = requests.get(user_url)
 

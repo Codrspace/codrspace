@@ -176,11 +176,6 @@ CACHE_MIDDLEWARE_ALIAS = 'default'
 CACHE_MIDDLEWARE_SECONDS = 3600
 CACHE_MIDDLEWARE_KEY_PREFIX = 'codrspace'
 
-# Github information
-# Specific ID for app when it was registered with github
-GITHUB_CLIENT_ID = ''
-GITHUB_USER = ''
-
 # Custom profile and authentication
 AUTH_PROFILE_MODULE = 'codrspace.Profile'
 AUTHENTICATION_BACKENDS = (
@@ -193,7 +188,20 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/signin/'
 LOGOUT_URL = '/signout/'
 
-# local settings for settings override
+# Information for correct authentication with github
+# Replace with information specific to your app, etc.
+GITHUB_AUTH = {
+    'client_id': '33642ce3ebbadb4a8787',
+    'secret': '2b40ac4251871e09441eb4147cbd5575be48bde9',
+    'callback_url': 'http://www.codrspace.com/signin_callback',
+    'auth_url': 'https://github.com/login/oauth/authorize',
+    'access_token_url': 'https://github.com/login/oauth/access_token',
+
+    # Get information of authenticated user
+    'user_url':'https://api.github.com/user',
+}
+
+# Override any settings locally
 try:
     from local_settings import *
 except ImportError:

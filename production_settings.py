@@ -1,11 +1,23 @@
 from settings import *
 from bundle_config import config
 
-DEBUG = True
+DEBUG = False
 
 # Media and Static file
 MEDIA_ROOT = os.path.join(os.getenv('EPIO_DATA_DIRECTORY', PROJECT_ROOT), 'media')
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'site_media/static/')
+
+# Github setup
+GITHUB_AUTH = {
+    'client_id': '003358f749bdb9e47e3a',
+    'secret': '057267fc8e1569cb0e41a9c1e692834df0c91ace',
+    'callback_url': 'http://codrspace.ep.io/signin_callback',
+    'auth_url': 'https://github.com/login/oauth/authorize',
+    'access_token_url': 'https://github.com/login/oauth/access_token',
+
+    # Get information of authenticated user
+    'user_url':'https://api.github.com/user',
+}
 
 # Database Settings
 DATABASES = {
