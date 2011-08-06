@@ -194,10 +194,7 @@ def signin_callback(request, slug=None, template_name="base.html"):
 
     _validate_github_response(resp)
 
-    # FIXME: Awful parsing w/ lots of assumptions
-    # String looks like this currently
-    # access_token=1c21852a9f19b685d6f67f4409b5b4980a0c9d4f&token_type=bearer
-    token = resp.content.split('&')[0].split('=')[1]
+    token = _parse_github_access_token(resp.content)
 
     # Don't use token unless running in production b/c mocked service won't
     # know a valid token
