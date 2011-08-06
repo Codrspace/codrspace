@@ -23,9 +23,16 @@ def get_setting(setting):
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-# Replace with your own github username to run locally and have your profile
+# Replace with your own github credentials to run locally and have your profile
 # filled out automatically without an access token from the fake Oauth instance
-#GITHUB_USER = ''
+#GITHUB_AUTH = {
+    #'client_id': '',
+    #'secret': '',
+    #'callback_url': '',
+    #'auth_url': '',
+    #'access_token_url': '',
+    #'user_url': '',
+#}
 
 # Overrides for middleware to avoid having the CSRF protection when running
 # locally
