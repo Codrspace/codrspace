@@ -15,9 +15,9 @@
           })();
 
         </script>
+        {% block extra_head %}{% endblock %}
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}codrspace.css">
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}pygments.css">
-        {% block extra_head %}{% endblock %}
     </head>
     <body>
         {% block header %} {% endblock %}
