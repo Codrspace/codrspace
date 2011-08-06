@@ -6,5 +6,7 @@
 *.swo
 *.script
 local_settings.py
+epio_settings.py
+linode_settings.py
 site_media
 cache

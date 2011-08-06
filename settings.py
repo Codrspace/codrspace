@@ -192,9 +192,9 @@ LOGOUT_URL = '/signout/'
 # Information for correct authentication with github
 # Replace with information specific to your app, etc.
 GITHUB_AUTH = {
-    'client_id': '33642ce3ebbadb4a8787',
-    'secret': '2b40ac4251871e09441eb4147cbd5575be48bde9',
-    'callback_url': 'http://www.codrspace.com/signin_callback',
+    'client_id': '',
+    'secret': '',
+    'callback_url': '',
     'auth_url': 'https://github.com/login/oauth/authorize',
     'access_token_url': 'https://github.com/login/oauth/access_token',
 
