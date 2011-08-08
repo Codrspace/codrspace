@@ -28,7 +28,7 @@ ul#home-navigation li {
 #header .logo { font-size: 36px; }
 #header .logo a { color: white; text-decoration: none; }
 #header .logo a:hover { text-decoration: none; }
-#header .tagline { padding: 10px 0 0 30px; }
+#header .tagline { padding: 10px 0 0 15px; }
 a.get-started { 
   background-color: #7fbf4d;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#7fbf4d), to(#63a62f));
