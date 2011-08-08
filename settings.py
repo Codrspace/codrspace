@@ -200,6 +200,9 @@ GITHUB_AUTH = {
 
     # Get information of authenticated user
     'user_url': 'https://api.github.com/user',
+
+    # Debug mode - for faking auth_url
+    'debug': False
 }
 
 # Override any settings locally

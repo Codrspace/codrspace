@@ -1,1 +1,11 @@
 local_settings.py
+.DS_Store
+*.pyc
+*.swp
+*.db
+*.sqlite
+*.swo
+*.script
+local_settings.py
+linode_settings.py
+cache
