@@ -200,7 +200,7 @@ def signin_callback(request, slug=None, template_name="base.html"):
     # know a valid token
     user_url = settings.GITHUB_AUTH['user_url']
 
-    if not settings.DEBUG:
+    if not settings.GITHUB_AUTH['debug']:
         user_url = '%s?access_token=%s' % (user_url, token)
 
     resp = requests.get(user_url)

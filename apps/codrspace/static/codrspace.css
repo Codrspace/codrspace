@@ -4,19 +4,6 @@ body {
     margin: 0;
 }
 
-@font-face {
-    font-family: 'OCRAStdRegular';
-    src: url('ocrastd-webfont.eot');
-    src: url('ocrastd-webfont.eot?#iefix') format('embedded-opentype'),
-         url('ocrastd-webfont.woff') format('woff'),
-         url('ocrastd-webfont.ttf') format('truetype'),
-         url('ocrastd-webfont.svg#OCRAStdRegular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
-
 #home-content { padding: 20px; padding-bottom: 60px;}
 #home-content h3 { font-size: 20px;}
 #home-content { float: left; }
@@ -40,8 +27,8 @@ ul#home-navigation li {
 #header { border-bottom: 1px solid #ccc; padding: 10px; }
 #header .logo { font-size: 36px; }
 #header .logo a { color: white; text-decoration: none; }
-#header .logo a:hover { text-decoration: underline; }
-#header .tagline { padding-left: 195px; }
+#header .logo a:hover { text-decoration: none; }
+#header .tagline { padding: 10px 0 0 30px; }
 a.get-started { 
   background-color: #7fbf4d;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#7fbf4d), to(#63a62f));
@@ -90,10 +77,6 @@ a.get-started {
 
 #footer a:hover {
   color: #B17C2A;
-}
-
-.coder-font {
-  font-family: 'OCRAStdRegular'; 
 }
 
 .shadowee {
