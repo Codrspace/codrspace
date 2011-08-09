@@ -3,8 +3,11 @@
     {% for post in posts %}
         <li>
             {% with post.author.profile.get_meta as git_meta %}
-                <img src="{{ git_meta.avatar_url }}" width="40" height="40" /> 
-                <a href="{{ post.get_absolute_url }}">{{ post.title|truncatewords:6 }}</a> by {{ post.author.username }}
+                <img src="{{ git_meta.avatar_url }}" width="40" height="40" />
+                <a href="{{ post.get_absolute_url }}">
+                    {% filter truncatewords:6 %}
+                        {% firstof post.title|truncatewords:6 'Untitled' %}
+                    {% endfilter %}</a> by {{ post.author.username }}
             {% endwith %}
         </li>
     {% empty %}
