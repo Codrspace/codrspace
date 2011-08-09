@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block header %}
-    <div id="auth-header" class="shadowee">
+    <div id="auth-header">
         <ul>
-            <li><a href="{% url homepage %}"><span class="coder-font">CodrSpace.com<span></a></li>
+            <li><a href="{% url homepage %}"><span class="codr-logo-text">CodrSpace<span></a></li>
             <li>Wecome, {{ user.username }}</li>
             <li><a href="{% url add %}">Add Post</a></li>
             <li><a href="{% url post_list user.username %}">Go to posts &rarr;</a></li>
@@ -18,7 +18,7 @@
 
 
 {% block footer %}
-    <div id="auth-footer" class="shadowee">
-        <span class="coder-font">2011 CodrSpace.com</span>&nbsp;&nbsp;<a href="{% url signout %}">Sign Out</a>
+    <div id="auth-footer">
+        <span class="codr-logo-text">2011 CodrSpace</span>&nbsp;&nbsp;<a href="{% url signout %}">Sign Out</a>
     </div>
 {% endblock %}
