@@ -33,6 +33,7 @@ TEMPLATE_DEBUG = DEBUG
     #'auth_url': '',
     #'access_token_url': '',
     #'user_url': '',
+    #'debug': True,
 #}
 
 # Overrides for middleware to avoid having the CSRF protection when running
