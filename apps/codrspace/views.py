@@ -14,6 +14,10 @@ from codrspace.models import Post, Profile, Media
 from codrspace.forms import PostForm, MediaForm
 
 
+class GithubAuthError(Exception):
+    pass
+
+
 def index(request, template_name="home.html"):
     return render(request, template_name)
 
@@ -167,9 +171,12 @@ def signout(request):
 def _validate_github_response(resp):
     """Raise exception if given response has error"""
 
-    # FIXME: Handle error
+    if resp.error is not None:
+        raise GithubAuthError('Could not communicate with Github API (%s)' % (
+                                                            resp.error.reason))
+
     if resp.status_code != 200 or 'error' in resp.content:
-        raise Exception('code: %u content: %s' % (resp.status_code,
+        raise GithubAuthError('code: %u content: %s' % (resp.status_code,
                                                   resp.content))
 
 
@@ -192,7 +199,10 @@ def signin_callback(request, slug=None, template_name="base.html"):
                                'client_secret': settings.GITHUB_AUTH['secret'],
                                'code': code})
 
-    _validate_github_response(resp)
+    try:
+        _validate_github_response(resp)
+    except GithubAuthError, err:
+        return render(request, 'auth_error.html', dictionary={'err': err})
 
     token = _parse_github_access_token(resp.content)
 
@@ -205,8 +215,11 @@ def signin_callback(request, slug=None, template_name="base.html"):
 
     resp = requests.get(user_url)
 
-    # FIXME: Handle error
-    _validate_github_response(resp)
+    try:
+        _validate_github_response(resp)
+    except GithubAuthError, err:
+        return redirect(reverse('auth_error', args=[err]))
+
     github_user = simplejson.loads(resp.content)
 
     try:
