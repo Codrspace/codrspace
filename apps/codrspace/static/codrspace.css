@@ -14,8 +14,8 @@ body {
 ul#home-navigation {
   list-style-type: none;
   margin: 0;
-  padding: 0 0 0 25px;
   background-color: #333;
+  padding: 0 0 0 0px;
   border-bottom: 1px solid #444;
   -moz-box-shadow: 0 2px 0 0 #262626, 0 -1px 0 0 #171717;
   -webkit-box-shadow: 0 2px 0 0 #262626, 0 -1px 0 0 #171717;
@@ -28,7 +28,7 @@ ul#home-navigation {
 ul#home-navigation li {
   float: left;
   font-size: 14px;
-  padding: 8px 20px 8px 0;
+  padding: 8px 20px 8px 15px;
 }
 
 ul#home-navigation li a {
