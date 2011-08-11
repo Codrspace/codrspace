@@ -20,10 +20,18 @@
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}pygments.css">
     </head>
     <body>
-        {% block header %} {% endblock %}
+        {% block header %}
+            <div id="header" class="shadowee">
+                <div class="logo"><a href="{% url homepage %}">__codrspace__</a></div>
+                <div class="tagline">{{ TAGLINE }}</div>
+            </div>
+        {% endblock %}
+
         {% block nav %}{% endblock %}
         {% block content %} {% endblock %}
-        {% block footer %}{% endblock %}
+        {% block footer %}
+            <div id="footer" class="shadowee">Created by <a href="http://www.lukelee.net/">Luke Lee</a>, <a href="http://theglenbot.com">Glen Zangirolami</a>, and <a href="http://eloyz.com">Eloy Zuniga</a> for Django Dash 2011</div>
+        {% endblock %}
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}jquery.labelify.js"></script>
         <script type="text/javascript" src="http://include.reinvigorate.net/re_.js"></script>
@@ -38,6 +46,15 @@
                 $("#add-post #title input").labelify({ text: function(input) { return "Why you no give me title?"; } });
             });
         </script>
-        {% block extra_body %}{% endblock %}
+        {% block extra_body %}
+            {{ block.super }}
+            <script type="text/javascript" src="{{ STATIC_URL }}jquery.tipsy.js"></script>
+            <script type="text/javascript">
+                $('#recent-codrs .recent-codr-image').tipsy({
+                    gravity: 's'
+                });
+                $('body').css('background', 'url("{{ STATIC_URL }}body-bg.jpg")');
+            </script>
+        {% endblock %}
     </body>
 </html>

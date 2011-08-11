@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Thanks for trying!{% endblock %}
+
+{% block content %}
+<div id="home-content">
+    <h2>Github Authentication</h2>
+    <p>
+        Looks like we couldn't get your <a href="http://www.github.com/">Github</a>
+        information.  This is pretty critical to your <a href="{% url homepage %}">codrspace</a> account.
+    </p>
+
+    <p>
+        <a href="http://www.github.com/">Github</a> reported the following problem:
+        <strong>{{ msg }}</strong>
+    </p>
+</div>
+{% endblock %}
