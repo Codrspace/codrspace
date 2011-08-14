@@ -43,10 +43,15 @@ ul#home-navigation li a {
 
 
 #header { padding: 10px; }
-#header .logo { font-size: 36px; }
+#header .logo { padding: 0; margin: 0; }
 #header .logo a { color: white; text-decoration: none; }
 #header .logo a:hover { text-decoration: none; }
-#header .tagline { padding: 10px 0 0 15px; color: #bb8b6f; }
+#header .tagline { 
+  padding: 0 0 0 5px;
+  font-style: italic;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
 a.get-started { 
   background-color: #7fbf4d;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#7fbf4d), to(#63a62f));
