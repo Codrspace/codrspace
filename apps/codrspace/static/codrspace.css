@@ -11,6 +11,10 @@ body {
 #home-content #home-col2 { float: left; padding-left: 50px;}
 #home-content #home-col3 { float: left; padding-left: 50px;}
 
+#header-spacer {
+  margin-top: 30px;
+}
+
 ul#home-navigation {
   list-style-type: none;
   margin: 0;
@@ -42,7 +46,7 @@ ul#home-navigation li a {
 #header .logo { font-size: 36px; }
 #header .logo a { color: white; text-decoration: none; }
 #header .logo a:hover { text-decoration: none; }
-#header .tagline { padding: 10px 0 0 15px; }
+#header .tagline { padding: 10px 0 0 15px; color: #bb8b6f; }
 a.get-started { 
   background-color: #7fbf4d;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#7fbf4d), to(#63a62f));
@@ -393,7 +397,7 @@ ol#post-list {
 }
 
 #add-page {
-  margin-top: 56px;
+  margin-top: 10px;
   margin-bottom: 40px;
 }
 
@@ -413,7 +417,7 @@ ol#post-list {
 }
 
 #edit-page {
-  margin-top: 56px;
+  margin-top: 10px;
   margin-bottom: 40px;
 }
 
@@ -425,8 +429,9 @@ ol#post-list {
 }
 
 #mode-msg {
-  background-color: #FFE;
   padding: 5px;
+  color: #777;
+  font-style: italic;
 }
 
 #add-wrap {
@@ -655,4 +660,22 @@ div#recent-codrs-wrapper img {
 
 span.codr-logo-text {
   color: #fff;
+}
+
+ul.messages {
+  padding: 0;
+  margin: 10px 0 0 0;
+  list-style-type: none;
+}
+
+ul.messages li.info {
+  border: 1px solid #39b546;
+  background-color: #b1e6b7;
+  margin: 10px;
+  padding: 10px;
+  text-align: center;
+}
+
+ul.message li.dismiss a {
+  font-size: 10px;
 }

@@ -26,9 +26,9 @@
                 <div class="tagline">{{ TAGLINE }}</div>
             </div>
         {% endblock %}
-
         {% block nav %}{% endblock %}
-        {% block content %} {% endblock %}
+        {% include "messages.html" with messages=messages %}
+        {% block content %}{% endblock %}
         {% block footer %}
             <div id="footer" class="shadowee">Created by <a href="http://www.lukelee.net/">Luke Lee</a>, <a href="http://theglenbot.com">Glen Zangirolami</a>, and <a href="http://eloyz.com">Eloy Zuniga</a> for Django Dash 2011</div>
         {% endblock %}
@@ -41,11 +41,6 @@
             reinvigorate.track("1um08-10kraz8amt");
             } catch(err) {}
         </script>
-        <script type="text/javascript">
-            $(document).ready(function(){
-                $("#add-post #title input").labelify({ text: function(input) { return "Why you no give me title?"; } });
-            });
-        </script>
         {% block extra_body %}
             {{ block.super }}
             <script type="text/javascript" src="{{ STATIC_URL }}jquery.tipsy.js"></script>
@@ -56,5 +51,6 @@
                 $('body').css('background', 'url("{{ STATIC_URL }}body-bg.jpg")');
             </script>
         {% endblock %}
+        <script type="text/javascript" src="{{ STATIC_URL }}codrspace.js"></script>
     </body>
 </html>

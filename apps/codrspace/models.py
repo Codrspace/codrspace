@@ -37,6 +37,9 @@ class Post(models.Model):
     create_dt = models.DateTimeField(auto_now_add=True)
     update_dt = models.DateTimeField(auto_now=True)
 
+    def __unicode__(self):
+        return '%s' % (self.title or 'Untitled')
+
     def save(self, *args, **kwargs):
 
         # slug via title

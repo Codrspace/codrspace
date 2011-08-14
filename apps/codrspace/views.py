@@ -1,7 +1,11 @@
 """Main codrspace views"""
 import requests
+import os
 from datetime import datetime
-from django.http import Http404
+from hashlib import md5
+from time import time
+
+from django.http import Http404, HttpResponseBadRequest, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import simplejson
 from django.core.urlresolvers import reverse
@@ -9,6 +13,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.contrib import messages
 
 from codrspace.models import Post, Profile, Media
 from codrspace.forms import PostForm, MediaForm
@@ -63,7 +68,6 @@ def add(request, template_name="add.html"):
     media_form = MediaForm()
 
     if request.method == "POST":
-
         # media
         media_form = MediaForm(request.POST, request.FILES)
         if media_form.is_valid():
@@ -83,6 +87,10 @@ def add(request, template_name="add.html"):
                 if post.status == 'published':
                     post.publish_dt = datetime.now()
                 post.save()
+                messages.info(
+                    request,
+                    'Added post %s successfully.' % post
+                )
                 return redirect('edit', pk=post.pk)
 
     else:
@@ -127,6 +135,10 @@ def edit(request, pk=0, template_name="edit.html"):
                 if post.status == "draft":
                     post.publish_dt = None
                 post.save()
+                messages.info(
+                    request,
+                    'Edited post %s successfully.' % post
+                )
                 return render(request, template_name, {
                     'form': form,
                     'post': post,
