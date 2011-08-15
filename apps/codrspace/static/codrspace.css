@@ -46,6 +46,7 @@ ul#home-navigation li a {
 #header .logo { padding: 0; margin: 0; }
 #header .logo a { color: white; text-decoration: none; border: 0; }
 #header .logo a:hover { text-decoration: none; border: 0; }
+#header .logo img { border: 0; }
 #header .tagline { 
   padding: 0 0 0 5px;
   font-style: italic;
