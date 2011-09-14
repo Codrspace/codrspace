@@ -45,7 +45,6 @@ def post_detail(request, username, slug, template_name="post_detail.html"):
         'meta': user.profile.get_meta(), })
 
 
-@login_required
 def post_list(request, username, template_name="post_list.html"):
     user = get_object_or_404(User, username=username)
 
