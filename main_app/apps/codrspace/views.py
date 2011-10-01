@@ -1,5 +1,5 @@
 """Main codrspace views"""
-#import requests
+import requests
 import os
 from datetime import datetime
 from hashlib import md5
