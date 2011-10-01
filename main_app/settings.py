@@ -193,8 +193,8 @@ LOGOUT_URL = '/signout/'
 # Information for correct authentication with github
 # Replace with information specific to your app, etc.
 GITHUB_AUTH = {
-    'client_id': '',
-    'secret': '',
+    'client_id': 'c6c13a49ee9399cc1c81',
+    'secret': '239124ffd7c1d4a827125cc7d7e0f4c1d4b74cc0',
     'callback_url': '',
     'auth_url': 'https://github.com/login/oauth/authorize',
     'access_token_url': 'https://github.com/login/oauth/access_token',
