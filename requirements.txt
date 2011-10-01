@@ -3,4 +3,5 @@ django
 psycopg2==2.4.2
 Markdown==2.0.3
 Pygments
--e git://github.com/kennethreitz/requests.git#egg=requests
+requests
+#-e git://github.com/kennethreitz/requests.git#egg=requests
