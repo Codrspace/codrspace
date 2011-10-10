@@ -24,7 +24,7 @@
         </div>
 
         {% load cache %}
-        {% cache 300 post_list user.pk %}
+        {% cache 300 post_list username %}
 
         <div id="right-column">
             {% for post in posts %}
