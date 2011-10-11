@@ -202,8 +202,11 @@ def _parse_github_access_token(content):
 def signin_callback(request, slug=None, template_name="base.html"):
     """Callback from Github OAuth"""
 
-    # FIXME: Handle exception
-    code = request.GET['code']
+    try:
+        code = request.GET['code']
+    except KeyError:
+        return render(request, 'auth_error.html', dictionary={
+                            'err': 'Unable to get request code from Github'})
 
     resp = requests.post(url=settings.GITHUB_AUTH['access_token_url'],
                          data={'client_id': settings.GITHUB_AUTH['client_id'],
