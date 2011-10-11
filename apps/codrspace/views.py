@@ -88,8 +88,7 @@ def add(request, template_name="add.html"):
                 post.save()
                 messages.info(
                     request,
-                    'Added post %s successfully.' % post
-                )
+                    'Added post %s successfully.' % post)
                 return redirect('edit', pk=post.pk)
 
     else:
@@ -136,8 +135,7 @@ def edit(request, pk=0, template_name="edit.html"):
                 post.save()
                 messages.info(
                     request,
-                    'Edited post %s successfully.' % post
-                )
+                    'Edited post %s successfully.' % post)
                 return render(request, template_name, {
                     'form': form,
                     'post': post,
