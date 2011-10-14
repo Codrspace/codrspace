@@ -2,7 +2,7 @@
 <ol id="post-list">
 {% for post in posts|slice:":10" %}
     <li><a href="{% url edit post.pk %}">
-        {{ forloop.counter }}. {{ post.title }} 
+        {{ forloop.counter }}. {% firstof post.title "Untitled" %} 
         <span class="post-status {{ post.status }}">{{ post.status }}</span>
         <span class="content-summary">{{ post.content|truncatewords:40 }} {{ post.publish_dt|date }}</span>
     </a></li>

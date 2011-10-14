@@ -8,44 +8,33 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}tipsy.css">
 {% endblock %}
 
-{% block nav %}
-    {% if user.is_authenticated %}
-        <ul id="home-navigation">
-            <li><a href="{% url post_list user.username %}">My Posts</a></li>
-            <li><a href="{% url add %}">Add a Post</a></li>
-            <li><a href="{% url signout %}">Sign Out</a></li>
-        </ul>
-    {% endif %}
-{% endblock %}
-
 {% block content %} 
     <div id="home-content">
-        <div id="home-col1">
-            <h3>What is Codrspace?</h3>
-            <p>It's a blogging platform for coders.</p>
-            <h3>What makes it special?</h3>
-            <ol>
-                <li>Integrated with GitHub. An already accelerated coding community.</li>
-                <li>Easily add gists and raw code through shortcodes.</li>
-                <li>No wysiwyg. Use markdown to create your posts easily.</li>
-                <li>No themeing. Auto generated styling of code and text.</li>
-            </ol>
-            <h3>Why Codrspace?</h3>
-            <p>Less headache, more <strong>focus on writing about code</strong>, and because it's a <a href="http://djangodash.com/">Django Dash Project</a> and we would love your support!.</p>
-            {% if not user.is_authenticated %}
-                <a class="get-started" href="{% url signin_start %}">Get Started &rarr;</a>
-            {% endif %}
-        </div>
-        <div id="home-col2">
-            <h3>Latest Posts</h3>
-            <div id="latest-posts-wrapper">{% latest_posts 4 %}</div>
-        </div>
-        <div id="home-col3">
-            <h3>Top Posters</h3>
-            <div id="top-posts-wrapper">{% top_posters 4 %}</div>
-        </div>
+        <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td class="col1">
+                    <h3>Features</h3>
+                    <ul>
+                        <li>Integrated with GitHub</li>
+                        <li>Syntax Highlighting</li>
+                        <li>Focus on Writing with Markdown</li>
+                        <li>More to come ...</li>
+                    </ul>
+                </td>
+                <td class="col2">
+                    {% if not user.is_authenticated %}
+                        <h3>Sign Up, It's Free!</h3>
+                        <a class="get-started" href="{% url signin_start %}">Sign Up</a>
+                        <p>Already a Member, <a href="{% url signin_start %}">Sign In</a></p>
+                    {% else %}
+                        <h3>Welcome back, {{ user.username }}!</h3>
+                        <a href="{% url add %}">Add Post</a>&nbsp;&nbsp;
+                        <a href="{% url signout %}">Sign Out</a>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
         <div id="recent-codrs-wrapper">
-            <h4>Awesome Codrs</h4>
             {% recent_codrs 20 %}
         </div>
     </div>

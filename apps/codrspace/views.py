@@ -11,6 +11,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib import messages
+from django.db.models import Q
 
 from codrspace.models import Post, Profile, Media
 from codrspace.forms import PostForm, MediaForm
@@ -45,7 +46,10 @@ def post_detail(request, username, slug, template_name="post_detail.html"):
 def post_list(request, username, template_name="post_list.html"):
     user = get_object_or_404(User, username=username)
 
-    posts = Post.objects.filter(author=user, status="published")
+    posts = Post.objects.filter(
+        Q(status="published") | Q(status="draft"),
+        author=user
+    )
     posts = posts.order_by('-pk')
 
     return render(request, template_name, {
