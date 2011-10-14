@@ -1,11 +1,8 @@
 """Main codrspace views"""
 import requests
-import os
 from datetime import datetime
-from hashlib import md5
-from time import time
 
-from django.http import Http404, HttpResponseBadRequest, HttpResponse
+from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import simplejson
 from django.core.urlresolvers import reverse
