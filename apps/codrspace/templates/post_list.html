@@ -5,6 +5,10 @@
 
 {% block title %}Latest posts by {{ username }}{% endblock %}
 
+{% block extra_head %}
+<link rel="alternate" type="application/rss+xml" href="{% url posts_feed username %}" title="Codrspace: Posts by {{ username }}">
+{% endblock %}
+
 {% block nav %}
     {% include "_nav.html" with page="post_list" %}
 {% endblock %}
