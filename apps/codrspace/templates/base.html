@@ -18,6 +18,9 @@
         {% block extra_head %}{% endblock %}
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}codrspace.css">
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}pygments.css">
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
     </head>
     <body>
         {% block nav %}
