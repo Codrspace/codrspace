@@ -517,6 +517,11 @@ p.github_convo {
   font-size: 12px;
 }
 
+.highlight {
+  border: 3px solid #ccc;
+  padding: 5px 0px 5px 20px;    
+}
+
 .highlighttable .linenos {
   vertical-align: top;
 
