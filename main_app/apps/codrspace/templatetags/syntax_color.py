@@ -4,12 +4,13 @@ from django.utils.safestring import mark_safe
 from pygments import highlight
 from pygments.formatters import HtmlFormatter
 from pygments.lexers import get_lexer_by_name, guess_lexer, ClassNotFound
+from codrspace.pygments.styles.solarized import SolarizedStyle
 
 register = template.Library()
 
 
 def _colorize_table(value, arg):
-    return mark_safe(highlight(value, get_lexer(value, arg), HtmlFormatter(linenos='table')))
+    return mark_safe(highlight(value, get_lexer(value, arg), HtmlFormatter(style=SolarizedStyle)))
 
 
 def generate_pygments_css(path=None):
@@ -17,7 +18,7 @@ def generate_pygments_css(path=None):
         import os
         path = os.path.join(os.getcwd(), 'pygments.css')
     f = open(path, 'w')
-    f.write(HtmlFormatter().get_style_defs('.highlight'))
+    f.write(HtmlFormatter(style=SolarizedStyle).get_style_defs('.highlight'))
     f.close()
 
 
@@ -31,7 +32,7 @@ def get_lexer(value, arg):
 @stringfilter
 def colorize(value, arg=None):
     try:
-        return mark_safe(highlight(value, get_lexer(value, arg), HtmlFormatter()))
+        return mark_safe(highlight(value, get_lexer(value, arg), HtmlFormatter(style=SolarizedStyle)))
     except ClassNotFound:
         return value
 

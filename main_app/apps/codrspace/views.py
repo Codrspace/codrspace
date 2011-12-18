@@ -1,11 +1,8 @@
 """Main codrspace views"""
 import requests
-import os
 from datetime import datetime
-from hashlib import md5
-from time import time
 
-from django.http import Http404, HttpResponseBadRequest, HttpResponse
+from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import simplejson
 from django.core.urlresolvers import reverse
@@ -14,6 +11,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib import messages
+from django.db.models import Q
 
 from codrspace.models import Post, Profile, Media
 from codrspace.forms import PostForm, MediaForm
@@ -48,7 +46,10 @@ def post_detail(request, username, slug, template_name="post_detail.html"):
 def post_list(request, username, template_name="post_list.html"):
     user = get_object_or_404(User, username=username)
 
-    posts = Post.objects.filter(author=user, status="published")
+    posts = Post.objects.filter(
+        Q(status="published") | Q(status="draft"),
+        author=user
+    )
     posts = posts.order_by('-pk')
 
     return render(request, template_name, {
@@ -88,8 +89,7 @@ def add(request, template_name="add.html"):
                 post.save()
                 messages.info(
                     request,
-                    'Added post %s successfully.' % post
-                )
+                    'Added post %s successfully.' % post)
                 return redirect('edit', pk=post.pk)
 
     else:
@@ -136,8 +136,7 @@ def edit(request, pk=0, template_name="edit.html"):
                 post.save()
                 messages.info(
                     request,
-                    'Edited post %s successfully.' % post
-                )
+                    'Edited post %s successfully.' % post)
                 return render(request, template_name, {
                     'form': form,
                     'post': post,
@@ -202,8 +201,11 @@ def _parse_github_access_token(content):
 def signin_callback(request, slug=None, template_name="base.html"):
     """Callback from Github OAuth"""
 
-    # FIXME: Handle exception
-    code = request.GET['code']
+    try:
+        code = request.GET['code']
+    except KeyError:
+        return render(request, 'auth_error.html', dictionary={
+                            'err': 'Unable to get request code from Github'})
 
     resp = requests.post(url=settings.GITHUB_AUTH['access_token_url'],
                          data={'client_id': settings.GITHUB_AUTH['client_id'],

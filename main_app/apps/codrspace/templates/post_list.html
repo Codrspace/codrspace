@@ -5,6 +5,14 @@
 
 {% block title %}Latest posts by {{ username }}{% endblock %}
 
+{% block extra_head %}
+<link rel="alternate" type="application/rss+xml" href="{% url posts_feed username %}" title="Codrspace: Posts by {{ username }}">
+{% endblock %}
+
+{% block nav %}
+    {% include "_nav.html" with page="post_list" %}
+{% endblock %}
+
 {% block header %}{% endblock %}
 
 {% block content %}
@@ -18,32 +26,23 @@
                 </ul>
             {% endifequal %}
             <ul id="other-links">
-                <li><a href="{% random_blog %}">Random Blog &raquo;</a></li>
-                <li><a href="{% url homepage %}">CodrSpace &raquo;</a></li>
+                <li><a href="{% url homepage %}">Home</a></li>
+                <li><a href="{% random_blog %}">Random Blog</a></li>
             </ul>
         </div>
 
         {% load cache %}
-        {% cache 300 post_list user.pk %}
+        {% cache 300 post_list username %}
 
         <div id="right-column">
             {% for post in posts %}
-                <div class="post">
-                    <h2 class="post-header"><a href="{{ post.get_absolute_url }}">{% firstof post.title "Untitled" %}</a></h2>
-                    <div class="post-meta">{{ post.create_dt }} 
-                        {% if post.author == user %}
-                            <span class="post-status {{ post.status }}">{{ post.status }}</span>
-                        {% endif %}
-                    </div>
-                    <div class="post-content">
-                        {{ post.content|explosivo }}
-                    </div>
+                {% if post.status == "draft" %}
                     {% if username == user.username %}
-                        <div class="post-options">
-                            <a href="{% url edit post.pk %}">Edit Post</a>
-                        </div>
+                        {% include "_post_content.html" with post=post %}
                     {% endif %}
-                </div>
+                {% else %}
+                    {% include "_post_content.html" with post=post %}
+                {% endif %}
             {% empty %}
                 {% if username == user.username %}
                     <div id="no-posts-message">

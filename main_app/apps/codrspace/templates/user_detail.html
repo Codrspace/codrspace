@@ -5,7 +5,7 @@
         <p>{{ meta.location }}</p>
     {% endif %}
     {% if meta.bio %}
-        <p class="bio">{{ meta.bio }}</p>
+        <p class="bio">{{ meta.bio|striptags|truncatewords:10 }}</p>
     {% endif %}
     <p class="divider">Public Repos: {{meta.public_repos}}</p>
     <p>Followers: {{meta.followers}}</p>

@@ -2,10 +2,15 @@
 <html>
     <head>
         <title>Codrspace: {% block title %}{% endblock %}</title>
+        {% block extra_head %}{% endblock %}
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}codrspace.css">
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}pygments.css">
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
         <script type="text/javascript">
-
           var _gaq = _gaq || [];
-          _gaq.push(['_setAccount', 'UA-24849984-1']);
+          _gaq.push(['_setAccount', 'UA-4556028-6']);
           _gaq.push(['_trackPageview']);
 
           (function() {
@@ -15,36 +20,28 @@
           })();
 
         </script>
-        {% block extra_head %}{% endblock %}
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}codrspace.css">
-        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}pygments.css">
     </head>
     <body>
-        {% block header %}
-            <div id="header" class="shadowee">
-                <div class="logo">
-                    <a href="{% url homepage %}">
-                        <img alt="CodrSpace - {{ TAGLINE }}" src="{{ STATIC_URL }}codrspace-logo1.png"/>
-                    </a>
-                </div>
-                <div class="tagline">{{ TAGLINE }}</div>
-            </div>
+        {% block nav %}
+            {% include "_nav.html" with page="home" %}
         {% endblock %}
-        {% block nav %}{% endblock %}
+        {% block header %}
+            <header>
+                <h1>Write About Code with CodrSpace.</h1>
+                <h2>The blogging platform for coders.</h2>
+            </header>
+        {% endblock %}
+        
         {% include "messages.html" with messages=messages %}
         {% block content %}{% endblock %}
         {% block footer %}
-            <div id="footer" class="shadowee">Created by <a href="http://www.lukelee.net/">Luke Lee</a>, <a href="http://theglenbot.com">Glen Zangirolami</a>, and <a href="http://eloyz.com">Eloy Zuniga</a> for Django Dash 2011</div>
+            <footer>
+                <p>&copy;2011 CodrSpace.com - All Rights Reserved.</p>
+                <p>Want to contribute? <a href="https://github.com/durden/codrspace">Fork CodrSpace</a> on github</p>
+            </footer>
         {% endblock %}
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}jquery.labelify.js"></script>
-        <script type="text/javascript" src="http://include.reinvigorate.net/re_.js"></script>
-        <script type="text/javascript">
-            try {
-            var re_name_tag = "{% firstof user.username 'lurker' %}";
-            reinvigorate.track("1um08-10kraz8amt");
-            } catch(err) {}
-        </script>
         {% block extra_body %}
             {{ block.super }}
             <script type="text/javascript" src="{{ STATIC_URL }}jquery.tipsy.js"></script>
@@ -52,7 +49,6 @@
                 $('#recent-codrs .recent-codr-image').tipsy({
                     gravity: 's'
                 });
-                $('body').css('background', 'url("{{ STATIC_URL }}body-bg.jpg")');
             </script>
         {% endblock %}
         <script type="text/javascript" src="{{ STATIC_URL }}codrspace.js"></script>
