@@ -19,6 +19,16 @@ from codrspace.templatetags.syntax_color import _colorize_table
 register = template.Library()
 
 
+def _add_slashes(value, reverse=False):
+    """
+    Add slashes to special sequences like newline
+    and return so that markdown doesn't convert them
+    """
+    value = value.replace('\\n','\\\\n')
+    value = value.replace('\\r','\\\\r')
+    return value
+
+
 @register.filter(name='explosivo')
 def explosivo(value):
     """
@@ -68,6 +78,8 @@ def filter_gist(value):
                             '<a href="%s#comments">github</a> (%d comments)</p>' % (
                                 content['html_url'], content['comments'])
 
+        gist_text = _add_slashes(gist_text)
+
         # Replace just first instance of the short code found
         value = re.sub(pattern, gist_text, markdown.markdown(value), count=1)
 
@@ -103,6 +115,7 @@ def filter_upload(value):
 
         text = _colorize_table(text, None)
         text += '<hr><br>'
+        text = _add_slashes(text)
 
         value = re.sub(pattern, text, markdown.markdown(value), count=1)
 
