@@ -9,6 +9,7 @@
                 <h2>Settings</h2>
                 {% include "_form_messages.html" with form=form %}
                 {{ form.hidden }}
+                {% csrf_token %}
                 <div class="section">Blog Settings</div>
                 <p>Title:</p>
                 <div class="field">{{ form.blog_title }}</div>
