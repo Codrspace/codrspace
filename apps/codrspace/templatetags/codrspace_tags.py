@@ -26,9 +26,13 @@ def localize_date(date, from_tz=None, to_tz=None):
 
 @register.filter(name='localize')
 def localize(dt, user):
-    user_settings = Setting.objects.get(user=user)
-    from_tz = settings.TIME_ZONE
+    from_tz = "US/Central"
     to_tz = user_settings.timezone
+
+    # get the users timezone
+    if not user.is_anonymous():
+        user_settings = Setting.objects.get(user=user)
+        from_tz = settings.TIME_ZONE
 
     return localize_date(dt, from_tz=from_tz, to_tz=to_tz)
 
