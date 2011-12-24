@@ -13,7 +13,9 @@ class SettingManager(Manager):
 
         # get user information if passed
         if 'user' in kwargs:
-            user_pk = kwargs['user'].pk
+            user = kwargs['user']
+            if not user.is_anonymous():
+                user_pk = kwargs['user'].pk
 
         # set a cache key for this user
         if user_pk:

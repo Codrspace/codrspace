@@ -6,6 +6,7 @@ def codrspace_contexts(request):
     """
     All custom context vars for codrspace
     """
+    user_settings = None
     contexts = {}
 
     # add SITE_TAGLINE, and SITE_NAME to the context
@@ -13,10 +14,11 @@ def codrspace_contexts(request):
     contexts.update({'SITE_NAME': settings.SITE_NAME})
 
     # add user settings to the context
-    try:
-        user_settings = Setting.objects.get(user=request.user)
-    except Setting.DoesNotExist:
-        user_settings = None
+    if not request.user.is_anonymous:
+        try:
+            user_settings = Setting.objects.get(user=request.user)
+        except Setting.DoesNotExist:
+            user_settings = None
 
     contexts.update({'user_settings': user_settings})
 
