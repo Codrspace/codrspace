@@ -3,7 +3,15 @@
 {% load short_codes %}
 {% load codrspace_tags %}
 
-{% block title %}{% firstof post.title "Django training" %} by {{ post.author.username }}{% endblock %}
+{% block pre_title %}
+{% if user_settings.blog_title %}
+    {{ user_settings.blog_title|striptags }} - 
+{% else %}
+    {{ SITE_NAME }}:
+{% endif %}
+{% endblock %}
+
+{% block title %}{% firstof post.title "Untitled" %} by {{ post.author.username }}{% endblock %}
 
 {% block nav %}
     {% include "_nav.html" with page="post_detail" %}

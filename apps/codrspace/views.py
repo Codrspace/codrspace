@@ -33,6 +33,11 @@ def post_detail(request, username, slug, template_name="post_detail.html"):
         author=user,
         slug=slug,)
 
+    try:
+        user_settings = Setting.objects.get(user=user)
+    except:
+        user_settings = None
+
     if post.status == 'draft':
         if post.author != request.user:
             raise Http404
@@ -40,11 +45,18 @@ def post_detail(request, username, slug, template_name="post_detail.html"):
     return render(request, template_name, {
         'username': username,
         'post': post,
-        'meta': user.profile.get_meta(), })
+        'meta': user.profile.get_meta(),
+        'user_settings': user_settings
+    })
 
 
 def post_list(request, username, template_name="post_list.html"):
     user = get_object_or_404(User, username=username)
+
+    try:
+        user_settings = Setting.objects.get(user=user)
+    except:
+        user_settings = None
 
     posts = Post.objects.filter(
         Q(status="published") | Q(status="draft"),
@@ -56,6 +68,7 @@ def post_list(request, username, template_name="post_list.html"):
         'username': username,
         'posts': posts,
         'meta': user.profile.get_meta(),
+        'user_settings': user_settings
     })
 
 
