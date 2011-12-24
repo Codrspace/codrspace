@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Codrspace: {% block title %}{% endblock %}</title>
+        <title>{% block pre_title %}{{ SITE_NAME }}:{% endblock %} {% block title %}{% endblock %}</title>
         {% block extra_head %}{% endblock %}
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}codrspace.css">
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}pygments.css">
@@ -28,11 +28,12 @@
         {% block header %}
             <header>
                 <h1>Write About Code with CodrSpace.</h1>
-                <h2>The blogging platform for coders.</h2>
+                <h2>{{ SITE_TAGLINE }}</h2>
             </header>
         {% endblock %}
-        
-        {% include "messages.html" with messages=messages %}
+        {% block messages %}
+            {% include "_messages.html" with messages=messages %}
+        {% endblock %}
         {% block content %}{% endblock %}
         {% block footer %}
             <footer>

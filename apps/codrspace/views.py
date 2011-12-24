@@ -13,8 +13,8 @@ from django.conf import settings
 from django.contrib import messages
 from django.db.models import Q
 
-from codrspace.models import Post, Profile, Media
-from codrspace.forms import PostForm, MediaForm
+from codrspace.models import Post, Profile, Media, Setting
+from codrspace.forms import PostForm, MediaForm, SettingForm
 
 
 class GithubAuthError(Exception):
@@ -100,6 +100,33 @@ def add(request, template_name="add.html"):
         'posts': posts,
         'media_set': media_set,
         'media_form': media_form,
+    })
+
+
+@login_required
+def user_settings(request, template_name="settings.html"):
+    """ Add/Edit a setting """
+
+    user = get_object_or_404(User, username=request.user.username)
+
+    try:
+        settings = Setting.objects.get(user=user)
+    except Setting.DoesNotExist:
+        settings = None
+
+    form = SettingForm(instance=settings)
+
+    if request.method == 'POST':
+        form = SettingForm(request.POST, instance=settings)
+        if form.is_valid():
+            msg = "Edited settings successfully."
+            messages.info(request, msg)
+            settings = form.save(commit=False)
+            settings.user = user
+            settings.save()
+
+    return render(request, template_name, {
+        'form': form,
     })
 
 

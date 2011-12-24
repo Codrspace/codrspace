@@ -3,7 +3,21 @@
 {% load short_codes %}
 {% load codrspace_tags %}
 
-{% block title %}Latest posts by {{ username }}{% endblock %}
+{% block pre_title %}
+{% if user_settings.blog_title %}
+    {{ user_settings.blog_title|striptags }} - 
+{% else %}
+    {{ SITE_NAME }}:
+{% endif %}
+{% endblock %}
+
+{% block title %}
+{% if user_settings.blog_tagline %}
+    {{ user_settings.blog_tagline|striptags }}
+{% else %}
+    Latest posts by {{ username }}
+{% endif %}
+{% endblock %}
 
 {% block extra_head %}
 <link rel="alternate" type="application/rss+xml" href="{% url posts_feed username %}" title="Codrspace: Posts by {{ username }}">

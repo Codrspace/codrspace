@@ -1,0 +1,9 @@
+<ul id="form-messages">
+    {% for field in form %}
+        {% if field.errors %}
+            {% for error in field.errors %}
+                <li>{{ field.label }}, {{ error|lower }}</li>
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+</ul>

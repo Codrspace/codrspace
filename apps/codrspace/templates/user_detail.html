@@ -1,12 +1,10 @@
 <div id="user-detail">
     <a href="{{ meta.html_url }}"><img class="user-detail-image" src="{{ meta.avatar_url }}" alt="GitHub &ndash; {{ meta.login }}"/></a>
-    <p>{% firstof meta.name meta.login %}</p>
+    <p>{% firstof user_settings.name meta.name meta.login %}</p>
     {% if meta.location %}
         <p>{{ meta.location }}</p>
     {% endif %}
-    {% if meta.bio %}
-        <p class="bio">{{ meta.bio|striptags|truncatewords:10 }}</p>
-    {% endif %}
+    <p class="bio">{% filter striptags|truncatewords:15 %}{% firstof user_settings.bio meta.bio %}{% endfilter %}</p>
     <p class="divider">Public Repos: {{meta.public_repos}}</p>
     <p>Followers: {{meta.followers}}</p>
     <p>Following: {{meta.following}}</p>

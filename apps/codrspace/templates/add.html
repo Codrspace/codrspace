@@ -19,11 +19,7 @@
     <table><tr><td>
 
         <div id="post-wrap">
-        {% for field in form %}
-        <div class="fieldWrapper">
-            {{ field.errors }}
-        </div>
-        {% endfor %}
+        {% include "_form_messages.html" with form=form %}
         <div id="title">{{ form.title }}</div>
         <div id="slug">{{ form.slug }}</div>
         <div id="wmd-button-bar" class="wmd-panel"></div>

@@ -10,9 +10,10 @@
             <li><a href="{% url signin_start %}">Sign In</a></li>
         {% else %}
             <li><a href="{% url post_list user.username %}">Your Posts</a></li>
+            <li><a href="{% url user_settings %}">Settings</a></li>
             <li><a href="{% url signout %}">Sign out</a></li>
         {% endif %}
-        <li><span class="mini-logo">CS</span> * Codrspace</li>
+        <li><a href="{% url homepage %}"><span class="mini-logo">CS</span> * Codrspace</a></li>
     </ul>
 </nav>
 {% endif %}
@@ -24,11 +25,12 @@
         <li><a href="{% random_blog %}">Random Blog</a></li>
         {% if user.is_authenticated %}
             <li><a href="{% url add %}">Add Post</a></li>
+            <li><a href="{% url user_settings %}">Settings</a></li>
             <li><a href="{% url signout %}">Sign Out</a></li>
         {% else %}
             <li><a href="{% url signin_start %}">Sign In</a></li>
         {% endif %}
-        <li><span class="mini-logo">CS</span> * Codrspace</li>
+        <li><a href="{% url homepage %}"><span class="mini-logo">CS</span> * Codrspace</a></li>
     </ul>
 </nav>
 {% endif %}
@@ -41,11 +43,12 @@
         {% if user.is_authenticated %}
             <li><a href="{% url edit post.pk %}">Edit Post</a></li>
             <li><a href="{% url add %}">Add Post</a></li>
+            <li><a href="{% url user_settings %}">Settings</a></li>
             <li><a href="{% url signout %}">Sign Out</a></li>
         {% else %}
             <li><a href="{% url signin_start %}">Sign In</a></li>
         {% endif %}
-        <li><span class="mini-logo">CS</span> * Codrspace</li>
+        <li><a href="{% url homepage %}"><span class="mini-logo">CS</span> * Codrspace</a></li>
     </ul>
 </nav>
 {% endif %}
@@ -57,7 +60,7 @@
         <li><a href="{% url post_list user.username %}">Your Posts</a></li>
         <li><a href="{% url add %}">Add Post</a></li>
         <li><a href="{% url signout %}">Signout</a></li>
-        <li><span class="mini-logo">CS</span> * Codrspace</li>
+        <li><a href="{% url homepage %}"><span class="mini-logo">CS</span> * Codrspace</a></li>
     </ul>
 </nav>
 {% endif %}

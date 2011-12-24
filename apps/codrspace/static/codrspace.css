@@ -60,6 +60,33 @@ header h2 {
     color: #555;
 }
 
+/* default form styles */
+#submit-button {
+    margin-top: 30px;
+    font-size: 18px;
+    padding: 10px;
+    -webkit-appearance: button;
+    cursor: pointer;
+}
+
+form ul#form-messages {
+  padding: 0;
+  margin: 10px 10px 10px 0;
+  list-style-type: none;
+  background-color: #cf9898;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+form ul#form-messages li {
+  padding: 8px;
+  text-align: center;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+}
+
 div#home-content {
     font-family: 'AftasansRegular', Arial, sans-serif;
     margin: 0 auto;
@@ -583,6 +610,7 @@ span.codr-logo-text {
   color: #fff;
 }
 
+/* message */
 ul.messages {
   padding: 0;
   margin: 60px 0 0 0;
@@ -592,11 +620,51 @@ ul.messages {
 ul.messages li.info {
   border: 1px solid #39b546;
   background-color: #b1e6b7;
-  margin: 10px;
   padding: 10px;
   text-align: center;
 }
 
 ul.message li.dismiss a {
   font-size: 10px;
+}
+
+/* settings page */
+#settings-page {
+    padding: 20px;
+    margin-top: 40px;
+    width: 100%;
+}
+
+#settings-wrap {
+    margin: 0 auto;
+    width: 50%;
+}
+
+#settings-page h2 {
+    color: #333;
+}
+
+#settings-page .section {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    margin-top: 30px;
+    color: #333;
+    font-size: 20px;
+}
+
+#settings-page p {
+    margin: 15px 2px 5px 2px;
+    color: #333;
+}
+
+#settings-page div.field input {
+    font-size: 20px;
+    padding: 8px;
+    width: 100%;
+}
+
+#settings-page textarea {
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
 }

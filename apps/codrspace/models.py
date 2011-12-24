@@ -7,6 +7,8 @@ from django.template.defaultfilters import slugify
 from django.utils.hashcompat import md5_constructor
 from django.core.cache import cache
 from django.utils.http import urlquote
+from timezones.fields import TimeZoneField
+from codrspace.managers import SettingManager
 
 
 def invalidate_cache_key(fragment_name, *variables):
@@ -117,6 +119,20 @@ class Media(models.Model):
             shortcode = "[local %s]" % self.file.name
 
         return shortcode
+
+
+class Setting(models.Model):
+    """
+    Settings model for specific blog settings
+    """
+    blog_title = models.CharField(max_length=75, null=True, blank=True)
+    blog_tagline = models.CharField(max_length=150, null=True, blank=True)
+    name = models.CharField(max_length=30, null=True, blank=True)
+    bio = models.TextField(null=True, blank=True)
+    user = models.ForeignKey(User, editable=False)
+    timezone = TimeZoneField(default="US/Central")
+
+    objects = SettingManager()
 
 
 class Profile(models.Model):
