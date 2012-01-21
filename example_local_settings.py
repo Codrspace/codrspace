@@ -12,13 +12,14 @@ The are 2 main reasons for using local_settings.py when running locally:
 """
 
 
+from frappy.services.github import Github
+
 def get_setting(setting):
     """
     Get a setting from settings.py
     """
     import settings
     return getattr(settings, setting)
-
 
 # Development debug mode
 DEBUG = True
@@ -36,12 +37,16 @@ GITHUB_AUTH = {
     # Get information of authenticated user
     'user_url': 'http://127.0.0.1:9000/fake_user/',
 
+    # User that is 'logged in' by fake api setup
+    'username': 'octocat',
+
     # Debug mode - for faking auth_url
     'debug': True
 }
 
 # set this to the JSON that comes back from http://api.github.com/user/
-GITHUB_USER_JSON = None
+user = Github().users(GITHUB_AUTH['username'])
+GITHUB_USER_JSON = user.response_json
 
 
 # Overrides for middleware to avoid having the CSRF protection when running
