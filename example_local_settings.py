@@ -26,15 +26,23 @@ TEMPLATE_DEBUG = DEBUG
 
 # Replace with your own github credentials to run locally and have your profile
 # filled out automatically without an access token from the fake Oauth instance
-#GITHUB_AUTH = {
-    #'client_id': '',
-    #'secret': '',
-    #'callback_url': '',
-    #'auth_url': '',
-    #'access_token_url': '',
-    #'user_url': '',
-    #'debug': True,
-#}
+GITHUB_AUTH = {
+    'client_id': 'doesntmatter',
+    'secret': 'doesntmatter',
+    'callback_url': 'http://127.0.0.1:8000/signin_callback',
+    'auth_url': 'http://127.0.0.1:9000/authorize/',
+    'access_token_url': 'http://127.0.0.1:9000/access_token/',
+
+    # Get information of authenticated user
+    'user_url': 'http://127.0.0.1:9000/fake_user/',
+
+    # Debug mode - for faking auth_url
+    'debug': True
+}
+
+# set this to the JSON that comes back from http://api.github.com/user/
+GITHUB_USER_JSON = None
+
 
 # Overrides for middleware to avoid having the CSRF protection when running
 # locally

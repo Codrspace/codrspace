@@ -13,6 +13,7 @@ urlpatterns = patterns('codrspace.views',
 )
 
 urlpatterns += patterns('codrspace.mock_views',
+    url(r'^fake_user/$', 'fake_user', name="fake_user"),
     url(r'^authorize/$', 'authorize', name="authorize"),
     url(r'^access_token/$', 'access_token', name="access_token"),
 )

@@ -4,6 +4,19 @@
 from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
+from django.conf import settings
+
+
+def fake_user(request):
+    """Fake user data for the user"""
+
+    if not hasattr(settings, 'GITHUB_USER_JSON'):
+        raise Exception('GITHUB_USER_JSON must be set for fake user data')
+
+    if not settings.GITHUB_USER_JSON:
+        raise Exception('GITHUB_USER_JSON must contain github user JSON data')
+
+    return HttpResponse(settings.GITHUB_USER_JSON, mimetype="application/json", status=200)
 
 
 def authorize(request):
@@ -12,9 +25,11 @@ def authorize(request):
     if 'client_id' not in request.GET:
         raise Exception("Authorize must specify client_id")
 
-    # Just send some code back, doesn't matter for testing
-    code = 100
-    return redirect("%s?code=%d" % (reverse('signin_callback'), code))
+    # Assume 200 and debugging github url
+    code = 200
+    callback_url = settings.GITHUB_AUTH['callback_url']
+
+    return redirect("%s?code=%d" % (callback_url, code))
 
 
 def access_token(request):
