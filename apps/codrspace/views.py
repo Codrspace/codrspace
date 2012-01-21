@@ -142,6 +142,15 @@ def user_settings(request, template_name="settings.html"):
         'form': form,
     })
 
+@login_required
+def delete(request, pk=0, template_name="post_list.html"):
+    """ Delete a post """
+    post = get_object_or_404(Post, pk=pk, author=request.user)
+    user = get_object_or_404(User, username=request.user.username)
+    post.status = 'deleted'
+    post.save()
+
+    return redirect(reverse('post_list', args=[user.username]))
 
 @login_required
 def edit(request, pk=0, template_name="edit.html"):

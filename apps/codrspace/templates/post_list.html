@@ -50,12 +50,14 @@
 
         <div id="right-column">
             {% for post in posts %}
-                {% if post.status == "draft" %}
-                    {% if username == user.username %}
+                {% if post.status != "deleted" %}
+                    {% if post.status == "draft" %}
+                        {% if username == user.username %}
+                            {% include "_post_content.html" with post=post %}
+                        {% endif %}
+                    {% else %}
                         {% include "_post_content.html" with post=post %}
                     {% endif %}
-                {% else %}
-                    {% include "_post_content.html" with post=post %}
                 {% endif %}
             {% empty %}
                 {% if username == user.username %}
