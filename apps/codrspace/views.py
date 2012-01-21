@@ -289,14 +289,33 @@ def signin_callback(request, slug=None, template_name="base.html"):
 
     if user:
         user.save()
+
+        # Get/Create the user profile
         try:
             profile = user.get_profile()
         except:
-            profile = Profile(git_access_token=token, user=user,
-                              meta=resp.content)
+            profile = Profile(
+                git_access_token=token,
+                user=user,
+                meta=resp.content
+            )
 
+        # update meta information and token
         profile.git_access_token = token
+        profile.meta = resp.content
         profile.save()
+
+        # Create settings for user
+        try:
+            user_settings = Setting.objects.get(user=user)
+        except:
+            user_settings = None
+
+        if not user_settings:
+            s = Setting()
+            s.user = user
+            s.timezone = "US/Central"
+            s.save()
 
         # Fake auth b/c github already verified them and we aren't using our
         # own #passwords...yet?
