@@ -35,7 +35,7 @@ class Post(models.Model):
     slug = models.SlugField(unique=True, editable=False)
     author = models.ForeignKey(User, editable=False)
     status = models.CharField(max_length=30, choices=STATUS_CHOICES, default=0)
-    publish_dt = models.DateTimeField(editable=False, null=True)
+    publish_dt = models.DateTimeField(null=True)
     create_dt = models.DateTimeField(auto_now_add=True)
     update_dt = models.DateTimeField(auto_now=True)
 
@@ -74,7 +74,7 @@ class Post(models.Model):
 
         # Invalidate cache for all individual posts and the list of posts
         invalidate_cache_key('content', self.pk)
-        invalidate_cache_key('post_list', self.author.pk)
+        invalidate_cache_key('post_list', self.author.username)
 
     @models.permalink
     def get_absolute_url(self):

@@ -436,6 +436,28 @@ ol#post-list {
 /*  width: 400px;*/
 }
 
+#edit-page #status, #add-page #status {
+    margin-top: 5px;
+}
+
+#edit-page #date, #add-page #date {
+    margin: 10px 0 10px 0;
+    display: none;
+}
+
+#edit-page #date #id_publish_dt, 
+#add-page #date #id_publish_dt {
+    padding: 5px;
+    font-size: 18px;
+    width: 400px;
+}
+
+#edit-page #date label, 
+#add-page #date label {
+    display: block;
+    margin-bottom: 5px;
+}
+
 #mode-msg {
   padding: 5px;
   color: #777;

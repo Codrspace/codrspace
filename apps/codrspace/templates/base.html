@@ -41,10 +41,9 @@
                 <p>Want to contribute? <a href="https://github.com/Codrspace/codrspace">Fork CodrSpace</a> on github</p>
             </footer>
         {% endblock %}
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}jquery.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}jquery.labelify.js"></script>
         {% block extra_body %}
-            {{ block.super }}
             <script type="text/javascript" src="{{ STATIC_URL }}jquery.tipsy.js"></script>
             <script type="text/javascript">
                 $('#recent-codrs .recent-codr-image').tipsy({

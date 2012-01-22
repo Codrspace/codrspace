@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.contrib.syndication.views import Feed
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
@@ -20,8 +21,12 @@ class LatestPostsFeed(Feed):
         return "Codrspace: All posts authored by %s" % obj
 
     def items(self, user):
-        posts = Post.objects.filter(author=user, status="published")
-        return posts.order_by('-create_dt')[:10]
+        posts = Post.objects.filter(
+            publish_dt__lte=datetime.now(),
+            status='published',
+            author=user,
+        )
+        return posts.order_by('-publish_dt')[:10]
 
     def item_title(self, item):
         return item.title or 'Untitled'

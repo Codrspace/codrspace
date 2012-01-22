@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib import messages
 from django.db.models import Q
+from django.core.cache import cache
 
 from codrspace.models import Post, Profile, Media, Setting
 from codrspace.forms import PostForm, MediaForm, SettingForm
@@ -60,9 +61,10 @@ def post_list(request, username, template_name="post_list.html"):
 
     posts = Post.objects.filter(
         Q(status="published") | Q(status="draft"),
-        author=user
+        Q(publish_dt__lte=datetime.now()) | Q(publish_dt=None),
+        author=user,
     )
-    posts = posts.order_by('-pk')
+    posts = posts.order_by('-publish_dt')
 
     return render(request, template_name, {
         'username': username,
@@ -90,14 +92,14 @@ def add(request, template_name="add.html"):
             media.save()
 
         # post
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, user=request.user)
         if form.is_valid() and 'submit_post' in request.POST:
             post = form.save(commit=False)
 
             # if something to submit
             if post.title or post.content:
                 post.author = request.user
-                if post.status == 'published':
+                if post.status == 'published' and not post.publish_dt:
                     post.publish_dt = datetime.now()
                 post.save()
                 messages.info(
@@ -106,7 +108,7 @@ def add(request, template_name="add.html"):
                 return redirect('edit', pk=post.pk)
 
     else:
-        form = PostForm()
+        form = PostForm(user=request.user)
 
     return render(request, template_name, {
         'form': form,
@@ -137,6 +139,10 @@ def user_settings(request, template_name="settings.html"):
             settings = form.save(commit=False)
             settings.user = user
             settings.save()
+
+            # clear settings cache
+            cache_key = '%s_user_settings' % user.pk
+            cache.set(cache_key, None)
 
     return render(request, template_name, {
         'form': form,
@@ -174,7 +180,7 @@ def edit(request, pk=0, template_name="edit.html"):
 
         # post post  hehe
         if 'title' in request.POST:
-            form = PostForm(request.POST, instance=post)
+            form = PostForm(request.POST, instance=post, user=request.user)
             if form.is_valid() and 'submit_post' in request.POST:
                 post = form.save(commit=False)
                 if post.status == 'published':
@@ -202,7 +208,7 @@ def edit(request, pk=0, template_name="edit.html"):
                 'media_form': media_form,
             })
 
-    form = PostForm(instance=post)
+    form = PostForm(instance=post, user=request.user)
     return render(request, template_name, {
         'form': form,
         'post': post,

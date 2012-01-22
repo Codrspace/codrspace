@@ -10,7 +10,7 @@
     </a>
 </h2>
 <div class="post-meta">
-    {{ post.create_dt|localize:user }} 
+    {{ post.publish_dt|localize:user }} 
     {% if post.author == user %}
         <span class="post-status {{ post.status }}">{{ post.status }}</span>
         <span class="post-options-mini"><a href="{% url edit post.pk %}">edit</a></span>

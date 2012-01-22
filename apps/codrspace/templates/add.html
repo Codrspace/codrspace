@@ -5,6 +5,7 @@
 {% block extra_head %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}tipsy.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}wmd.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}anytimec.css">
 {% endblock %}
 
 {% block content %}
@@ -24,6 +25,10 @@
         <div id="slug">{{ form.slug }}</div>
         <div id="wmd-button-bar" class="wmd-panel"></div>
         <div id="content">{{ form.content }}</div>
+        <div id="date">
+            <label for="id_publish_dt">Publish Date:</label>
+            {{ form.publish_dt }}
+        </div>
         <div id="status">
             {{ form.status }}
             <input type="submit" name="submit_post" value="Save changes" />
@@ -59,29 +64,6 @@
 <script type="text/javascript" src="{{ STATIC_URL }}wmd.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}jquery.tipsy.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}jquery.insertat.js"></script>
-<script type="text/javascript">
-    $('.media-item').tipsy({
-        gravity: 'e'
-    });
-    $(".media-item a").click(function(){
-        $("#id_content").insertAtCaret($(this).text());
-        return false;
-    });
-
-    $("#shortcode-examples a").click(function(){
-       $("#guide").toggle('slow'); 
-    });
-
-    /* slug autogenerate */
-    var title_field = $('#id_title');
-    var slug_field = $('#id_slug');
-    title_field.keyup(function() {
-        var value = $(this).val();
-        value = value.replace(/[^\w]+/ig,'-');
-        value = value.toLowerCase();
-        value = value.substring(0, 45);
-        slug_field.val(value);
-    });
-
-</script>
+<script type="text/javascript" src="{{ STATIC_URL }}anytimec.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}codrspace_admin.js"></script>
 {% endblock %}

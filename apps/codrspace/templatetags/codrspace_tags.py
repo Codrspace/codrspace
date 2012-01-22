@@ -4,30 +4,19 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db.models import Count
 from django.conf import settings
-from timezones.utils import adjust_datetime_to_timezone
 from codrspace.models import Post, Setting
+from codrspace.utils import localize_date
 
 register = Library()
-
-
-def localize_date(date, from_tz=None, to_tz=None):
-    """
-    Convert from one timezone to another
-    """
-    # set the defaults
-    if from_tz is None:
-        from_tz = settings.TIME_ZONE
-
-    if to_tz is None:
-        to_tz = "US/Central"
-
-    return adjust_datetime_to_timezone(date, from_tz=from_tz, to_tz=to_tz)
 
 
 @register.filter(name='localize')
 def localize(dt, user):
     from_tz = settings.TIME_ZONE
     to_tz = "US/Central"
+
+    if not dt:
+        return "Not yet published"
 
     # get the users timezone
     if not user.is_anonymous():
