@@ -1,21 +1,16 @@
 # Installation Instruction
 
 The following steps are required to install a local verison of codrspace.com.
-You can see the full hosted solution via linode at http://www.codrspace.com.
+You can see the full hosted solution on EC2 at http://codrspace.com.
 Please keep in mind that there are a few limitations to running just the local
 version:
 
 1. We are using Github OAuth for signup/authentication, which only allows a
    single callback url for the final part of the OAuth process.  Thus, this
-   callback url is set to the hosted version.
+   callback url is set to the hosted version and faked on a local development version.
 2. You will not be able to have a nice profile and missing a lot of Github
    integration if you run locally without an external Internet connection.
    Please connect to the Internet :)
-3. Running locally will always authenticate and use the same github user.
-   This is because we can't get a real access token running
-   locally from the 'faked' instance.  So, the local instance always
-   assumes your the same user.  However, you can modify this in your
-   local_settings.py using `GITHUB_USER`. It defaults to user `durden`
 
 **See section on 'Running project' for information on how to run both instances locally**
 
@@ -30,9 +25,9 @@ version:
 - install pip
     - `easy_install pip`
 - Clone project
-    - `git clone git@github.com:durden/dash.git`
+    - `git clone git@github.com:durden/dash.git codrspace_app`
 - Use pip to install all project dependencies
-    - `pip install -r requirements.pip` (requirements file is in root of project)
+    - `pip install -r requirements_dev.pip` (requirements file is in root of project)
 
 ### Install with virtualenv
 
@@ -47,38 +42,35 @@ version:
     - `export PIP_VIRTUALENV_BASE=$WORKON_HOME`
     - `export PIP_RESPECT_VIRTUALENV=true`
 
-- Make a virtualenv called `codrspace`
-    - `mkvirtualenv codrspace`
+- Make a virtualenv called `codrspace_app`
+    - `mkvirtualenv codrspace_app`
 - Activate the virtual environment
-    - `workon codrspace`
+    - `workon codrspace_app`
+- Clone project
+    - `git clone git@github.com:durden/dash.git codrspace_app`
 - Use requirements file to install all project libraries:
-    - `pip install -r requirements.pip`
-
-**NOTE**: django-syntax-colorize isn't installed via pip b/c it doesn't have a setup.py.
-- Not a big deal b/c we can easily 'install' it by moving syntax_color.py
-  to our templatetags directory
-- Thus, this file is already in the repo.
+    - `pip install -r requirements_dev.pip`
 
 ### Running project locally after environment setup
 
 Due to limitation #1, we have developed a solution to 'fake' out the OAuth
-callbacks for local testing.  Unforunately it requires running two Django dev servers.
+callbacks for local testing.  Unfortunately it requires running two Django dev servers.
 
 1. Clone the project, copy the example local_settings, start the server on port 9000 for oAuth.
 
   - `git clone git://github.com/durden/dash.git codrspace_app`
   - `cd codrspace_app`
-  - `workon codrspace` (only if you used the virtualenv route)
+  - `workon codrspace_app` (only if you used the virtualenv route)
   - `cp example_local_settings.py local_settings.py`
-  - set `GITHUB_USER` in your local settings to your github username
+  -  set `username` key in `GITHUB_AUTH` in your `local_settings.py` to your github username
   - `python manage.py syncdb`
-  - `python manage.py runserver localhost:9000`
+  - `python manage.py runserver 9000`
 
 2. Open another shell and start the dev server on port 8000 for the site.
 
   - `cd codrspace_app`
   - `workon codrspace` (only if you used the virtualenv route)
-  - `python manage.py runserver localhost:8000`
+  - `python manage.py runserver `
 
 Now you have two instances of the django development server running.
 The instance on port 9000 is only for fake oAuth validation.

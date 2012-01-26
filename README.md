@@ -14,6 +14,11 @@ It is integrated with GitHub so you can talk and write about code that exists on
 If you would like to contribute to the project, fork this repository, and follow the 
 [installation instructions](https://github.com/Codrspace/codrspace/blob/master/INSTALL.md).
 
+## License
+
+Codrspace is licensed unser the Open Source MIT License
+[See LICENSE](https://github.com/Codrspace/codrspace/blob/master/LICENSE)
+
 ## Issues/Features/Todo
 
 Please use the [CodrSpace GitHub issue tracker](https://github.com/Codrspace/codrspace/issues) to make any pull, feature, or issue requests.
