@@ -25,7 +25,7 @@ version:
 - install pip
     - `easy_install pip`
 - Clone project
-    - `git clone git@github.com:durden/dash.git codrspace_app`
+    - `git clone git@github.com:Codrspace/codrspace.git codrspace_app`
 - Use pip to install all project dependencies
     - `pip install -r requirements_dev.pip` (requirements file is in root of project)
 
