@@ -47,7 +47,7 @@ version:
 - Activate the virtual environment
     - `workon codrspace_app`
 - Clone project
-    - `git clone git@github.com:durden/dash.git codrspace_app`
+    - `git clone git@github.com:Codrspace/codrspace.git codrspace_app`
 - Use requirements file to install all project libraries:
     - `pip install -r requirements_dev.pip`
 
