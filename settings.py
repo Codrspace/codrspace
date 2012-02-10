@@ -210,6 +210,7 @@ GITHUB_AUTH = {
 # Codrspace specific
 SITE_NAME = "Codrspace"
 SITE_TAGLINE = "The blogging platform for coders."
+VERSION = "0.2 Alpha"
 
 # Override any settings locally
 try:

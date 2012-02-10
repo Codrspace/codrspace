@@ -35,6 +35,9 @@ nav ul li {
     padding: 0 0 0 20px;
     color: #fff;
     display: inline-block;
+    /* For IE 7 */
+    zoom: 1;
+    *display: inline;
 }
 
 nav ul li a {

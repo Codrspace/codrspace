@@ -7,8 +7,9 @@ def codrspace_contexts(request):
     """
     contexts = {}
 
-    # add SITE_TAGLINE, and SITE_NAME to the context
+    # add SITE_TAGLINE, and SITE_NAME, and VERSION to the context
     contexts.update({'SITE_TAGLINE': settings.SITE_TAGLINE})
     contexts.update({'SITE_NAME': settings.SITE_NAME})
+    contexts.update({'VERSION': settings.VERSION})
 
     return contexts
