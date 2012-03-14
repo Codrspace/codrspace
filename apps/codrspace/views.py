@@ -78,7 +78,10 @@ def post_list(request, username, template_name="post_list.html"):
 def add(request, template_name="add.html"):
     """ Add a post """
 
-    posts = Post.objects.filter(author=request.user).order_by('-pk')
+    posts = Post.objects.filter(
+        author=request.user,
+        status__in=['draft', 'published']
+    ).order_by('-pk')
     media_set = Media.objects.filter(uploader=request.user).order_by('-pk')
     media_form = MediaForm()
 
@@ -148,21 +151,35 @@ def user_settings(request, template_name="settings.html"):
         'form': form,
     })
 
+
 @login_required
-def delete(request, pk=0, template_name="post_list.html"):
+def delete(request, pk=0, template_name="delete.html"):
     """ Delete a post """
     post = get_object_or_404(Post, pk=pk, author=request.user)
     user = get_object_or_404(User, username=request.user.username)
-    post.status = 'deleted'
-    post.save()
 
-    return redirect(reverse('post_list', args=[user.username]))
+    if request.method == 'POST':
+        if 'delete-post' in request.POST: 
+            post.status = 'deleted'
+            post.save()
+
+            messages.info(request, 'Post successfully deleted')
+
+            return redirect(reverse('post_list', args=[user.username]))
+
+    return render(request, template_name, {
+        'post': post,
+    })
+
 
 @login_required
 def edit(request, pk=0, template_name="edit.html"):
     """ Edit a post """
     post = get_object_or_404(Post, pk=pk, author=request.user)
-    posts = Post.objects.filter(author=request.user).order_by('-pk')
+    posts = Post.objects.filter(
+        author=request.user,
+        status__in=['draft', 'published']
+    ).order_by('-pk')
     media_set = Media.objects.filter(uploader=request.user).order_by('-pk')
     media_form = MediaForm()
 

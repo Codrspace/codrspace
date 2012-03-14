@@ -22,7 +22,7 @@
 {% block content %}
     <div id="post-list-content">
         <div id="left-column">
-            {% include "user_detail.html" with meta=meta %}
+            {% include "_user_detail.html" with meta=meta %}
             {% ifequal user post.author %}
                 <ul id="auth-options">
                     <li><a href="{% url add %}">Add Post</a></li>

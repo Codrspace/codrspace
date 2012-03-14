@@ -9,7 +9,7 @@
         {% if not user.is_authenticated %}
             <li><a href="{% url signin_start %}">Sign In</a></li>
         {% else %}
-            <li><a href="{% url post_list user.username %}">Your Posts</a></li>
+            <li><a href="{% url post_list user.username %}">My Posts</a></li>
             <li><a href="{% url user_settings %}">Settings</a></li>
             <li><a href="{% url signout %}">Sign out</a></li>
         {% endif %}
@@ -43,6 +43,7 @@
         {% if user.is_authenticated %}
             <li><a href="{% url edit post.pk %}">Edit Post</a></li>
             <li><a href="{% url add %}">Add Post</a></li>
+            <li><a href="{% url post_list user.username %}">My Posts</a></li>
             <li><a href="{% url user_settings %}">Settings</a></li>
             <li><a href="{% url signout %}">Sign Out</a></li>
         {% else %}
@@ -57,7 +58,7 @@
 {% if page == "auth_base" %}
 <nav>
     <ul>
-        <li><a href="{% url post_list user.username %}">Your Posts</a></li>
+        <li><a href="{% url post_list user.username %}">My Posts</a></li>
         <li><a href="{% url add %}">Add Post</a></li>
         <li><a href="{% url user_settings %}">Settings</a></li>
         <li><a href="{% url signout %}">Signout</a></li>

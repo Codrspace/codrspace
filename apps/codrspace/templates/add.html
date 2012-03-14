@@ -35,13 +35,13 @@
         </div>
         </div>
 
-        {% include "partial-post-list.html" %}
+        {% include "_partial-post-list.html" %}
 
     </td><td align="right" id="media-region">
 
         <div id="media-wrap">
 
-            {% include "shortcode_help.html" %}
+            {% include "_shortcode_help.html" %}
 
             <div id="media-form-wrap">
                 {% csrf_token %}
@@ -49,7 +49,7 @@
                 <input type="submit" name="submit_file" value="Upload File" />
             </div>
 
-            {% include "partial-media-list.html" %}
+            {% include "_partial-media-list.html" %}
 
         </div>
 

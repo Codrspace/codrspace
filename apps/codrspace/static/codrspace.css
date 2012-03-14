@@ -173,6 +173,18 @@ footer {
   clear: both;
 }
 
+/* post-delete */
+#post-delete {
+  margin: 100px auto;
+  width: 1000px;
+  font-family: “Trebuchet MS”, Helvetica, sans-serif;
+}
+
+#post-delete .delete-button {
+  cursor: pointer;
+  font-size: 24px;
+}
+
 /* post-list content */
 #post-list-content {
   margin: 100px auto;
