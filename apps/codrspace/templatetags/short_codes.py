@@ -7,26 +7,16 @@ import re
 import os
 import markdown
 import urlparse
+from hashlib import md5
 
 from django.utils import simplejson
 from django import template
 from django.utils.safestring import mark_safe
-
 from settings import MEDIA_ROOT
 
 from codrspace.templatetags.syntax_color import _colorize_table
 
 register = template.Library()
-
-
-def _add_slashes(value, reverse=False):
-    """
-    Add slashes to special sequences like newline
-    and return so that markdown doesn't convert them
-    """
-    value = value.replace('\\n','\\\\n')
-    value = value.replace('\\r','\\\\r')
-    return value
 
 
 @register.filter(name='explosivo')
@@ -41,27 +31,56 @@ def explosivo(value):
     import sys
     import types
     module = sys.modules[__name__]
+    all_replacements = []
 
+    # get the replacement values and content with replacement hashes
     for name, var in vars(module).items():
         if type(var) == types.FunctionType and name.startswith('filter_'):
-            value, match = var(value)
-            if not match:
-                value = markdown.markdown(value)
+            replacements, value, match = var(value)
+            if match:
+                all_replacements.extend(replacements)
+
+    # convert to markdown
+    value = markdown.markdown(value)
+
+    # replace the hash values with the replacement values
+    for r in all_replacements:
+        _hash, text = r
+        value = value.replace(_hash, text)
 
     return mark_safe(value)
 
 
+def filter_inline(value):
+    replacements = []
+    pattern = re.compile('\\[code\\](.*?)\\[/code\\]', re.I | re.S | re.M)
+
+    inlines = re.findall(pattern, value)
+    if not len(inlines):
+        return (replacements, value, None,)
+
+    for inline_code in inlines:
+        text = _colorize_table(inline_code, None)
+        text_hash = md5(text).hexdigest()
+
+        replacements.append([text_hash, text])
+        value = re.sub(pattern, text_hash, value, count=1)
+
+    return (replacements, value, True,)
+
+
 def filter_gist(value):
+    gist_base_url = 'https://api.github.com/gists/'
+    replacements = []
     pattern = re.compile('\[gist (\d+) *\]', flags=re.IGNORECASE)
 
     ids = re.findall(pattern, value)
     if not len(ids):
-        return value, None
+        return (replacements, value, None,)
 
     for gist_id in ids:
         gist_text = ""
-        resp = requests.get('https://api.github.com/gists/%d' % (
-                                                                int(gist_id)))
+        resp = requests.get('%s%d' % (gist_base_url, int(gist_id)))
 
         if resp.status_code != 200:
             return value
@@ -78,20 +97,21 @@ def filter_gist(value):
                             '<a href="%s#comments">github</a> (%d comments)</p>' % (
                                 content['html_url'], content['comments'])
 
-        gist_text = _add_slashes(gist_text)
+        text_hash = md5(gist_text).hexdigest()
 
-        # Replace just first instance of the short code found
-        value = re.sub(pattern, gist_text, markdown.markdown(value), count=1)
+        replacements.append([text_hash, gist_text])
+        value = re.sub(pattern, text_hash, value, count=1)
 
-    return (value, True)
+    return (replacements, value, True,)
 
 
 def filter_upload(value):
+    replacements = []
     pattern = re.compile('\[local (\S+) *\]', flags=re.IGNORECASE)
 
     files = re.findall(pattern, value)
     if not len(files):
-        return value, None
+        return (replacements, value, None,)
 
     for file_path in files:
         file_path = os.path.join(MEDIA_ROOT, file_path)
@@ -114,9 +134,9 @@ def filter_upload(value):
         f.close()
 
         text = _colorize_table(text, None)
-        text += '<hr><br>'
-        text = _add_slashes(text)
+        text_hash = md5(text).hexdigest()
 
-        value = re.sub(pattern, text, markdown.markdown(value), count=1)
+        replacements.append([text_hash, text])
+        value = re.sub(pattern, text_hash, value, count=1)
 
-    return (value, True)
+    return (replacements, value, True,)

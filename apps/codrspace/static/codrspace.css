@@ -564,13 +564,8 @@ p.github_convo {
     background-color: #c0e3fa;
 }
 
-#shortcode-examples {
-  margin-bottom: 20px;
-  font-size: 12px;
-}
-
-#shortcode-examples li {
-    padding: 3px;
+.sc-example {
+  color: #777;
 }
 
 #post-wrap {
@@ -608,7 +603,9 @@ p.github_convo {
 
 #guide h3 {
   margin: 0;
+  padding-bottom: 2px;
   margin-bottom: 5px;
+  border-bottom: 1px solid #CCC;
 }
 
 #guide ol {
