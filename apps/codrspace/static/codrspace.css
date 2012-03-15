@@ -235,6 +235,8 @@ footer {
 
 #post-list-content .post-content {
   margin-top: 20px;
+  line-height: 20px;
+  font-size: 14px;
 }
 
 #post-list-content .post-content h1 {
