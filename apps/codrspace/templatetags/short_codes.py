@@ -118,17 +118,17 @@ def filter_upload(value):
         (file_type, encoding) = mimetypes.guess_type(file_path)
 
         if file_type is None:
-            return (value, None)
+            return (replacements, value, None,)
 
         # FIXME: Can we trust the 'guessed' mimetype?
         if not file_type.startswith('text'):
-            return (value, None)
+            return (replacements, value, None,)
 
         # FIXME: Limit to 1MB right now
         try:
             f = open(file_path)
         except IOError:
-            return (value, None)
+            return (replacements, value, None,)
 
         text = f.read(1048576)
         f.close()
