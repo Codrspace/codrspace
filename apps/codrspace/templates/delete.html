@@ -30,6 +30,7 @@
                 <div class="well">
                     <p><strong>You are about to delete this post. All good?</strong></p>
                     <form action="." method="post">
+                        {% csrf_token %}
                         <input type="hidden" name="delete-post" value="delete" />
                         <input class="btn btn-warning btn-large" type="submit" name="submit" value="Yes, delete this post!" />
                         <a class="btn btn-success btn-large" href="#" onclick="history.back(); return false;">Nah, nevermind.</a>
