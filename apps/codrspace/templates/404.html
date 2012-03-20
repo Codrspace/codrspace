@@ -18,7 +18,7 @@
                 <p>We wouldn't find what you were looking for :(</p>
                 <p>You could try:</p>
                 <ul>
-                    <li><a href="{% url home %} ">Visiting the home page</a></li>
+                    <li><a href="{% url homepage %} ">Visiting the home page</a></li>
                     <li><a href="{% random_blog %}"><i class="icon-random"></i> Check Out A Random Blog</a></li>
                     {% if user.is_authenticated %}
                         <li><a href="{% url add %}"><i class="icon-edit"></i> Post Something</a></li>
