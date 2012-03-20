@@ -128,11 +128,10 @@ def filter_upload(value):
         # FIXME: Limit to 1MB right now
         try:
             f = open(file_path)
+            text = f.read(1048576)
+            f.close()
         except IOError:
             colorize = False
-
-        text = f.read(1048576)
-        f.close()
 
         if colorize:
             text = _colorize_table(text, None)
