@@ -15,7 +15,8 @@ from django.db.models import Q
 from django.core.cache import cache
 
 from codrspace.models import Post, Profile, Media, Setting
-from codrspace.forms import PostForm, MediaForm, SettingForm
+from codrspace.forms import PostForm, MediaForm, \
+                            SettingForm, FeedBackForm
 
 
 class GithubAuthError(Exception):
@@ -93,6 +94,11 @@ def add(request, template_name="add.html"):
             media.uploader = request.user
             media.filename = unicode(media_form.cleaned_data.get('file', ''))
             media.save()
+            messages.info(
+                request,
+                'Media %s has been uploaded.' % media.filename,
+                extra_tags='alert-success'
+            )
 
         # post
         form = PostForm(request.POST, user=request.user)
@@ -107,7 +113,7 @@ def add(request, template_name="add.html"):
                 post.save()
                 messages.info(
                     request,
-                    'Added post %s successfully.' % post)
+                    'Added post "%s".' % post)
                 return redirect('edit', pk=post.pk)
 
     else:
@@ -138,7 +144,7 @@ def user_settings(request, template_name="settings.html"):
         form = SettingForm(request.POST, instance=settings)
         if form.is_valid():
             msg = "Edited settings successfully."
-            messages.info(request, msg)
+            messages.info(request, msg, extra_tags='alert-success')
             settings = form.save(commit=False)
             settings.user = user
             settings.save()
@@ -177,6 +183,7 @@ def edit(request, pk=0, template_name="edit.html"):
     """ Edit a post """
     post = get_object_or_404(Post, pk=pk, author=request.user)
     posts = Post.objects.filter(
+        ~Q(id=post.pk),
         author=request.user,
         status__in=['draft', 'published']
     ).order_by('-pk')
@@ -208,7 +215,7 @@ def edit(request, pk=0, template_name="edit.html"):
                 post.save()
                 messages.info(
                     request,
-                    'Edited post %s successfully.' % post)
+                    'Edited post "%s".' % post)
                 return render(request, template_name, {
                     'form': form,
                     'post': post,
@@ -356,3 +363,32 @@ def signin_callback(request, slug=None, template_name="base.html"):
         login(request, user)
 
     return redirect(reverse('post_list', args=[user.username]))
+
+
+@login_required
+def feedback(request, template_name='feedback.html'):
+    """ Send Feed back """
+    from django.core.mail import mail_admins
+    user = get_object_or_404(User, username=request.user.username)
+
+    form = FeedBackForm(initial={'email': user.email})
+
+    if request.method == 'POST':
+        form = FeedBackForm(request.POST)
+        if form.is_valid():
+            msg = "Thanks for send us feedback. We hope to make the product better."
+            messages.info(request, msg, extra_tags='alert-success')
+
+            print dir(form)
+            subject = 'Codrspace feedback from %s' % user.username
+            message = '%s (%s), %s' % (
+                request.user.username,
+                form.cleaned_data['email'],
+                form.cleaned_data['comments'],
+            )
+
+            mail_admins(subject, message, fail_silently=False)
+
+    return render(request, template_name, {
+        'form': form,
+    })

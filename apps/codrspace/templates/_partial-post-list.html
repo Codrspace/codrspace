@@ -1,11 +1,26 @@
+{% load codrspace_tags %}
+
 {% if posts %}
-<ol id="post-list">
+<ul id="post-list">
 {% for post in posts|slice:":10" %}
-    <li><a href="{% url edit post.pk %}">
-        {{ forloop.counter }}. {% firstof post.title "Untitled" %} 
-        <span class="post-status {{ post.status }}">{{ post.status }}</span>
-        <span class="content-summary">{{ post.content|truncatewords:40 }} {{ post.publish_dt|date }}</span>
-    </a></li>
+    {% if post.pk != current_post.pk %}
+        <li>
+            {% if post.status == 'published' %}
+                <span class="label label-success">{{ post.status }}</span>
+                <a href="{% url edit post.pk %}" rel="tooltip" data-original-title="Edit `{% firstof post.title "Untitled" %}`" title="Edit `{% firstof post.title "Untitled" %}`">
+                    {% firstof post.title "Untitled" %}
+                </a>
+                <span class="post-list-date">{{ post.publish_dt|localize:user }}</span>
+            {% endif %}
+            {% if post.status == 'draft' %}
+                <span class="label label-warning">{{ post.status }}</span>
+                <a href="{% url edit post.pk %}" rel="tooltip" data-original-title="Edit `{% firstof post.title "Untitled" %}`" title="Edit `{% firstof post.title "Untitled" %}`">
+                    {% firstof post.title "Untitled" %}
+                </a>
+                <span class="post-list-date">{{ post.update_dt|localize:user }}</span>
+            {% endif %}
+        </li>
+    {% endif %}
 {% endfor %}
-</ol>
+</ul>
 {% endif %}

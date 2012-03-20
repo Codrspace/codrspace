@@ -68,3 +68,16 @@
 .highlight .vg { color: #268BD2 } /* Name.Variable.Global */
 .highlight .vi { color: #268BD2 } /* Name.Variable.Instance */
 .highlight .il { color: #2AA198 } /* Literal.Number.Integer.Long */
+.highlight pre {
+    display: block;
+    padding: 5px 0 0 0;
+    font-size: 12.025px;
+    line-height: 16px;
+    background-color: none;
+    background: none;
+    border: none;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    white-space: pre;
+}

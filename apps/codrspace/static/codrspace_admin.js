@@ -50,14 +50,9 @@ if (el_status[0].value == 'published') {
     toggle_publish_dt(el_status[0].value);
 }
 
-/* Helpers for uploaded media */
-$('.media-item').tipsy({
-    gravity: 'e'
-});
-
 /* Helper to insert media at cursor location in content field */
 $(".media-item a").click(function(){
-    $("#id_content").insertAtCaret($(this).text());
+    $("#id_content").insertAtCaret($(this).attr('data-shortcode'));
     return false;
 });
 
@@ -71,3 +66,6 @@ title_field.keyup(function() {
     value = value.substring(0, 45);
     slug_field.val(value);
 });
+
+/* tooltips */
+$('a[rel=tooltip]').tooltip();

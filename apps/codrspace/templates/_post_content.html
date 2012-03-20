@@ -1,29 +1,24 @@
 {% load codrspace_tags %}
 {% load short_codes %}
 
-<div class="post">
-<h2 class="post-header">
-    <a href="{{ post.get_absolute_url }}">
-        {% filter striptags|truncatewords:30 %}
-            {% firstof post.title "Untitled" %}
-        {% endfilter %}
-    </a>
-</h2>
+<h2><a href="{{ post.get_absolute_url }}">{% filter striptags|truncatewords:30 %}{% firstof post.title "Untitled" %}{% endfilter %}</a></h2>
+
 <div class="post-meta">
-    {{ post.publish_dt|localize:user }} 
     {% if post.author == user %}
-        <span class="post-status {{ post.status }}">{{ post.status }}</span>
-        <span class="post-options-mini"><a href="{% url edit post.pk %}">edit</a></span>
-        <span class="post-options-mini"><a href="{% url delete post.pk %}">delete</a></span>
+        {% if post.status == 'published' %}
+            <span class="label label-success">{{ post.status }}</span>
+        {% endif %}
+        {% if post.status == 'draft' %}
+            <span class="label label-warning">{{ post.status }}</span>
+        {% endif %}
+    {% endif %}
+        by <a href="#" rel="popover" data-original-title="{{ post.author.username }}">{{ post.author.username }}</a> on {{ post.publish_dt|localize:user }}
+    {% if post.author == user %}
+        <i class="icon-pencil"></i> <a href="{% url edit post.pk %}">edit</a>
+        <i class="icon-trash"></i> <a href="{% url delete post.pk %}">delete</a>
     {% endif %}
 </div>
+
 <div class="post-content">
-    {{ post.content|explosivo }}
-</div>
-{% if username == user.username %}
-    <div class="post-options">
-        <a href="{% url edit post.pk %}">Edit Post</a>
-        <a href="{% url delete post.pk %}">Delete Post</a>
-    </div>
-{% endif %}
+    <p>{{ post.content|explosivo }}</p>
 </div>

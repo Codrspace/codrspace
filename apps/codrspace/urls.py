@@ -4,13 +4,14 @@ from codrspace.feeds import LatestPostsFeed
 
 urlpatterns = patterns('codrspace.views',
     url(r'^$', 'index', name="homepage"),
-    url(r'^add/$', 'add', name="add"),
-    url(r'^edit/(?P<pk>\d+)/$', 'edit', name="edit"),
-    url(r'^delete/(?P<pk>\d+)/$', 'delete', name="delete"),
+    url(r'^admin/add/$', 'add', name="add"),
+    url(r'^admin/edit/(?P<pk>\d+)/$', 'edit', name="edit"),
+    url(r'^admin/delete/(?P<pk>\d+)/$', 'delete', name="delete"),
     url(r'^settings/$', 'user_settings', name="user_settings"),
     url(r'^signin/$', 'signin_start', name="signin_start"),
     url(r'^signin_callback/$', 'signin_callback', name="signin_callback"),
     url(r'^signout/$', 'signout', name="signout"),
+    url(r'^feedback/$', 'feedback', name="feedback"),
 )
 
 urlpatterns += patterns('codrspace.mock_views',

@@ -1,70 +1,67 @@
 {% load codrspace_tags %}
 
-{% if page == "home" %}
-<nav>
-    <ul>
-        <li><a href="{% url homepage %}">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Suggestions</a></li>
-        {% if not user.is_authenticated %}
-            <li><a href="{% url signin_start %}">Sign In</a></li>
-        {% else %}
-            <li><a href="{% url post_list user.username %}">My Posts</a></li>
-            <li><a href="{% url user_settings %}">Settings</a></li>
-            <li><a href="{% url signout %}">Sign out</a></li>
-        {% endif %}
-        <li><a href="{% url homepage %}"><span class="mini-logo">CS</span> * Codrspace</a></li>
-    </ul>
-</nav>
-{% endif %}
+<div class="navbar navbar-fixed-top">
+       <div class="navbar-inner">
+         <div class="container">
+              <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+              <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </a>
+         
+              <!-- Be sure to leave the brand out there if you want it shown -->
+              <a class="brand" href="{% url homepage %}"><img src="{{ STATIC_URL }}codrspace-nav-logo.png" alt="Codrspace - {{ SITE_TAGLINE }}" title="Codrspace - {{ SITE_TAGLINE }}"/></a>
+         
+              <!-- Everything you want hidden at 940px or less, place within here -->
+              <div class="nav-collapse">
+                {% if user.is_authenticated %}
+                <ul class="nav">
+                    <li><a href="{% url feedback %}"><i class="icon-ok icon-white"></i> Give Feedback</a></li>
+                </ul>
+                {% endif %}
+                <ul class="nav pull-right">
+                {% if page == "home" %}
+                    {% if not user.is_authenticated %}
+                        <li><a href="{% url signin_start %}"><i class="icon-play icon-white"></i> Sign In</a></li>
+                    {% else %}
+                        <li><a href="{% url post_list user.username %}"><i class="icon-user icon-white"></i> My Posts</a></li>
+                        <li><a href="{% url add %}"><i class="icon-edit icon-white"></i> Add Post</a></li>
+                        <li><a href="{% url user_settings %}"><i class="icon-cog icon-white"></i> Settings</a></li>
+                        <li><a href="{% url signout %}"><i class="icon-off icon-white"></i> Sign out</a></li>
+                    {% endif %}
+                {% endif %}
+                {% if page == "post_list" %}
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url add %}"><i class="icon-edit icon-white"></i> Add Post</a></li>
+                        <li><a href="{% url user_settings %}"><i class="icon-cog icon-white"></i> Settings</a></li>
+                        <li><a href="{% url signout %}"><i class="icon-off icon-white"></i> Sign Out</a></li>
+                    {% else %}
+                        <li><a href="{% url signin_start %}"><i class="icon-play icon-white"></i> Sign In</a></li>
+                    {% endif %}
+                {% endif %}
+                {% if page == "post_detail" %}
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url edit post.pk %}"><i class="icon-pencil icon-white"></i> Edit Post</a></li>
+                        <li><a href="{% url add %}"><i class="icon-edit icon-white"></i> Add Post</a></li>
+                        <li><a href="{% url post_list user.username %}"><i class="icon-user icon-white"></i> My Posts</a></li>
+                        <li><a href="{% url user_settings %}"><i class="icon-cog icon-white"></i> Settings</a></li>
+                        <li><a href="{% url signout %}"><i class="icon-off icon-white"></i> Sign Out</a></li>
+                    {% else %}
+                        <li><a href="{% url signin_start %}"><i class="icon-play icon-white"></i> Sign In</a></li>
+                    {% endif %}
+                {% endif %}
+                {% if page == "auth_base" %}
+                    <li><a href="{% url post_list user.username %}"><i class="icon-user icon-white"></i> My Posts</a></li>
+                    <li><a href="{% url add %}"><i class="icon-edit icon-white"></i> Add Post</a></li>
+                    <li><a href="{% url user_settings %}"><i class="icon-cog icon-white"></i> Settings</a></li>
+                    <li><a href="{% url signout %}"><i class="icon-off icon-white"></i> Signout</a></li>
+                {% endif %}
+                </ul>
+                <!-- .nav, .navbar-search, .navbar-form, etc -->
+              </div>
+         </div>
+       </div>
+    </div>
 
-{% if page == "post_list" %}
-<nav>
-    <ul>
-        <li><a href="{% url homepage %}">Home</a></li>
-        <li><a href="{% random_blog %}">Random Blog</a></li>
-        {% if user.is_authenticated %}
-            <li><a href="{% url add %}">Add Post</a></li>
-            <li><a href="{% url user_settings %}">Settings</a></li>
-            <li><a href="{% url signout %}">Sign Out</a></li>
-        {% else %}
-            <li><a href="{% url signin_start %}">Sign In</a></li>
-        {% endif %}
-        <li><a href="{% url homepage %}"><span class="mini-logo">CS</span> * Codrspace</a></li>
-    </ul>
-</nav>
-{% endif %}
-
-{% if page == "post_detail" %}
-<nav>
-    <ul>
-        <li><a href="{% url homepage %}">Home</a></li>
-        <li><a href="{% random_blog %}">Random Blog</a></li>
-        {% if user.is_authenticated %}
-            <li><a href="{% url edit post.pk %}">Edit Post</a></li>
-            <li><a href="{% url add %}">Add Post</a></li>
-            <li><a href="{% url post_list user.username %}">My Posts</a></li>
-            <li><a href="{% url user_settings %}">Settings</a></li>
-            <li><a href="{% url signout %}">Sign Out</a></li>
-        {% else %}
-            <li><a href="{% url signin_start %}">Sign In</a></li>
-        {% endif %}
-        <li><a href="{% url homepage %}"><span class="mini-logo">CS</span> * Codrspace</a></li>
-    </ul>
-</nav>
-{% endif %}
-
-
-{% if page == "auth_base" %}
-<nav>
-    <ul>
-        <li><a href="{% url post_list user.username %}">My Posts</a></li>
-        <li><a href="{% url add %}">Add Post</a></li>
-        <li><a href="{% url user_settings %}">Settings</a></li>
-        <li><a href="{% url signout %}">Signout</a></li>
-        <li><a href="{% url homepage %}"><span class="mini-logo">CS</span> * Codrspace</a></li>
-    </ul>
-</nav>
-{% endif %}
-
-<div class="clear"><!-- iefix --></div>
+<div class="nav-clear"><!-- iefix --></div>

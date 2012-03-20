@@ -1,0 +1,25 @@
+{% extends "auth_base.html" %}
+
+{% block title %}Feedback{% endblock %}
+
+{% block content %}
+   {% include "_form_messages.html" with form=form %}
+   <div id="feedback-page">
+   <div class="row">
+       <div class="span12">
+            <h2>Give Codrspace Some Feedback</h2>
+            <p>Your feedback is welcome. Please let use know how we can improve, or what features you would like to see. Thanks!</o>
+            <form method="POST" action="." class="well">
+                {% csrf_token %}
+                <label>Email</label>
+                {{ form.email }}
+                <label>Questions/Comments</label>
+                {{ form.comments }}
+                <div class="form-button">
+                    <input class="btn btn-success btn-large" type="submit" name="submit" value="Send Feedback" />
+                </div>
+            </form>
+        </div>
+   </div>
+   </div>
+{% endblock %}

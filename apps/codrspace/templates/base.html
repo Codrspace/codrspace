@@ -1,8 +1,9 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>{% block pre_title %}{{ SITE_NAME }}:{% endblock %} {% block title %}{% endblock %}</title>
+        <title>{% block pre_title %}{{ SITE_NAME }} - {% endblock %} {% block title %}{% endblock %}</title>
         {% block extra_head %}{% endblock %}
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}codrspace.css">
         <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}pygments.css">
         <!--[if lt IE 9]>
@@ -25,32 +26,35 @@
         {% block nav %}
             {% include "_nav.html" with page="home" %}
         {% endblock %}
-        {% block header %}
-            <header>
-                <h1>Write About Code with CodrSpace.</h1>
-                <h2>{{ SITE_TAGLINE }}</h2>
-            </header>
-        {% endblock %}
-        {% block messages %}
-            {% include "_messages.html" with messages=messages %}
-        {% endblock %}
-        {% block content %}{% endblock %}
-        {% block footer %}
-            <footer>
-                <p>&copy;2011 CodrSpace.com - {{ VERSION }} - All Rights Reserved.</p>
-                <p>Want to contribute? <a href="https://github.com/Codrspace/codrspace">Fork CodrSpace</a> on github</p>
-            </footer>
-        {% endblock %}
+        <div class="container">
+            {% block messages %}
+                {% include "_messages.html" with messages=messages %}
+            {% endblock %}
+            {% block header %}
+                <header>
+                    <div class="page-header">
+                        <h1 class="home-tagline">{{ SITE_TAGLINE }}</h1>
+                    </div>
+                </header>
+            {% endblock %}
+            {% block content %}{% endblock %}
+            {% block footer %}
+                <footer>
+                    <p><a href="{% url homepage %}"><img src="{{ STATIC_URL }}codrspace-logo-small.png" alt="Codrspace - {{ SITE_TAGLINE }}" title="Codrspace - {{ SITE_TAGLINE }}"/></a></p>
+                    <p>&copy;2011 CodrSpace.com - {{ VERSION }} - All Rights Reserved.</p>
+                    <p>Want to contribute? <a href="https://github.com/Codrspace/codrspace">Fork CodrSpace</a> on github</p>
+                </footer>
+            {% endblock %}
+        </div>
         <script type="text/javascript" src="{{ STATIC_URL }}jquery.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}jquery.labelify.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}bootstrap-tooltip.js"></script>
         {% block extra_body %}
-            <script type="text/javascript" src="{{ STATIC_URL }}jquery.tipsy.js"></script>
             <script type="text/javascript">
-                $('#recent-codrs .recent-codr-image').tipsy({
-                    gravity: 's'
-                });
+                $('img[rel=tooltip]').tooltip();
             </script>
         {% endblock %}
+        <script type="text/javascript" src="{{ STATIC_URL }}bootstrap-alert.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}codrspace.js"></script>
     </body>
 </html>

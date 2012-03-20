@@ -21,14 +21,22 @@
 
 {% block content %}
     <div id="post-delete">
-        <h2>{{ post.title }}</h2>
-        <p>You are about to delete this post. All good?</p>
-        <p>{{ post.content|striptags|truncatewords:"30"}}</p>
-        <form action="." method="post">
-            <input type="hidden" name="delete-post" value="delete" />
-            <input class="delete-button" type="submit" name="submit" value="Yes, delete this post!" />
-            <a href="#" onclick="history.back(); return false;">Nah, nevermind.</a>
-        </form>
+        <div class="row">
+            <div class="span6">
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.content|striptags|truncatewords:"100"}}</p>
+            </div>
+            <div class="span6">
+                <div class="well">
+                    <p><strong>You are about to delete this post. All good?</strong></p>
+                    <form action="." method="post">
+                        <input type="hidden" name="delete-post" value="delete" />
+                        <input class="btn btn-warning btn-large" type="submit" name="submit" value="Yes, delete this post!" />
+                        <a class="btn btn-success btn-large" href="#" onclick="history.back(); return false;">Nah, nevermind.</a>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 

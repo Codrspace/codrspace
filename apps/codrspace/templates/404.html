@@ -2,15 +2,30 @@
 
 {% load codrspace_tags %}
 
-{% block title %}404 Page Not Found{% endblock %}
+{% block title %}Page not found{% endblock %}
+
+{% block extra_head %}{% endblock %}
+
+{% block nav %}
+    {% include "_nav.html" with page="home" %}
+{% endblock %}
 
 {% block content %}
-<h2>Awwwww man, why you no work URL?</h2>
-<img src="{{ STATIC_URL }}404.jpg" title="Glenbot and Eloy workin' the code"/>
-<p>Looks like the URL in the address bar doesn't exist.</p>
-<p>You can try:</p>
-<ol>
-    <li><a href="{% url homepage %}">CodrSpace.com &raquo;</a></li>
-    <li><a href="{% random_blog %}">Random Blog &raquo;</a></li>
-</ol>
+    <div class="row">
+        <div class="span12">
+            <div class="page-header">
+                <h1>Could not find page</h1>
+                <p>We wouldn't find what you were looking for :(</p>
+                <p>You could try:</p>
+                <ul>
+                    <li><a href="{% url home %} ">Visiting the home page</a></li>
+                    <li><a href="{% random_blog %}"><i class="icon-random"></i> Check Out A Random Blog</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url add %}"><i class="icon-edit"></i> Post Something</a></li>
+                        <li><a href="{% url post_list user.username %}"><i class="icon-user"></i> Re-visit Your Posts</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
 {% endblock %}

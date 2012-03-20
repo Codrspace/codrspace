@@ -3,28 +3,38 @@
 {% block title %}Settings{% endblock %}
 
 {% block content %}
-    <div id="settings-page">
-        <div id="settings-wrap">
-            <form method="POST" action=".">
-                <h2>Settings</h2>
-                {% include "_form_messages.html" with form=form %}
-                {{ form.hidden }}
+   {% include "_form_messages.html" with form=form %}
+   <div id="settings-page">
+   <div class="row">
+       <div class="span12">
+            <h2>Settings</h2>
+            <form method="POST" action="." class="well">
                 {% csrf_token %}
-                <div class="section">Blog Settings</div>
-                <p>Title:</p>
-                <div class="field">{{ form.blog_title }}</div>
-                <p>Tagline:</p>
-                <div class="field">{{ form.blog_tagline }}</div>
-
-                <div class="section">User settings</div>
-                <p>Your Name:</p>
-                <div class="field">{{ form.name }}</div>
-                <p>Biography:</p>
-                <div class="field">{{ form.bio }}</div>
-                <p>Time Zone:</p>
-                <div class="field">{{ form.timezone }}</div>
-                <input id="submit-button" type="submit" name="update_settings" value="Update Settings" />
+                <div class="form-vertical">
+                    <fieldset>
+                        <legend>Blog Settings</legend>
+                    </fieldset>
+                </div>
+                <label>Title</label>
+                {{ form.blog_title }}
+                <label>Tagline</label>
+                {{ form.blog_tagline }}
+                <div class="form-vertical">
+                    <fieldset>
+                        <legend>User Settings</legend>
+                    </fieldset>
+                </div>
+                <label>Your Name</label>
+                {{ form.name }}
+                <label>Biography</label>
+                {{ form.bio }}
+                <label>Time Zone</label>
+                {{ form.timezone }}
+                <div class="form-button">
+                    <input class="btn btn-success btn-large" type="submit" name="submit" value="Save Settings" />
+                </div>
             </form>
         </div>
-    </div>
+   </div>
+   </div>
 {% endblock %}

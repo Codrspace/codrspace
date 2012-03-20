@@ -113,28 +113,33 @@ def filter_upload(value):
     if not len(files):
         return (replacements, value, None,)
 
-    for file_path in files:
-        file_path = os.path.join(MEDIA_ROOT, file_path)
+    for file_name in files:
+        colorize = True
+        file_path = os.path.join(MEDIA_ROOT, file_name)
         (file_type, encoding) = mimetypes.guess_type(file_path)
 
         if file_type is None:
-            return (replacements, value, None,)
+            colorize = False
 
         # FIXME: Can we trust the 'guessed' mimetype?
-        if not file_type.startswith('text'):
-            return (replacements, value, None,)
+        if file_type in ['application', 'text']:
+            colorize = False
 
         # FIXME: Limit to 1MB right now
         try:
             f = open(file_path)
         except IOError:
-            return (replacements, value, None,)
+            colorize = False
 
         text = f.read(1048576)
         f.close()
 
-        text = _colorize_table(text, None)
-        text_hash = md5(text).hexdigest()
+        if colorize:
+            text = _colorize_table(text, None)
+            text_hash = md5(text).hexdigest()
+        else:
+            text = '[local %s]' % file_name
+            text_hash = md5(text).hexdigest()
 
         replacements.append([text_hash, text])
         value = re.sub(pattern, text_hash, value, count=1)

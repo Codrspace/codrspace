@@ -7,7 +7,7 @@
 {% if user_settings.blog_title %}
     {{ user_settings.blog_title|striptags }} - 
 {% else %}
-    {{ SITE_NAME }}:
+    {{ SITE_NAME }} - 
 {% endif %}
 {% endblock %}
 
@@ -30,52 +30,61 @@
 {% block header %}{% endblock %}
 
 {% block content %}
-    <div id="post-list-content">
-        <div id="left-column">
-            {% include "_user_detail.html" with meta=meta %}
-            {% ifequal username user.username %}
-                <ul id="auth-options">
-                    <li><a href="{% url add %}">Add Post</a></li>
-                    <li><a href="{% url signout %}">Sign Out</a></li>
-                </ul>
-            {% endifequal %}
-            <ul id="other-links">
-                <li><a href="{% url homepage %}">Home</a></li>
-                <li><a href="{% random_blog %}">Random Blog</a></li>
-            </ul>
-        </div>
+    <div id="post-list-page">
+        <div class="row">
+           <div class="span12">
+               <div class="page-header">
+                    <h1>{% if user_settings.blog_title %}{{ user_settings.blog_title|striptags }}{% else %}Codrspace{% endif%} - {% if user_settings.blog_tagline %}{{ user_settings.blog_tagline|striptags }}{% else %}Latest posts by {{ username }}{% endif %}</h1>
+               </div>
 
-        {% load cache %}
-        {% cache 300 post_list username %}
-
-        <div id="right-column">
-            {% for post in posts %}
-                {% if post.status != "deleted" %}
-                    {% if post.status == "draft" %}
-                        {% if username == user.username %}
-                            {% include "_post_content.html" with post=post %}
+               {% load cache %}
+               {% cache 300 post_list username %}
+                    {% for post in posts %}
+                        {% if post.status != "deleted" %}
+                            {% if post.status == "draft" %}
+                                {% if username == user.username %}
+                                    {% include "_post_content.html" with post=post %}
+                                {% endif %}
+                            {% else %}
+                                {% include "_post_content.html" with post=post %}
+                            {% endif %}
                         {% endif %}
-                    {% else %}
-                        {% include "_post_content.html" with post=post %}
-                    {% endif %}
-                {% endif %}
-            {% empty %}
-                {% if username == user.username %}
-                    <div id="no-posts-message">
-                        <p>A little empty ...</p> 
-                        <p><a href="{% url add %}">Let's add some posts!</a></p>
-                    </div>
-                {% else %}
-                    <div id="no-posts-message">
-                        <p>This person hasn't posted yet :(</p>
-                    </div>                
-                {% endif %}
-            {% endfor %}
+                    {% empty %}
+                        {% if username == user.username %}
+                            <div id="no-posts-message">
+                                <p>A little empty ...</p> 
+                                <p><a href="{% url add %}">Let's add some posts!</a></p>
+                            </div>
+                        {% else %}
+                            <div id="no-posts-message">
+                                <p>This person hasn't posted yet :(</p>
+                            </div>                
+                        {% endif %}
+                    {% endfor %}
+               {% endcache %}
+           </div>
         </div>
-
-        {% endcache %}
-
     </div>
+    <div id="popover-content">
+        <div id="popover-wrap">
+            <a href="{{ meta.html_url }}"><img class="user-detail-image" src="{{ meta.avatar_url }}" alt="GitHub &ndash; {{ meta.login }}"/></a>
+            <p>{% firstof user_settings.name meta.name meta.login %}</p>
+            {% if meta.location %}
+                <p>{{ meta.location }}</p>
+            {% endif %}
+            <p>{% filter striptags|truncatewords:15 %}{% firstof user_settings.bio meta.bio %}{% endfilter %}</p>
+        </div>
+        <div class="clear"><!-- ie --></div>
+    </div>
+{% endblock %}
+
+{% block extra_body %}
+    <script type="text/javascript" src="{{ STATIC_URL }}bootstrap-popover.js"></script>
+    <script type="text/javascript">
+        $('a[rel=popover]').popover({
+            content: $('#popover-content').html()
+        });
+    </script>
 {% endblock %}
 
 {% block footer %}{% endblock %}

@@ -89,7 +89,6 @@ class Media(models.Model):
 
     def type(self):
         ext = os.path.splitext(self.filename)[1].lower()
-
         # map file-type to extension
         types = {
             'image': ('.jpg', '.jpeg', '.gif', '.png', '.tif', '.tiff',
@@ -100,14 +99,14 @@ class Media(models.Model):
             'pdf': ('.pdf'),
             'video': ('.wmv', '.mov', '.mpg', '.mp4', '.m4v'),
             'zip': ('.zip'),
-            'code': ('.txt', '.py', '.htm', '.html', '.css', '.js', '.rb'),
+            'code': ('.txt', '.py', '.htm', '.html', '.css', '.js', '.rb', '.sh'),
         }
 
         for type in types:
             if ext in types[type]:
                 return type
 
-        return ''
+        return 'code'
 
     def shortcode(self):
         shortcode = ''

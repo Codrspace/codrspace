@@ -3,66 +3,60 @@
 {% block title %}Add a post{% endblock %}
 
 {% block extra_head %}
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}tipsy.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}wmd.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}anytimec.css">
 {% endblock %}
 
 {% block content %}
-<div id="add-page">
-
-    <div id="add-wrap">
-    <div id="mode-msg">Adding post ...</div>
-
-    <form action="" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-
-    <table><tr><td>
-
-        <div id="post-wrap">
-        {% include "_form_messages.html" with form=form %}
-        <div id="title">{{ form.title }}</div>
-        <div id="slug">{{ form.slug }}</div>
-        <div id="wmd-button-bar" class="wmd-panel"></div>
-        <div id="content">{{ form.content }}</div>
-        <div id="date">
-            <label for="id_publish_dt">Publish Date:</label>
-            {{ form.publish_dt }}
-        </div>
-        <div id="status">
-            {{ form.status }}
-            <input type="submit" name="submit_post" value="Save changes" />
-        </div>
-        </div>
-
-        {% include "_partial-post-list.html" %}
-
-    </td><td align="right" id="media-region">
-
-        <div id="media-wrap">
-
-            {% include "_shortcode_help.html" %}
-
-            <div id="media-form-wrap">
-                {% csrf_token %}
-                {{ media_form.file }}
-                <input type="submit" name="submit_file" value="Upload File" />
+    {% include "_form_messages.html" with form=form %}
+    <div class="row">
+        <form action="" method="POST" enctype="multipart/form-data">
+        <div class="span8">
+            {% csrf_token %}
+            <div class="form-vertical">
+               <label>Title</label>
+               {{ form.title }}
+               {{ form.slug }}
+               <div id="wmd-button-bar" class="wmd-panel"></div>
+               {{ form.content }}
+               <div id="date">
+                   <label for="id_publish_dt">Publish Date</label>
+                   {{ form.publish_dt }}
+               </div>
+               <div id="status">
+                   <label>Status</label>
+                   {{ form.status }}
+               </div>
             </div>
-
-            {% include "_partial-media-list.html" %}
-
+            <input class="btn btn-success btn-large" type="submit" name="submit_post" value="Save changes" />
+            {% if posts %}
+                <div class="page-header">
+                    <h2>Other posts</h2>
+                </div>
+                {% include "_partial-post-list.html" %}
+            {% endif %}
         </div>
-
-    </td></tr></table>
-    </form>
-
+        <div class="span4">
+            <h2>Media</h2>
+            <div class="well">
+                {{ media_form.file }}
+                <input class="btn btn-info btn-small" type="submit" name="submit_file" value="Upload File" />
+                {% if media_set %}
+                  <h4 class="media-list-header">Media List</h4>
+                  {% include "_partial-media-list.html" %}
+                {% endif %}
+            </div>
+            <h2>Help</h2>
+            <div class="well">
+                {% include "_shortcode_help.html" %}
+            </div>
+        </div>
+        </form>
     </div>
-</div>
 {% endblock %}
 
 {% block extra_body %}
 <script type="text/javascript" src="{{ STATIC_URL }}wmd.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}jquery.tipsy.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}jquery.insertat.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}anytimec.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}codrspace_admin.js"></script>

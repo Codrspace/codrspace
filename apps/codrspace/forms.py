@@ -38,6 +38,17 @@ class PostForm(forms.ModelForm):
 
         super(PostForm, self).__init__(*args, **kwargs)
 
+        # add span class to charfields
+        for field in self.fields.values():
+            if isinstance(field, forms.fields.CharField):
+                if 'class' in field.widget.attrs:
+                    field.widget.attrs['class'] = "%s %s" % (
+                        field.widget.attrs['class'],
+                        'span8',
+                    )
+                else:
+                    field.widget.attrs['class'] = 'span8'
+
         # disable publish_dt if draft
         if not self.instance.status or self.instance.status == 'draft':
             self.fields['publish_dt'].widget.attrs['disabled'] = 'disabled'
@@ -70,3 +81,22 @@ class SettingForm(forms.ModelForm):
 
     class  Meta:
         model = Setting
+
+    def __init__(self, *args, **kwargs):
+        super(SettingForm, self).__init__(*args, **kwargs)
+
+        for field in self.fields.values():
+            if isinstance(field, forms.fields.CharField):
+                field.widget.attrs.update({'class': 'span10'})
+
+
+class FeedBackForm(forms.Form):
+    email = forms.EmailField(required=True)
+    comments = forms.CharField(widget=forms.Textarea(),required=True)
+
+    def __init__(self, *args, **kwargs):
+        super(FeedBackForm, self).__init__(*args, **kwargs)
+
+        for field in self.fields.values():
+            if isinstance(field, forms.fields.CharField):
+                field.widget.attrs.update({'class': 'span10'})
