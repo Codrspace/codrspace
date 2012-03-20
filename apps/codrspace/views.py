@@ -165,7 +165,7 @@ def delete(request, pk=0, template_name="delete.html"):
     user = get_object_or_404(User, username=request.user.username)
 
     if request.method == 'POST':
-        if 'delete-post' in request.POST: 
+        if 'delete-post' in request.POST:
             post.status = 'deleted'
             post.save()
 

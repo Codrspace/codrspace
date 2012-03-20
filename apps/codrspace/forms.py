@@ -92,7 +92,7 @@ class SettingForm(forms.ModelForm):
 
 class FeedBackForm(forms.Form):
     email = forms.EmailField(required=True)
-    comments = forms.CharField(widget=forms.Textarea(),required=True)
+    comments = forms.CharField(widget=forms.Textarea(), required=True)
 
     def __init__(self, *args, **kwargs):
         super(FeedBackForm, self).__init__(*args, **kwargs)
