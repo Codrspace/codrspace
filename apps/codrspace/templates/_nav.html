@@ -42,7 +42,9 @@
                 {% endif %}
                 {% if page == "post_detail" %}
                     {% if user.is_authenticated %}
+                        {% if user.pk == post.author.pk %}
                         <li><a href="{% url edit post.pk %}"><i class="icon-pencil icon-white"></i> Edit Post</a></li>
+                        {% endif %}
                         <li><a href="{% url add %}"><i class="icon-edit icon-white"></i> Add Post</a></li>
                         <li><a href="{% url post_list user.username %}"><i class="icon-user icon-white"></i> My Posts</a></li>
                         <li><a href="{% url user_settings %}"><i class="icon-cog icon-white"></i> Settings</a></li>
