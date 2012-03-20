@@ -37,31 +37,28 @@
                     <h1>{% if user_settings.blog_title %}{{ user_settings.blog_title|striptags }}{% else %}Codrspace{% endif%} - {% if user_settings.blog_tagline %}{{ user_settings.blog_tagline|striptags }}{% else %}Latest posts by {{ username }}{% endif %}</h1>
                </div>
 
-               {% load cache %}
-               {% cache 300 post_list username %}
-                    {% for post in posts %}
-                        {% if post.status != "deleted" %}
-                            {% if post.status == "draft" %}
-                                {% if username == user.username %}
-                                    {% include "_post_content.html" with post=post %}
-                                {% endif %}
-                            {% else %}
+                {% for post in posts %}
+                    {% if post.status != "deleted" %}
+                        {% if post.status == "draft" %}
+                            {% if username == user.username %}
                                 {% include "_post_content.html" with post=post %}
                             {% endif %}
-                        {% endif %}
-                    {% empty %}
-                        {% if username == user.username %}
-                            <div id="no-posts-message">
-                                <p>A little empty ...</p> 
-                                <p><a href="{% url add %}">Let's add some posts!</a></p>
-                            </div>
                         {% else %}
-                            <div id="no-posts-message">
-                                <p>This person hasn't posted yet :(</p>
-                            </div>                
+                            {% include "_post_content.html" with post=post %}
                         {% endif %}
-                    {% endfor %}
-               {% endcache %}
+                    {% endif %}
+                {% empty %}
+                    {% if username == user.username %}
+                        <div id="no-posts-message">
+                            <p>A little empty ...</p> 
+                            <p><a href="{% url add %}">Let's add some posts!</a></p>
+                        </div>
+                    {% else %}
+                        <div id="no-posts-message">
+                            <p>This person hasn't posted yet :(</p>
+                        </div>                
+                    {% endif %}
+                {% endfor %}
            </div>
         </div>
     </div>

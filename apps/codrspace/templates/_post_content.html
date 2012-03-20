@@ -1,3 +1,4 @@
+{% load cache %}
 {% load codrspace_tags %}
 {% load short_codes %}
 
@@ -19,6 +20,8 @@
     {% endif %}
 </div>
 
+{% cache 3600 content post.pk %}
 <div class="post-content">
     <p>{{ post.content|explosivo }}</p>
 </div>
+{% endcache %}
