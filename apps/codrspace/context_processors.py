@@ -11,5 +11,6 @@ def codrspace_contexts(request):
     contexts.update({'SITE_TAGLINE': settings.SITE_TAGLINE})
     contexts.update({'SITE_NAME': settings.SITE_NAME})
     contexts.update({'VERSION': settings.VERSION})
+    contexts.update({'ANALYTICS_CODE': settings.ANALYTICS_CODE})
 
     return contexts

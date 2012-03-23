@@ -211,6 +211,7 @@ GITHUB_AUTH = {
 SITE_NAME = "Codrspace"
 SITE_TAGLINE = "The blogging platform for coders."
 VERSION = "0.2 Alpha"
+ANALYTICS_CODE = ''
 
 # Override any settings locally
 try:
