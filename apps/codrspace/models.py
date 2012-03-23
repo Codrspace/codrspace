@@ -7,6 +7,7 @@ from django.template.defaultfilters import slugify
 from django.utils.hashcompat import md5_constructor
 from django.core.cache import cache
 from django.utils.http import urlquote
+from django.conf import settings
 from timezones.fields import TimeZoneField
 from tastypie.models import create_api_key
 from codrspace.managers import SettingManager
@@ -44,6 +45,9 @@ class Post(models.Model):
 
     def __unicode__(self):
         return '%s' % (self.title or 'Untitled')
+
+    def url(self):
+        return '%s%s' % (settings.SITE_URL, self.get_absolute_url(),)
 
     def save(self, *args, **kwargs):
 

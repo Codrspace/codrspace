@@ -209,6 +209,7 @@ GITHUB_AUTH = {
 }
 
 # Codrspace specific
+SITE_URL = "http://codrspace.com"
 SITE_NAME = "Codrspace"
 SITE_TAGLINE = "The blogging platform for coders."
 VERSION = "0.2 Alpha"

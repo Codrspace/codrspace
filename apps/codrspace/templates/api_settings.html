@@ -1,0 +1,91 @@
+{% extends "auth_base.html" %}
+
+{% block title %}API Settings{% endblock %}
+
+{% block content %}
+   {% include "_form_messages.html" with form=form %}
+   <div class="row">
+       <div class="span12">
+            <div class="page-header">
+                <h2>API Key</h2>
+            </div>
+            <p><code>{{ api_key.key }}</code></p>
+            <div class="page-header">
+                <h2>Introduction</h2>
+            </div>
+            <p>Using the API is fairly simple. We currently have a single endpoint that will allow you to access your <code>posts</code>. If you would like to see any other endpoints please <a href="{% url feedback %}">leave us some feedback</a> and we will see if it's a fit.</p>
+            <p>There are three parameters that will be required when accessing the API:</p>
+            <p>
+                <ul>
+                    <li><code>format</code> - currently only <code>json</code> is supported</li>
+                    <li><code>username</code> - your username <code>{{ user.username }}</code></li>
+                    <li><code>api_key</code> - your api key <code>{{ api_key.key }}</code></li>
+                </ul>
+            </p>
+            <p>Those must be appended to the end of the URL as a query string. Ex.</p>
+            <p><code>{{ SITE_URL }}/api/post/?format=json&username={{ user.username }}&api_key={{ api_key.key }}</code></p>
+            <div class="page-header">
+                <h2>Posts</h2>
+            </div/>
+            <h3>Get all posts</h3>
+            <div class="well">
+                <p><code>{{ SITE_URL }}/api/post/</code></p>
+                <p><strong>Output</strong></p>
+                <pre>
+{
+   "meta":{
+      "limit":20,
+      "next":null,
+      "offset":0,
+      "previous":null,
+      "total_count":2
+   },
+   "objects":[
+      {
+         "content":"This content is sooo leet.",
+         "create_dt":"2012-03-23T15:17:09",
+         "id":"18",
+         "publish_dt":"2012-03-23T15:16:00",
+         "resource_uri":"/api/post/18/",
+         "slug":"an-leet-blog-post",
+         "status":"published",
+         "title":"An leet blog post",
+         "update_dt":"2012-03-23T15:17:09",
+         "url":"{{ SITE_URL }}/glenbot/an-leet-blog-post/"
+      },
+      {
+         "content":"My killer content",
+         "create_dt":"2012-03-18T02:26:21",
+         "id":"12",
+         "publish_dt":"2012-03-18T02:25:00",
+         "resource_uri":"/api/post/12/",
+         "slug":"this-blog-post-will-be-killer",
+         "status":"published",
+         "title":"This blog post will be killer",
+         "update_dt":"2012-03-23T15:16:45",
+         "url":"{{ SITE_URL }}/glenbot/this-blog-post-will-be-killer/"
+      }
+   ]
+}</pre>
+            </div>
+            <h3>Get single post</h3>
+            <div class="well">
+                <p><code>{{ SITE_URL }}/api/post/12/</code></p>
+                <p><strong>Output</strong></p>
+                <pre>
+{
+   "content":"My killer content",
+   "create_dt":"2012-03-18T02:26:21",
+   "id":"12",
+   "publish_dt":"2012-03-18T02:25:00",
+   "resource_uri":"/api/post/12/",
+   "slug":"this-blog-post-will-be-killer",
+   "status":"published",
+   "title":"This blog post will be killer",
+   "update_dt":"2012-03-23T15:16:45",
+   "url":"{{ SITE_URL }}/glenbot/this-blog-post-will-be-killer/"
+}</pre>
+            </div>
+        </div>
+   </div>
+{% endblock %}

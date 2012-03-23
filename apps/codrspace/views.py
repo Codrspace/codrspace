@@ -159,6 +159,18 @@ def user_settings(request, template_name="settings.html"):
 
 
 @login_required
+def api_settings(request, template_name="api_settings.html"):
+    """ View API settings """
+
+    from tastypie.models import ApiKey
+    api_key = get_object_or_404(ApiKey, user=request.user)
+
+    return render(request, template_name, {
+        'api_key': api_key,
+    })
+
+
+@login_required
 def delete(request, pk=0, template_name="delete.html"):
     """ Delete a post """
     post = get_object_or_404(Post, pk=pk, author=request.user)
