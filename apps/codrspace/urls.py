@@ -1,6 +1,9 @@
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls.defaults import patterns, url, include
 from codrspace.feeds import LatestPostsFeed
+from codrspace.api import PostResource
 
+
+post_resource = PostResource()
 
 urlpatterns = patterns('codrspace.views',
     url(r'^$', 'index', name="homepage"),
@@ -12,6 +15,7 @@ urlpatterns = patterns('codrspace.views',
     url(r'^signin_callback/$', 'signin_callback', name="signin_callback"),
     url(r'^signout/$', 'signout', name="signout"),
     url(r'^feedback/$', 'feedback', name="feedback"),
+    url(r'^api/', include(post_resource.urls)),
 )
 
 urlpatterns += patterns('codrspace.mock_views',

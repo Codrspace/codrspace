@@ -4,6 +4,7 @@ Markdown==2.0.3
 django-timezones==0.2
 pytz>=2011n
 Pygments
+django-tastypie==0.9.11
 django-debug-toolbar
 -e git://github.com/kennethreitz/requests.git#egg=requests
 -e git://github.com/durden/frappy.git#egg=frappy

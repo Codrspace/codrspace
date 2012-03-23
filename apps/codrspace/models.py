@@ -8,7 +8,10 @@ from django.utils.hashcompat import md5_constructor
 from django.core.cache import cache
 from django.utils.http import urlquote
 from timezones.fields import TimeZoneField
+from tastypie.models import create_api_key
 from codrspace.managers import SettingManager
+
+models.signals.post_save.connect(create_api_key, sender=User)
 
 
 def invalidate_cache_key(fragment_name, *variables):

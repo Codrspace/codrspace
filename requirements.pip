@@ -4,4 +4,5 @@ Markdown==2.0.3
 django-timezones==0.2
 pytz>=2011n
 Pygments
+django-tastypie==0.9.11
 -e git://github.com/kennethreitz/requests.git#egg=requests
