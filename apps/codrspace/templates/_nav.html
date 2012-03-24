@@ -25,7 +25,13 @@
                     {% if not user.is_authenticated %}
                         <li><a href="{% url signin_start %}"><i class="icon-play icon-white"></i> Sign In</a></li>
                     {% else %}
-                        <li><a href="{% url post_list user.username %}"><i class="icon-user icon-white"></i> My Posts</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-home icon-white"></i> My Posts <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                              <li><a href="{% url drafts %}">Drafts</li>
+                              <li><a href="{% url published %}">Published</a></li>
+                            </ul>
+                        </li>
                         <li><a href="{% url add %}"><i class="icon-edit icon-white"></i> Add Post</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog icon-white"></i> Settings <b class="caret"></b></a>
@@ -39,6 +45,14 @@
                 {% endif %}
                 {% if page == "post_list" %}
                     {% if user.is_authenticated %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-home icon-white"></i> My Posts <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                              <li><a href="{% url drafts %}">Drafts</li>
+                              <li><a href="{% url published %}">Published</a></li>
+                            </ul>
+                        </li>
+
                         <li><a href="{% url add %}"><i class="icon-edit icon-white"></i> Add Post</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog icon-white"></i> Settings <b class="caret"></b></a>
@@ -57,8 +71,15 @@
                         {% if user.pk == post.author.pk %}
                         <li><a href="{% url edit post.pk %}"><i class="icon-pencil icon-white"></i> Edit Post</a></li>
                         {% endif %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-home icon-white"></i> My Posts <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                              <li><a href="{% url drafts %}">Drafts</li>
+                              <li><a href="{% url published %}">Published</a></li>
+                            </ul>
+                        </li>
+
                         <li><a href="{% url add %}"><i class="icon-edit icon-white"></i> Add Post</a></li>
-                        <li><a href="{% url post_list user.username %}"><i class="icon-user icon-white"></i> My Posts</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog icon-white"></i> Settings <b class="caret"></b></a>
                             <ul class="dropdown-menu">
@@ -72,7 +93,15 @@
                     {% endif %}
                 {% endif %}
                 {% if page == "auth_base" %}
-                    <li><a href="{% url post_list user.username %}"><i class="icon-user icon-white"></i> My Posts</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle"
+                                data-toggle="dropdown"><i class="icon-home icon-white"></i> My Posts <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                              <li><a href="{% url drafts %}">Drafts</li>
+                              <li><a href="{% url published %}">Published</a></li>
+                            </ul>
+                        </li>
+
                     <li><a href="{% url add %}"><i class="icon-edit icon-white"></i> Add Post</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog icon-white"></i> Settings <b class="caret"></b></a>

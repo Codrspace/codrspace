@@ -52,7 +52,8 @@ def post_detail(request, username, slug, template_name="post_detail.html"):
     })
 
 
-def post_list(request, username, template_name="post_list.html"):
+def post_list(request, username, post_type='published',
+              template_name="post_list.html"):
     user = get_object_or_404(User, username=username)
 
     try:
@@ -60,8 +61,15 @@ def post_list(request, username, template_name="post_list.html"):
     except:
         user_settings = None
 
+    if post_type == 'published':
+        post_type = 'posts'
+        status_query = Q(status="published")
+    else:
+        post_type = 'drafts'
+        status_query = Q(status="draft")
+
     posts = Post.objects.filter(
-        Q(status="published") | Q(status="draft"),
+        status_query,
         Q(publish_dt__lte=datetime.now()) | Q(publish_dt=None),
         author=user,
     )
@@ -70,9 +78,20 @@ def post_list(request, username, template_name="post_list.html"):
     return render(request, template_name, {
         'username': username,
         'posts': posts,
+        'post_type': post_type,
         'meta': user.profile.get_meta(),
         'user_settings': user_settings
     })
+
+
+@login_required
+def drafts(request):
+    return post_list(request, request.user.username, post_type='drafts')
+
+
+@login_required
+def published(request):
+    return post_list(request, request.user.username, post_type='published')
 
 
 @login_required

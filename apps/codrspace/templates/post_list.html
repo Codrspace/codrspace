@@ -15,7 +15,7 @@
 {% if user_settings.blog_tagline %}
     {{ user_settings.blog_tagline|striptags }}
 {% else %}
-    Latest posts by {{ username }}
+    Latest {{ post_type }} by {{ username }}
 {% endif %}
 {% endblock %}
 
@@ -34,7 +34,21 @@
         <div class="row">
            <div class="span12">
                <div class="page-header">
-                    <h1>{% if user_settings.blog_title %}{{ user_settings.blog_title|striptags }}{% else %}Codrspace{% endif%} - {% if user_settings.blog_tagline %}{{ user_settings.blog_tagline|striptags }}{% else %}Latest posts by {{ username }}{% endif %}</h1>
+                   <h1>
+                       {% if user_settings.blog_title %}
+                            {{ user_settings.blog_title|striptags }}
+                       {% else %}
+                            Codrspace
+                       {% endif %}
+
+                       -
+
+                       {% if user_settings.blog_tagline %}
+                            {{ user_settings.blog_tagline|striptags }}
+                       {% else %}
+                            Latest {{ post_type }} by {{ username }}
+                       {% endif %}
+                   </h1>
                </div>
 
                 {% for post in posts %}
