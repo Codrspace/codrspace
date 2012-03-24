@@ -25,42 +25,17 @@
                     {% if not user.is_authenticated %}
                         <li><a href="{% url signin_start %}"><i class="icon-play icon-white"></i> Sign In</a></li>
                     {% else %}
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-home icon-white"></i> My Posts <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                              <li><a href="{% url drafts %}">Drafts</li>
-                              <li><a href="{% url published %}">Published</a></li>
-                            </ul>
-                        </li>
+                        {% include "_my_posts.html" %}
                         <li><a href="{% url add %}"><i class="icon-edit icon-white"></i> Add Post</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog icon-white"></i> Settings <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                              <li><a href="{% url user_settings %}">Blog &amp; User Settings</a></li>
-                              <li><a href="{% url api_settings %}">API Settings</a></li>
-                            </ul>
-                        </li>
+                        {% include "_settings.html" %}
                         <li><a href="{% url signout %}"><i class="icon-off icon-white"></i> Sign out</a></li>
                     {% endif %}
                 {% endif %}
                 {% if page == "post_list" %}
                     {% if user.is_authenticated %}
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-home icon-white"></i> My Posts <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                              <li><a href="{% url drafts %}">Drafts</li>
-                              <li><a href="{% url published %}">Published</a></li>
-                            </ul>
-                        </li>
-
+                        {% include "_my_posts.html" %}
                         <li><a href="{% url add %}"><i class="icon-edit icon-white"></i> Add Post</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog icon-white"></i> Settings <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                              <li><a href="{% url user_settings %}">Blog &amp; User Settings</a></li>
-                              <li><a href="{% url api_settings %}">API Settings</a></li>
-                            </ul>
-                        </li>
+                        {% include "_settings.html" %}
                         <li><a href="{% url signout %}"><i class="icon-off icon-white"></i> Sign Out</a></li>
                     {% else %}
                         <li><a href="{% url signin_start %}"><i class="icon-play icon-white"></i> Sign In</a></li>
@@ -71,45 +46,18 @@
                         {% if user.pk == post.author.pk %}
                         <li><a href="{% url edit post.pk %}"><i class="icon-pencil icon-white"></i> Edit Post</a></li>
                         {% endif %}
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-home icon-white"></i> My Posts <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                              <li><a href="{% url drafts %}">Drafts</li>
-                              <li><a href="{% url published %}">Published</a></li>
-                            </ul>
-                        </li>
-
+                            {% include "_my_posts.html" %}
                         <li><a href="{% url add %}"><i class="icon-edit icon-white"></i> Add Post</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog icon-white"></i> Settings <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                              <li><a href="{% url user_settings %}">Blog &amp; User Settings</a></li>
-                              <li><a href="{% url api_settings %}">API Settings</a></li>
-                            </ul>
-                        </li>
+                        {% include "_settings.html" %}
                         <li><a href="{% url signout %}"><i class="icon-off icon-white"></i> Sign Out</a></li>
                     {% else %}
                         <li><a href="{% url signin_start %}"><i class="icon-play icon-white"></i> Sign In</a></li>
                     {% endif %}
                 {% endif %}
                 {% if page == "auth_base" %}
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle"
-                                data-toggle="dropdown"><i class="icon-home icon-white"></i> My Posts <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                              <li><a href="{% url drafts %}">Drafts</li>
-                              <li><a href="{% url published %}">Published</a></li>
-                            </ul>
-                        </li>
-
+                    {% include "_my_posts.html" %}
                     <li><a href="{% url add %}"><i class="icon-edit icon-white"></i> Add Post</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog icon-white"></i> Settings <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                          <li><a href="{% url user_settings %}">Blog &amp; User Settings</a></li>
-                          <li><a href="{% url api_settings %}">API Settings</a></li>
-                        </ul>
-                    </li>
+                    {% include "_settings.html" %}
                     <li><a href="{% url signout %}"><i class="icon-off icon-white"></i> Signout</a></li>
                 {% endif %}
                 </ul>
