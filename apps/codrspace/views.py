@@ -113,7 +113,8 @@ def add(request, template_name="add.html"):
                 post.save()
                 messages.info(
                     request,
-                    'Added post "%s".' % post)
+                    'Added post "%s".' % post,
+                    extra_tags='alert-success')
                 return redirect('edit', pk=post.pk)
 
     else:
@@ -181,7 +182,7 @@ def delete(request, pk=0, template_name="delete.html"):
             post.status = 'deleted'
             post.save()
 
-            messages.info(request, 'Post successfully deleted')
+            messages.info(request, 'Post deleted', extra_tags='alert-success')
 
             return redirect(reverse('post_list', args=[user.username]))
 
@@ -227,7 +228,8 @@ def edit(request, pk=0, template_name="edit.html"):
                 post.save()
                 messages.info(
                     request,
-                    'Edited post "%s".' % post)
+                    'Edited post "%s".' % post,
+                    extra_tags='alert-success')
                 return render(request, template_name, {
                     'form': form,
                     'post': post,

@@ -59,12 +59,22 @@ $(".media-item a").click(function(){
 /* slug autogenerate */
 var title_field = $('#id_title');
 var slug_field = $('#id_slug');
-title_field.keyup(function() {
-    var value = $(this).val();
+var slug_helper = $('#slug-helper');
+
+function write_slug(value) {
     value = value.replace(/[^\w]+/ig,'-');
     value = value.toLowerCase();
-    value = value.substring(0, 45);
-    slug_field.val(value);
+    value = value.substring(0, 65);
+
+    if (slug_field.val().length  <= 0) {
+        slug_field.val(value);
+        slug_helper.html(value);
+    }
+}
+
+title_field.blur(function() {
+    var value = $(this).val();
+    write_slug(value);
 });
 
 /* tooltips */

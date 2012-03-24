@@ -17,7 +17,12 @@
                <p><a href="{% url post_detail user.username post.slug %}" target="_new">View this post <i class="icon-arrow-right"></i></a></p>
                <label>Title</label>
                {{ form.title }}
+               <label>Slug</label>
                {{ form.slug }}
+               <span class="help-block">
+                  Ex. {{ SITE_URL }}/{{ user.username }}/<span id="slug-helper">{{ post.slug }}</span>
+               </span>
+               <label>Content</label>
                <div id="wmd-button-bar" class="wmd-panel"></div>
                {{ form.content }}
                <div id="date">

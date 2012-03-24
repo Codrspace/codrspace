@@ -1,9 +1,12 @@
-<ul id="form-messages">
+{% if form.errors %}
+<div class="alert alert-error">
+    <a class="close" data-dismiss="alert">×</a>
     {% for field in form %}
         {% if field.errors %}
             {% for error in field.errors %}
-                <li>{{ field.label }}, {{ error|lower }}</li>
+                <div>{{ field.label }} Field &ndash; {{ error|lower|capfirst }}</div>
             {% endfor %}
         {% endif %}
     {% endfor %}
-</ul>
+</div>
+{% endif %}

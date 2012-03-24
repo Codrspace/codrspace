@@ -36,12 +36,15 @@ class Post(models.Model):
 
     title = models.CharField(max_length=200, blank=True)
     content = models.TextField(blank=True)
-    slug = models.SlugField(unique=True, editable=False)
+    slug = models.SlugField(max_length=75)
     author = models.ForeignKey(User, editable=False)
     status = models.CharField(max_length=30, choices=STATUS_CHOICES, default=0)
     publish_dt = models.DateTimeField(null=True)
     create_dt = models.DateTimeField(auto_now_add=True)
     update_dt = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ("slug", "author")
 
     def __unicode__(self):
         return '%s' % (self.title or 'Untitled')
@@ -50,33 +53,6 @@ class Post(models.Model):
         return '%s%s' % (settings.SITE_URL, self.get_absolute_url(),)
 
     def save(self, *args, **kwargs):
-
-        # slug via title
-        slug = slugify(self.title)
-        self.slug = slug
-
-        # if no slug aka via no title
-        if not self.slug:
-            self.slug = Post.objects.count() + 1
-
-        # if slug exists
-        count = 1
-        while True:
-
-            if self.pk:
-                slug_exists = Post.objects.filter(
-                    slug=self.slug).exclude(
-                    pk=self.pk).exists()
-            else:
-                slug_exists = Post.objects.filter(
-                    slug=self.slug).exists()
-
-            if slug_exists:
-                count += 1
-                self.slug = '%s-%d' % (slug, count)
-            else:
-                break
-
         super(Post, self).save(*args, **kwargs)
 
         # Invalidate cache for all individual posts and the list of posts

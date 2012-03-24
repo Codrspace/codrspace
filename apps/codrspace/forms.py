@@ -19,6 +19,16 @@ class PostForm(forms.ModelForm):
     class  Meta:
         model = Post
 
+    def clean_slug(self):
+        slug = self.cleaned_data['slug']
+        count = Post.objects.filter(slug=slug, author=self.user).count()
+
+        if count > 0:
+            msg = 'You already have a post with this slug'
+            raise forms.ValidationError(msg)
+
+        return slug
+
     def clean_publish_dt(self):
         date = self.cleaned_data['publish_dt']
 
