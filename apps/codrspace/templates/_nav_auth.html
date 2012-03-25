@@ -1,0 +1,22 @@
+<li><a href="{% url post_list user.username %}"><i class="icon-home icon-white"></i> Blog Home</a></li>
+<li><a href="{% url add %}"><i class="icon-plus icon-white"></i> Add</a></li>
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-edit icon-white"></i> Posts <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+        <li><a href="{% url add %}">Add Post</a></li>
+        {% if post and user.pk == post.author.pk %}
+            <li><a href="{% url edit post.pk %}">Edit Post</a></li>
+        {% else %}
+            <li><a class="disabled-link" href="#" onclick="return false;">Edit Post</a></li>
+        {% endif %}
+        <li><a href="{% url drafts %}">Drafts</a></li>
+    </ul>
+</li>
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-cog icon-white"></i> Settings <b class="caret"></b></a>
+    <ul class="dropdown-menu">
+        <li><a href="{% url user_settings %}">Blog &amp; User Settings</a></li>
+        <li><a href="{% url api_settings %}">API Settings</a></li>
+    </ul>
+</li>
+<li><a href="{% url signout %}"><i class="icon-off icon-white"></i> Sign out</a></li>

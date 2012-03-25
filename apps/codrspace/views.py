@@ -90,11 +90,6 @@ def drafts(request):
 
 
 @login_required
-def published(request):
-    return post_list(request, request.user.username, post_type='published')
-
-
-@login_required
 def add(request, template_name="add.html"):
     """ Add a post """
 

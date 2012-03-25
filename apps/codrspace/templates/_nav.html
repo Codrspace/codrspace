@@ -25,40 +25,25 @@
                     {% if not user.is_authenticated %}
                         <li><a href="{% url signin_start %}"><i class="icon-play icon-white"></i> Sign In</a></li>
                     {% else %}
-                        {% include "_my_posts.html" %}
-                        <li><a href="{% url add %}"><i class="icon-edit icon-white"></i> Add Post</a></li>
-                        {% include "_settings.html" %}
-                        <li><a href="{% url signout %}"><i class="icon-off icon-white"></i> Sign out</a></li>
+                        {% include "_nav_auth.html" %}
                     {% endif %}
                 {% endif %}
                 {% if page == "post_list" %}
                     {% if user.is_authenticated %}
-                        {% include "_my_posts.html" %}
-                        <li><a href="{% url add %}"><i class="icon-edit icon-white"></i> Add Post</a></li>
-                        {% include "_settings.html" %}
-                        <li><a href="{% url signout %}"><i class="icon-off icon-white"></i> Sign Out</a></li>
+                        {% include "_nav_auth.html" %}
                     {% else %}
                         <li><a href="{% url signin_start %}"><i class="icon-play icon-white"></i> Sign In</a></li>
                     {% endif %}
                 {% endif %}
                 {% if page == "post_detail" %}
                     {% if user.is_authenticated %}
-                        {% if user.pk == post.author.pk %}
-                        <li><a href="{% url edit post.pk %}"><i class="icon-pencil icon-white"></i> Edit Post</a></li>
-                        {% endif %}
-                            {% include "_my_posts.html" %}
-                        <li><a href="{% url add %}"><i class="icon-edit icon-white"></i> Add Post</a></li>
-                        {% include "_settings.html" %}
-                        <li><a href="{% url signout %}"><i class="icon-off icon-white"></i> Sign Out</a></li>
+                        {% include "_nav_auth.html" %}
                     {% else %}
                         <li><a href="{% url signin_start %}"><i class="icon-play icon-white"></i> Sign In</a></li>
                     {% endif %}
                 {% endif %}
                 {% if page == "auth_base" %}
-                    {% include "_my_posts.html" %}
-                    <li><a href="{% url add %}"><i class="icon-edit icon-white"></i> Add Post</a></li>
-                    {% include "_settings.html" %}
-                    <li><a href="{% url signout %}"><i class="icon-off icon-white"></i> Signout</a></li>
+                    {% include "_nav_auth.html" %}
                 {% endif %}
                 </ul>
                 <!-- .nav, .navbar-search, .navbar-form, etc -->

@@ -24,6 +24,12 @@ class PostForm(forms.ModelForm):
         count = Post.objects.filter(slug=slug, author=self.user).count()
 
         if count > 0:
+            if self.instance:
+                posts = Post.objects.filter(slug=slug, author=self.user)
+                for post in posts:
+                    if post.pk == self.instance.pk:
+                        return slug
+
             msg = 'You already have a post with this slug'
             raise forms.ValidationError(msg)
 
