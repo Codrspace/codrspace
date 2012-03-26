@@ -12,6 +12,7 @@ urlpatterns = patterns('codrspace.views',
     url(r'^admin/edit/(?P<pk>\d+)/$', 'edit', name="edit"),
     url(r'^admin/delete/(?P<pk>\d+)/$', 'delete', name="delete"),
     url(r'^admin/drafts/$', 'drafts', name="drafts"),
+    url(r'^admin/preview/$', 'render_preview', name="render_preview"),
 
     url(r'^settings/$', 'user_settings', name="user_settings"),
     url(r'^api-settings/', 'api_settings', name="api_settings"),
