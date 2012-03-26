@@ -123,7 +123,7 @@ function query_preview() {
     });
 }
 
-$(document).bind('keydown', 'ctrl+shift+p', query_preview);
-f_title.bind('keydown', 'ctrl+shift+p', query_preview);
-f_content.bind('keydown', 'ctrl+shift+p', query_preview);
-f_slug.bind('keydown', 'ctrl+shift+p', query_preview);
+$(document).bind('keydown', 'shift+p', query_preview);
+f_title.bind('keydown', 'shift+p', query_preview);
+f_content.bind('keydown', 'shift+p', query_preview);
+f_slug.bind('keydown', 'shift+p', query_preview);
