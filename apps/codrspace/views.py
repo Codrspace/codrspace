@@ -420,3 +420,24 @@ def feedback(request, template_name='feedback.html'):
     return render(request, template_name, {
         'form': form,
     })
+
+
+@login_required
+def render_preview(request, template_name='preview.html'):
+    """Ajax view for rendering preview of post"""
+
+    # make a mock post
+    post = {
+        'title': '',
+        'content': ''
+    }
+
+    if request.method == 'POST':
+        if 'title' in request.POST:
+            post['title'] = request.POST['title']
+        if 'content' in request.POST:
+            post['content'] = request.POST['content']
+
+    return render(request, template_name, {
+        'post': post,
+    })

@@ -1,0 +1,9 @@
+{% load codrspace_tags %}
+{% load short_codes %}
+
+{% block content %}
+<div id="preview-page">
+    <h2>{% filter striptags|truncatewords:30 %}{% firstof post.title "Untitled" %}{% endfilter %}</h2>
+    <p>{{ post.content|explosivo }}</p>
+</div>
+{% endblock %}

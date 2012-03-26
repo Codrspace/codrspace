@@ -253,3 +253,11 @@ ul.home-options-list {
 .media-list-header {
   margin-top: 10px;
 }
+
+#preview-modal {
+  display: none;
+}
+
+#preview-page {
+  width: 530px;
+}
