@@ -13,15 +13,19 @@
             <span class="label label-warning">{{ post.status }}</span>
         {% endif %}
     {% endif %}
-        by <a href="#" rel="popover" data-original-title="{{ post.author.username }}">{{ post.author.username }}</a> on {{ post.publish_dt|localize:user }}
+        by <a href="#" rel="popover" data-original-title="{{ post.author.username }}">{{ post.author.username }}</a> {% if post.status == 'published' %}on {{ post.publish_dt|localize:user }}{% endif %}
     {% if post.author == user %}
         <i class="icon-pencil"></i> <a href="{% url edit post.pk %}">edit</a>
         <i class="icon-trash"></i> <a href="{% url delete post.pk %}">delete</a>
     {% endif %}
 </div>
 
-{% cache 3600 content post.pk %}
 <div class="post-content">
-    <p>{{ post.content|explosivo }}</p>
+    {% if cache == 0 %}
+        <p>{{ post.content|explosivo }}</p>
+    {% else %}
+        {% cache 3600 content post.pk %}
+            <p>{{ post.content|explosivo }}</p>
+        {% endcache %}
+    {% endif %}
 </div>
-{% endcache %}

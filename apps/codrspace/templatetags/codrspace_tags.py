@@ -16,7 +16,7 @@ def localize(dt, user):
     to_tz = "US/Central"
 
     if not dt:
-        return "Not yet published"
+        return None
 
     # get the users timezone
     if not user.is_anonymous():

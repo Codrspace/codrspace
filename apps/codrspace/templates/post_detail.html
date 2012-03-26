@@ -20,18 +20,12 @@
 {% block header %}{% endblock %}
 
 {% block content %}
-    <div id="post-list-page">
+    <div id="post-detail-page">
         <div class="row">
            <div class="span12">
                 <i class="icon-arrow-left"></i> <a href="{% url post_list post.author.username %}">Latest posts by {{ post.author.username }}</a>
                 {% if post.status != "deleted" %}
-                    {% if post.status == "draft" %}
-                        {% if username == user.username %}
-                            {% include "_post_content.html" with post=post %}
-                        {% endif %}
-                    {% else %}
-                        {% include "_post_content.html" with post=post %}
-                    {% endif %}
+                    {% include "_post_content.html" with post=post %}
                 {% endif %}
            </div>
         </div>
