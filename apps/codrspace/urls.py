@@ -1,9 +1,17 @@
 from django.conf.urls.defaults import patterns, url, include
+from django.views.decorators.cache import cache_page
+from django.contrib.sitemaps import views as sitemaps_views
+from django.http import HttpResponse
 from codrspace.feeds import LatestPostsFeed
 from codrspace.api import PostResource
-
+from codrspace.site_maps import DefaultMap, PostMap, UserMap
 
 post_resource = PostResource()
+site_maps = {
+    'default': DefaultMap,
+    'posts': PostMap,
+    'users': UserMap
+}
 
 urlpatterns = patterns('codrspace.views',
     url(r'^$', 'index', name="homepage"),
@@ -35,4 +43,9 @@ urlpatterns += patterns('codrspace.views',
     url(r'^(?P<username>[\w\d\-\.]+)/(?P<slug>[\w\d\-]+)/$', 'post_detail',
         name="post_detail"),
     url(r'^(?P<username>[\w\d\-\.]+)/$', 'post_list', name="post_list"),
+)
+
+urlpatterns += patterns('',
+    (r'^robots\.txt$', lambda r: HttpResponse("User-agent: *\nCrawl-delay: 5", mimetype="text/plain")),
+    (r'^sitemap\.xml$', cache_page(86400)(sitemaps_views.sitemap), {'sitemaps': site_maps})
 )
