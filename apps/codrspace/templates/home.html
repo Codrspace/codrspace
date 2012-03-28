@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load codrspace_tags %}
+{% load cache %}
 
 {% block title %}{{ SITE_TAGLINE }}{% endblock %}
 
@@ -42,7 +43,9 @@
         <div class="span12">
             <div id="recent-codrs-wrapper">
                 <h3>People already using CodrSpace</h3>
-                {% recent_codrs 20 %}
+                {% cache 3600 home_recent_codrs %}
+                    {% recent_codrs 20 %}
+                {% endcache %}
             </div>
         </div>
     </div>
