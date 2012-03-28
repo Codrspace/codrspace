@@ -42,7 +42,7 @@
     <div class="row">
         <div class="span12">
             <div class="hero-unit">
-                {% cache 3600 home_recent_codrs %}
+                {% cache 3600 home_latest_posts %}
                     {% latest_posts 6 %}
                 {% endcache %}
                 <div class="clear"><!-- IE --></div>            
