@@ -43,6 +43,55 @@ a.disabled-link:hover {
 }
 
 /**
+* Home page styles
+*/
+div#recent-codrs-wrapper {
+  margin: 40px 0 40px 0;
+  text-align: center;
+}
+
+div#recent-codrs-wrapper img {
+  border: 3px solid #DDD;
+  margin-right: 5px;
+}
+
+div#latest-posts {
+  margin: 0 auto;
+}
+
+div#latest-posts a {
+  float: left;
+  padding: 10px;
+  width: 350px;
+  max-width: 350px;
+  margin-right: 20px;
+  margin-left: 20px;
+  text-align: left;
+  overflow: hidden;
+  border-bottom: 1px dotted #CCC;
+}
+
+div#latest-posts a:hover {
+  background-color: #CCC;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+div#latest-posts img {
+  float: left;
+  margin-right: 5px;
+  border: 3px solid #999;
+}
+
+div#latest-posts p {
+  font-size: 14px;
+  color: #555;
+  margin: 0;
+  padding: 0;
+}
+
+/**
 * Post List Styles
 */
 #post-list-page {
@@ -171,16 +220,6 @@ ul#post-list span.post-list-date {
 }
 .highlighttable .highlight {
   overflow: auto; width: 635px;
-}
-
-div#recent-codrs-wrapper {
-  margin: 40px 0 40px 0;
-  text-align: center;
-}
-
-div#recent-codrs-wrapper img {
-  border: 3px solid #DDD;
-  margin-right: 5px;
 }
 
 /**
