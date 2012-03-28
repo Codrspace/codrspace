@@ -11,6 +11,7 @@ var f_content = $('#id_content');
 var f_slug = $('#id_slug');
 var f_publish_dt = $('#id_publish_dt');
 var f_status = $('#id_status');
+var f_token = $('input[name="csrfmiddlewaretoken"]');
 
 /**
 * Date Picker Functionality
@@ -111,7 +112,8 @@ function query_preview() {
     var url = '/admin/preview/';
     var data = {
         title: f_title.val(),
-        content: f_content.val()
+        content: f_content.val(),
+        csrfmiddlewaretoken: f_token.val()
     }
 
     $.ajax(url, {
