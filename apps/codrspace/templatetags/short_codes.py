@@ -83,7 +83,7 @@ def filter_gist(value):
         resp = requests.get('%s%d' % (gist_base_url, int(gist_id)))
 
         if resp.status_code != 200:
-            return value
+            return (replacements, value, None,)
 
         content = simplejson.loads(resp.content)
 
