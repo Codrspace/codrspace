@@ -6,7 +6,6 @@ import mimetypes
 import re
 import os
 import markdown
-import urlparse
 from hashlib import md5
 
 from django.utils import simplejson

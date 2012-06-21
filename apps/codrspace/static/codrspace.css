@@ -149,6 +149,7 @@ div.post-content h1, h2, h3 {
   margin-top: 20px;
   margin-bottom: 10px;
 }
+
 /**
 * Admin area styles
 */
@@ -210,6 +211,10 @@ ul#post-list span.post-list-date {
 #view-post-link {
   color: black;
   font-size: 12px;
+}
+
+.sc-example {
+  color: #777;
 }
 
 /**
