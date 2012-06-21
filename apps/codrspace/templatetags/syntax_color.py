@@ -6,10 +6,23 @@ from pygments.formatters import HtmlFormatter
 from pygments.lexers import get_lexer_by_name, \
         get_lexer_for_filename, \
         guess_lexer, \
-        ClassNotFound
+        ClassNotFound, \
+        get_all_lexers
 from codrspace.pygments.styles.github import GithubStyle
 
 register = template.Library()
+
+
+def get_lexer_list():
+    lexers = []
+
+    for lexer in get_all_lexers():
+        name, aliases, filetypes, mimetypes = lexer
+        lexers.extend([alias for alias in aliases])
+
+    return lexers
+
+LEXERS = get_lexer_list()
 
 
 def _colorize_table(value, lang=None):
@@ -29,7 +42,7 @@ def get_lexer(value, lang):
     if lang:
         if '.' in lang:
             return get_lexer_for_filename(lang)  # possibly a filename, poor detection for now
-        else:
+        elif lang in LEXERS:
             return get_lexer_by_name(lang)  # guess it by specific language
     # try and guess the lexer by content
     return guess_lexer(value)
