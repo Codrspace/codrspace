@@ -53,14 +53,20 @@ def explosivo(value):
 
 def filter_inline(value):
     replacements = []
-    pattern = re.compile('\\[code\\](.*?)\\[/code\\]', re.I | re.S | re.M)
+    pattern = re.compile('\\[code(\\s+lang=\"(?P<lang>[\\w]+)\")*\\](?P<code>.*?)\\[/code\\]', re.I | re.S | re.M)
 
-    inlines = re.findall(pattern, value)
-    if not len(inlines):
+    if len(re.findall(pattern, value)) == 0:
         return (replacements, value, None,)
 
+    inlines = re.finditer(pattern, value)
+
     for inline_code in inlines:
-        text = _colorize_table(inline_code, None)
+        try:
+            lang = inline_code.group('lang')
+        except IndexError:
+            lang = None
+
+        text = _colorize_table(inline_code.group('code'), lang=lang)
         text_hash = md5(text).hexdigest()
 
         replacements.append([text_hash, text])
@@ -80,6 +86,7 @@ def filter_gist(value):
 
     for gist_id in ids:
         gist_text = ""
+        lang = None
         resp = requests.get('%s%d' % (gist_base_url, int(gist_id)))
 
         if resp.status_code != 200:
@@ -89,8 +96,18 @@ def filter_gist(value):
 
         # Go through all files in gist and smash 'em together
         for name in content['files']:
+            _file = content['files'][name]
+
+            # try and get the language of the file either
+            # by passing filename or by passing the language
+            # specified
+            if 'filename' in _file:
+                lang = _file['filename']
+            elif 'language' in _file:
+                lang= _file['language']
+
             gist_text += "%s" % (
-                _colorize_table(content['files'][name]['content'], None))
+                _colorize_table(_file['content'], lang=lang))
 
         if content['comments'] > 0:
             gist_text += '<hr><p class="github_convo">Join the conversation on ' + \
@@ -134,7 +151,7 @@ def filter_upload(value):
             colorize = False
 
         if colorize:
-            text = _colorize_table(text, None)
+            text = _colorize_table(text, lang=file_name)
             text_hash = md5(text).hexdigest()
         else:
             text = '[local %s]' % file_name
