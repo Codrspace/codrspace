@@ -66,7 +66,7 @@ def filter_inline(value):
             lang = None
 
         text = _colorize_table(inline_code.group('code'), lang=lang)
-        text_hash = md5(text).hexdigest()
+        text_hash = md5(text.encode('utf-8')).hexdigest()
 
         replacements.append([text_hash, text])
         value = re.sub(pattern, text_hash, value, count=1)
@@ -113,7 +113,7 @@ def filter_gist(value):
                             '<a href="%s#comments">github</a> (%d comments)</p>' % (
                                 content['html_url'], content['comments'])
 
-        text_hash = md5(gist_text).hexdigest()
+        text_hash = md5(gist_text.encode('utf-8')).hexdigest()
 
         replacements.append([text_hash, gist_text])
         value = re.sub(pattern, text_hash, value, count=1)
@@ -151,10 +151,10 @@ def filter_upload(value):
 
         if colorize:
             text = _colorize_table(text, lang=file_name)
-            text_hash = md5(text).hexdigest()
+            text_hash = md5(text.encode('utf-8')).hexdigest()
         else:
             text = '[local %s]' % file_name
-            text_hash = md5(text).hexdigest()
+            text_hash = md5(text.encode('utf-8')).hexdigest()
 
         replacements.append([text_hash, text])
         value = re.sub(pattern, text_hash, value, count=1)
