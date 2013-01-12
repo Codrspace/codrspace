@@ -33,3 +33,6 @@ class LatestPostsFeed(Feed):
 
     def item_description(self, item):
         return item.content
+
+    def item_pubdate(self, item):
+        return item.publish_dt
