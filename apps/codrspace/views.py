@@ -288,10 +288,6 @@ def signout(request):
 def _validate_github_response(resp):
     """Raise exception if given response has error"""
 
-    if resp.error is not None:
-        raise GithubAuthError('Could not communicate with Github API (%s)' % (
-                                                            resp.error.reason))
-
     if resp.status_code != 200 or 'error' in resp.content:
         raise GithubAuthError('code: %u content: %s' % (resp.status_code,
                                                   resp.content))
