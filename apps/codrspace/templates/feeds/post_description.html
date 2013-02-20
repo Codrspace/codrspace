@@ -1,3 +1,11 @@
 {% load short_codes %}
+{% load cache %}
 
-{{ obj.content|explosivo }}
+
+{% if cache == 0 %}
+    {{ obj.content|explosivo }}
+{% else %}
+    {% cache 3600 content_feed obj.pk %}
+        {{ obj.content|explosivo }}
+    {% endcache %}
+{% endif %}
