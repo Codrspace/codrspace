@@ -26,7 +26,7 @@ class LatestPostsFeed(Feed):
             status='published',
             author=user,
         )
-        return posts.order_by('-publish_dt')[:10]
+        return posts.order_by('-publish_dt')[:5]
 
     def item_title(self, item):
         return item.title or 'Untitled'

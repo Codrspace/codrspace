@@ -13,6 +13,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.db.models import Q
 from django.core.cache import cache
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from codrspace.models import Post, Profile, Media, Setting
 from codrspace.forms import PostForm, MediaForm, \
@@ -75,6 +76,19 @@ def post_list(request, username, post_type='published',
     )
     posts = posts.order_by('-publish_dt')
 
+    # paginate posts
+    paginator = Paginator(posts, 3)
+    page = request.GET.get('page')
+
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        posts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        posts = paginator.page(paginator.num_pages)
+
     return render(request, template_name, {
         'username': username,
         'posts': posts,
@@ -82,7 +96,6 @@ def post_list(request, username, post_type='published',
         'meta': user.profile.get_meta(),
         'user_settings': user_settings
     })
-
 
 @login_required
 def drafts(request):

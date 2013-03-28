@@ -70,6 +70,23 @@
            </div>
         </div>
     </div>
+    {% if posts %}
+      <div class="row">
+          <ul class="pager">
+              {% if posts.has_previous %}
+                  <li class="previous"><a href="?page={{ posts.previous_page_number }}">&laquo; Newer</a></li>
+              {% else %}
+                  <li class="previous disabled"><a href="#" onclick="return false;">&laquo; Newer</a></li>
+              {% endif %}
+              {{ posts.number }} of {{ posts.paginator.num_pages }}
+              {% if posts.has_next %}
+                  <li class="next"><a href="?page={{ posts.next_page_number }}">Older &raquo;</a></li>
+              {% else  %}
+                  <li class="next disabled"><a href="#" onclick="return false;">Older &raquo;</a></li>
+              {% endif %}
+          </ul>
+      </div>
+    {% endif %}
     <div id="popover-content">
         <div id="popover-wrap">
             <a href="{{ meta.html_url }}"><img class="user-detail-image" src="{{ meta.avatar_url }}" alt="GitHub &ndash; {{ meta.login }}"/></a>
