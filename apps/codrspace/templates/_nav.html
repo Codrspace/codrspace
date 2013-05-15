@@ -11,19 +11,19 @@
               </a>
          
               <!-- Be sure to leave the brand out there if you want it shown -->
-              <a class="brand" href="{% url homepage %}"><img src="{{ STATIC_URL }}codrspace-nav-logo.png" alt="Codrspace - {{ SITE_TAGLINE }}" title="Codrspace - {{ SITE_TAGLINE }}"/></a>
+              <a class="brand" href="{% url "homepage" %}"><img src="{{ STATIC_URL }}codrspace-nav-logo.png" alt="Codrspace - {{ SITE_TAGLINE }}" title="Codrspace - {{ SITE_TAGLINE }}"/></a>
          
               <!-- Everything you want hidden at 940px or less, place within here -->
               <div class="nav-collapse">
                 {% if user.is_authenticated %}
                 <ul class="nav">
-                    <li><a href="{% url feedback %}"><i class="icon-ok icon-white"></i> Give Feedback</a></li>
+                    <li><a href="{% url "feedback" %}"><i class="icon-ok icon-white"></i> Give Feedback</a></li>
                 </ul>
                 {% endif %}
                 <ul class="nav pull-right">
                 {% if page == "home" %}
                     {% if not user.is_authenticated %}
-                        <li><a href="{% url signin_start %}"><i class="icon-play icon-white"></i> Sign In</a></li>
+                        <li><a href="{% url "signin_start" %}"><i class="icon-play icon-white"></i> Sign In</a></li>
                     {% else %}
                         {% include "_nav_auth.html" %}
                     {% endif %}
@@ -32,14 +32,14 @@
                     {% if user.is_authenticated %}
                         {% include "_nav_auth.html" %}
                     {% else %}
-                        <li><a href="{% url signin_start %}"><i class="icon-play icon-white"></i> Sign In</a></li>
+                        <li><a href="{% url "signin_start" %}"><i class="icon-play icon-white"></i> Sign In</a></li>
                     {% endif %}
                 {% endif %}
                 {% if page == "post_detail" %}
                     {% if user.is_authenticated %}
                         {% include "_nav_auth.html" %}
                     {% else %}
-                        <li><a href="{% url signin_start %}"><i class="icon-play icon-white"></i> Sign In</a></li>
+                        <li><a href="{% url "signin_start" %}"><i class="icon-play icon-white"></i> Sign In</a></li>
                     {% endif %}
                 {% endif %}
                 {% if page == "auth_base" %}

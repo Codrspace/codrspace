@@ -25,14 +25,14 @@
                 {% if not user.is_authenticated %}
                     <h2>Welcome to Codrspace!</h2>
                     <p>To start blogging you will need to sign in with your <a href="https://github.com">GitHub</a> account</p>
-                    <a class="btn btn-success btn-large btn-huge" href="{% url signin_start %}">Sign in with Github
+                    <a class="btn btn-success btn-large btn-huge" href="{% url "signin_start" %}">Sign in with Github
                     </a>
                 {% else %}
                     <h2>Welcome back, {{ user.username }}</h2>
                     <p>Lets find something to do:</p>
                     <ul class="home-options-list">
-                        <li><a href="{% url add %}"><i class="icon-edit"></i> Post Something</a></li>
-                        <li><a href="{% url post_list user.username %}"><i class="icon-user"></i> Re-visit Your Posts</a></li>
+                        <li><a href="{% url "add" %}"><i class="icon-edit"></i> Post Something</a></li>
+                        <li><a href="{% url "post_list" user.username %}"><i class="icon-user"></i> Re-visit Your Posts</a></li>
                         <li><a href="{% random_blog %}"><i class="icon-random"></i> Check Out A Random Blog</a></li>
                     </ul>
                 {% endif %}

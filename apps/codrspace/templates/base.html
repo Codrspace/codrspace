@@ -30,7 +30,7 @@
             {% block content %}{% endblock %}
             {% block footer %}
                 <footer>
-                    <p><a href="{% url homepage %}"><img src="{{ STATIC_URL }}codrspace-logo-small.png" alt="Codrspace - {{ SITE_TAGLINE }}" title="Codrspace - {{ SITE_TAGLINE }}"/></a></p>
+                    <p><a href="{% url "homepage" %}"><img src="{{ STATIC_URL }}codrspace-logo-small.png" alt="Codrspace - {{ SITE_TAGLINE }}" title="Codrspace - {{ SITE_TAGLINE }}"/></a></p>
                     <p>&copy;2011 CodrSpace.com - {{ VERSION }} - All Rights Reserved.</p>
                     <p>Want to contribute? <a href="https://github.com/Codrspace/codrspace">Fork CodrSpace</a> on github</p>
                 </footer>

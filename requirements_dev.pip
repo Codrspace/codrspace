@@ -1,10 +1,10 @@
-Django==1.4.4
+Django==1.5.1
 django-redis-cache
 Markdown==2.0.3
 django-timezones==0.2
 pytz>=2011n
 Pygments
-django-tastypie==0.9.11
+django-tastypie==0.9.15
 django-debug-toolbar
 requests
 -e git://github.com/durden/frappy.git#egg=frappy

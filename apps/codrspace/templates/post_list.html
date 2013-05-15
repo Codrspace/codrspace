@@ -20,7 +20,7 @@
 {% endblock %}
 
 {% block extra_head %}
-<link rel="alternate" type="application/rss+xml" href="{% url posts_feed username %}" title="Codrspace: Posts by {{ username }}">
+<link rel="alternate" type="application/rss+xml" href="{% url "posts_feed" username %}" title="Codrspace: Posts by {{ username }}">
 {% endblock %}
 
 {% block nav %}
@@ -59,7 +59,7 @@
                     {% if username == user.username %}
                         <div id="no-posts-message">
                             <p>A little empty ...</p> 
-                            <p><a href="{% url add %}">Let's add some posts!</a></p>
+                            <p><a href="{% url "add" %}">Let's add some posts!</a></p>
                         </div>
                     {% else %}
                         <div id="no-posts-message">

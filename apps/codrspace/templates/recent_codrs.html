@@ -2,7 +2,7 @@
 <div id="recent-codrs">
     {% for c in codrs %}
         {% with c.profile.get_meta as git_meta %}
-            <a href="{% url post_list c.username %}" title="{{ c.username }}" ><img rel="tooltip" class="recent-codr-image" src="{{ git_meta.avatar_url }}" width="40" height="40" title="{{ c.username }}" data-original-title="{{ c.username }}" /></a>
+            <a href="{% url "post_list" c.username %}" title="{{ c.username }}" ><img rel="tooltip" class="recent-codr-image" src="{{ git_meta.avatar_url }}" width="40" height="40" title="{{ c.username }}" data-original-title="{{ c.username }}" /></a>
         {% endwith %}
     {% endfor %}
 </div>

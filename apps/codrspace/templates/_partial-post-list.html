@@ -7,14 +7,14 @@
         <li>
             {% if post.status == 'published' %}
                 <span class="label label-success">{{ post.status }}</span>
-                <a href="{% url edit post.pk %}" rel="tooltip" data-original-title="Edit `{% firstof post.title "Untitled" %}`" title="Edit `{% firstof post.title "Untitled" %}`">
+                <a href="{% url "edit" post.pk %}" rel="tooltip" data-original-title="Edit `{% firstof post.title "Untitled" %}`" title="Edit `{% firstof post.title "Untitled" %}`">
                     {% firstof post.title "Untitled" %}
                 </a>
                 <span class="post-list-date">{{ post.publish_dt|localize:user }}</span>
             {% endif %}
             {% if post.status == 'draft' %}
                 <span class="label label-warning">{{ post.status }}</span>
-                <a href="{% url edit post.pk %}" rel="tooltip" data-original-title="Edit `{% firstof post.title "Untitled" %}`" title="Edit `{% firstof post.title "Untitled" %}`">
+                <a href="{% url "edit" post.pk %}" rel="tooltip" data-original-title="Edit `{% firstof post.title "Untitled" %}`" title="Edit `{% firstof post.title "Untitled" %}`">
                     {% firstof post.title "Untitled" %}
                 </a>
                 <span class="post-list-date">{{ post.update_dt|localize:user }}</span>

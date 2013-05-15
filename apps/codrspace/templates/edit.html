@@ -14,7 +14,7 @@
         <div class="span8">
             {% csrf_token %}
             <div class="form-vertical">
-               <p><a href="{% url post_detail user.username post.slug %}" target="_new">View this post <i class="icon-arrow-right"></i></a></p>
+               <p><a href="{% url "post_detail" user.username post.slug %}" target="_new">View this post <i class="icon-arrow-right"></i></a></p>
                <label>Title</label>
                {{ form.title }}
                <label>Slug</label>
