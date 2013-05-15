@@ -3,7 +3,6 @@ import re
 import uuid
 from django.db import models
 from django.contrib.auth.models import User
-from django.template.defaultfilters import slugify
 from django.utils.hashcompat import md5_constructor
 from django.core.cache import cache
 from django.utils.http import urlquote
