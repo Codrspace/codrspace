@@ -29,7 +29,7 @@
             </div/>
             <h3>Get all posts</h3>
             <div class="well">
-                <p><code>curl -X GET {{ SITE_URL }}/api/post/?format=json&username={{ user.username }}&api_key={{ api_key.key }}</code></p>
+                <p><code>curl -X GET {{ SITE_URL }}/api/v1/post/?format=json&username={{ user.username }}&api_key={{ api_key.key }}</code></p>
                 <p><strong>Output</strong></p>
                 <pre>
 {
@@ -70,7 +70,7 @@
             </div>
             <h3>Get single post</h3>
             <div class="well">
-                <p><code>curl -X GET {{ SITE_URL }}/api/post/[id]/?format=json&username={{ user.username }}&api_key={{ api_key.key }}</code></p>
+                <p><code>curl -X GET {{ SITE_URL }}/api/v1/post/[id]/?format=json&username={{ user.username }}&api_key={{ api_key.key }}</code></p>
                 <p><strong>[id] must be replaced with the id of your post object</strong></p>
                 <p><strong>Output</strong></p>
                 <pre>
@@ -142,7 +142,7 @@
                     <li>If you set the status to "published" you will have to set <code>publish_dt</code>.<code>publish_dt</code> is in UTC (GMT)
                     </li>
                   </ul>
-                <p><code>curl -X PUT -H'Content-Type: application/json' -d'{"title": "this post is even more awesome now"}' {{ SITE_URL }}/api/post/[id]/?username={{ user.username }}&api_key={{ api_key.key }}</code></p>
+                <p><code>curl -X PUT -H'Content-Type: application/json' -d'{"title": "this post is even more awesome now"}' {{ SITE_URL }}/api/v1/post/[id]/?username={{ user.username }}&api_key={{ api_key.key }}</code></p>
                 <p><strong>[id] must be replaced with the id of your post object</strong></p>
                 <p><strong>Output</strong></p>
                 <pre>
@@ -163,7 +163,7 @@
             </div>
 <h3>Delete a post</h3>
             <div class="well">
-                <p><code>curl -X DELETE {{ SITE_URL }}/api/post/[id]/?username={{ user.username }}&api_key={{ api_key.key }}</code></p>
+                <p><code>curl -X DELETE {{ SITE_URL }}/api/v1/post/[id]/?username={{ user.username }}&api_key={{ api_key.key }}</code></p>
                 <p><strong>[id] must be replaced with the id of your post object</strong></p>
                 <p><strong>Output</strong></p>
                 <pre>
