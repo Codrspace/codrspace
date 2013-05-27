@@ -1,8 +1,14 @@
 from datetime import datetime
+from collections import OrderedDict
+
 from django import forms
-from codrspace.models import Post, Media, Setting
-from codrspace.utils import localize_date
 from django.conf import settings
+from django.utils.text import slugify
+
+from codrspace.models import Post, Media, Setting, STATUS_CHOICES
+from codrspace.utils import localize_date
+
+VALID_STATUS_CHOICES = ', '.join([sc[0] for sc in STATUS_CHOICES])
 
 
 class PostForm(forms.ModelForm):
@@ -16,7 +22,7 @@ class PostForm(forms.ModelForm):
         required=False
     )
 
-    class  Meta:
+    class Meta:
         model = Post
 
     def clean_slug(self):
@@ -87,15 +93,86 @@ class PostForm(forms.ModelForm):
         self.initial['publish_dt'] = publish_dt
 
 
-class MediaForm(forms.ModelForm):
+class APIPostForm(forms.ModelForm):
+    title = forms.CharField(max_length=200, required=True)
+    content = forms.CharField(required=False)
+    slug = forms.SlugField(max_length=75, required=False)
+    status = forms.ChoiceField(choices=STATUS_CHOICES, error_messages={
+        'invalid_choice': 'Please use a valid status. Valid choices are %s' % VALID_STATUS_CHOICES
+    })
+    publish_dt = forms.DateTimeField(required=False)
+    create_dt = forms.DateTimeField(required=False)
+    update_dt = forms.DateTimeField(required=False)
 
-    class  Meta:
+    class Meta:
+        model = Post
+
+    def __init__(self, *args, **kwargs):
+        self.user = None
+
+        if 'user' in kwargs:
+            self.user = kwargs.pop('user', None)
+
+        # call the original init
+        super(APIPostForm, self).__init__(*args, **kwargs)
+
+        # order the fields so that the clean_field gets called in
+        # a specific order which makes validation easier
+        ordered_fields = OrderedDict([
+            ('title', self.fields['title'],),
+            ('content', self.fields['content'],),
+            ('slug', self.fields['slug'],),
+            ('publish_dt', self.fields['publish_dt'],),
+            ('status', self.fields['status'],),
+            ('create_dt', self.fields['create_dt'],),
+            ('update_dt', self.fields['update_dt'],),
+        ])
+        self.fields = ordered_fields
+
+    def clean_slug(self):
+        slug = self.cleaned_data['slug']
+        title = self.cleaned_data['title']
+
+        # autogenerate a slug if it isn't provided
+        if not self.instance.pk and not slug:
+            slug = slugify(title)
+
+        count = Post.objects.filter(slug=slug, author=self.user).count()
+
+        if count > 0:
+            if self.instance.pk:
+                posts = Post.objects.filter(slug=slug, author=self.user)
+                for post in posts:
+                    if post.pk == self.instance.pk:
+                        return slug
+
+            msg = 'You already have a post with this slug'
+            raise forms.ValidationError(msg)
+
+        return slug
+
+    def clean_status(self):
+        status = self.cleaned_data['status']
+        publish_dt = None
+
+        if 'publish_dt' in self.cleaned_data:
+            publish_dt = self.cleaned_data['publish_dt']
+
+        if status == 'published' and not publish_dt:
+            raise forms.ValidationError(
+                'Please set the publish date/time (publish_dt) if status is set to published. Note that publish_dt is in UTC. (GMT)'
+            )
+
+        return status
+
+
+class MediaForm(forms.ModelForm):
+    class Meta:
         model = Media
 
 
 class SettingForm(forms.ModelForm):
-
-    class  Meta:
+    class Meta:
         model = Setting
 
     def __init__(self, *args, **kwargs):

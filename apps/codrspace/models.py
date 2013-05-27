@@ -1,6 +1,7 @@
 import os
 import re
 import uuid
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.hashcompat import md5_constructor
@@ -12,6 +13,11 @@ from tastypie.models import create_api_key
 from codrspace.managers import SettingManager
 
 models.signals.post_save.connect(create_api_key, sender=User)
+
+STATUS_CHOICES = (
+    ('draft', 'Draft'),
+    ('published', 'Published'),
+)
 
 
 def invalidate_cache_key(fragment_name, *variables):
@@ -27,12 +33,6 @@ def file_directory(instance, filename):
 
 
 class Post(models.Model):
-
-    STATUS_CHOICES = (
-        ('draft', 'Draft'),
-        ('published', 'Published'),
-    )
-
     title = models.CharField(max_length=200, blank=True)
     content = models.TextField(blank=True)
     slug = models.SlugField(max_length=75)

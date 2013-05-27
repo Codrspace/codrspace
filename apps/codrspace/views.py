@@ -450,3 +450,7 @@ def render_preview(request, template_name='preview.html'):
     return render(request, template_name, {
         'post': post,
     })
+
+
+def donate(request, template_name='donate.html'):
+    return render(request, template_name)

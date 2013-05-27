@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Donate{% endblock %}
+
+
+{% block header %}{% endblock %}
+
+{% block content %}
+   <div id="donate-page">
+     <div class="page-header">
+        <h1>Donate to {{ SITE_NAME }}</h1>
+     </div>
+     <div class="row">
+         <div class="span12">
+             <p><strong>What does your donation contribute to?</strong></p>
+             <ul>
+               <li>Server Costs - EC2 costs, S3, SNS, etc.</li>
+               <li>Software features -- API, UI, UX, etc.</li>
+               <li>Future: SSL support</li>
+             </ul>
+             <p>We don't pay ourselves anything. It goes entirely to the product.</p>
+             <button class="btn btn-large btn-success" onclick="window.location = 'https://www.gittip.com/glenbot/';">Donate</button>
+         </div>
+     </div>
+   </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

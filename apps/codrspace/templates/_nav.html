@@ -15,6 +15,9 @@
          
               <!-- Everything you want hidden at 940px or less, place within here -->
               <div class="nav-collapse">
+                <ul class="nav">
+                    <li><a href="{% url "donate" %}"><i class="icon-heart icon-white"></i> Donate</a></li>
+                </ul>
                 {% if user.is_authenticated %}
                 <ul class="nav">
                     <li><a href="{% url "feedback" %}"><i class="icon-ok icon-white"></i> Give Feedback</a></li>
