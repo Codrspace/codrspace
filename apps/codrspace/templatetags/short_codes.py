@@ -50,6 +50,30 @@ def explosivo(value):
     return mark_safe(value)
 
 
+def filter_gitstyle(value):
+    replacements = []
+    pattern = re.compile("```(?P<lang>[^\\n\\s`]+)+?(?P<code>[^```]+)+?```", re.I | re.S | re.M)
+
+    if len(re.findall(pattern, value)) == 0:
+        return (replacements, value, None,)
+
+    git_styles = re.finditer(pattern, value)
+
+    for gs in git_styles:
+        try:
+            lang = gs.group('lang')
+        except IndexError:
+            lang = None
+
+        text = _colorize_table(gs.group('code'), lang=lang)
+        text_hash = md5(text.encode('utf-8')).hexdigest()
+
+        replacements.append([text_hash, text])
+        value = re.sub(pattern, text_hash, value, count=1)
+
+    return (replacements, value, True,)
+
+
 def filter_inline(value):
     replacements = []
     pattern = re.compile('\\[code(\\s+lang=\"(?P<lang>[\\w]+)\")*\\](?P<code>.*?)\\[/code\\]', re.I | re.S | re.M)
