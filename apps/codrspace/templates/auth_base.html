@@ -1,11 +1,19 @@
 {% extends "base.html" %}
 
-{% block header %}{% endblock %}
-
 {% block analytics %}{% endblock %}
 
 {% block nav %}
     {% include "_nav.html" with page="auth_base" %}
+{% endblock %}
+
+{% block header %}
+{% if SYSTEM_NOTIFICATIONS %}
+    <div class="alert alert-info">
+    {% for n in SYSTEM_NOTIFICATIONS %}
+        {{ n.body|safe }}
+    {% endfor %}
+    </div>
+{% endif %}
 {% endblock %}
 
 {% block content %}{% endblock %}

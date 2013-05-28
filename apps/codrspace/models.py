@@ -123,3 +123,16 @@ class Profile(models.Model):
     def get_meta(self):
         from django.utils import simplejson
         return simplejson.loads(self.meta)
+
+
+class SystemNotification(models.Model):
+    """Simple system notifications"""
+    body = models.TextField(null=False, blank=False)
+    enabled = models.BooleanField(null=False, default=False)
+    create_dt = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        super(SystemNotification, self).save(*args, **kwargs)
+
+        # Invalidate cache
+        cache.delete('system_notifications')
