@@ -21,11 +21,11 @@
             <p>We couldn't find what you were looking for :(</p>
             <p>You could try:</p>
             <ul>
-                <li><a href="{% url homepage %} ">Visiting the home page</a></li>
+                <li><a href="{% url "homepage" %} ">Visiting the home page</a></li>
                 <li><a href="{% random_blog %}"><i class="icon-random"></i> Check Out A Random Blog</a></li>
                 {% if user.is_authenticated %}
-                    <li><a href="{% url add %}"><i class="icon-edit"></i> Post Something</a></li>
-                    <li><a href="{% url post_list user.username %}"><i class="icon-user"></i> Re-visit Your Posts</a></li>
+                    <li><a href="{% url "add" %}"><i class="icon-edit"></i> Post Something</a></li>
+                    <li><a href="{% url "post_list" user.username %}"><i class="icon-user"></i> Re-visit Your Posts</a></li>
                 {% endif %}
             </ul>
         </div>
