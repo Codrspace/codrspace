@@ -122,7 +122,9 @@ class Profile(models.Model):
 
     def get_meta(self):
         from django.utils import simplejson
-        return simplejson.loads(self.meta)
+        if self.meta:
+            return simplejson.loads(self.meta)
+        return simplejson.loads('{}')
 
 
 class SystemNotification(models.Model):
