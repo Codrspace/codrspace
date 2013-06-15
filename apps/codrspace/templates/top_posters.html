@@ -4,7 +4,7 @@
         <li>
             {% with tps.author.profile.get_meta as git_meta %}
             <img src="{{ git_meta.avatar_url }}" width="40" height="40" /> 
-            <a href="{% url post_list tps.author.username %}">
+            <a href="{% url "post_list" tps.author.username %}">
                 {% if git_meta.name %}
                     {{ git_meta.name }}&nbsp;&ndash;&nbsp;
                 {% endif %}
