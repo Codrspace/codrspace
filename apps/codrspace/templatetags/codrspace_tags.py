@@ -1,9 +1,11 @@
-from django.template import Library, TemplateSyntaxError, Variable, Node
-from django.template.defaulttags import token_kwargs
+from datetime import datetime
+
+from django.template import Library, Node
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.db.models import Count
+from django.db.models import Q
 from django.conf import settings
+
 from codrspace.models import Post, Setting
 from codrspace.utils import localize_date
 
@@ -58,7 +60,12 @@ def top_posters(context, amount):
 
 @register.inclusion_tag("lastest_posts.html", takes_context=True)
 def latest_posts(context, amount):
-    posts = Post.objects.filter(status="published").order_by('-publish_dt')
+    posts = Post.objects.filter(
+        Q(status="published"),
+        Q(publish_dt__lte=datetime.now()) | Q(publish_dt=None),
+    )
+    posts = posts.order_by('-publish_dt')
+
     if posts:
         posts = posts[:int(amount)]
     context.update({
