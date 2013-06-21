@@ -1,0 +1,26 @@
+{% extends "auth_base.html" %}
+
+{% block title %}Help{% endblock %}
+
+{% block content %}
+   <div id="help-page">
+   <div class="page-header">
+       <h1>Help <small>all help topics</small></h1>
+   </div>
+   <div class="row">
+       <div class="span12">
+            <h2 id="comments">Comments</h2>
+            <p>The comments on codrspace are managed by <a href="https://disqus.com">Disqus</a>. You must register an account on <a href="https://disqus.com">Disqus</a> and provide codrspace with a shortname. Then you must <a href="{% url 'user_settings' %}">put the shortname in your settings</a></p>
+            <p>&nbsp;</p>
+            <p><strong>What is a shortname?</strong></p>
+            <p>Please see <a href="http://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-">what is a shortname</a> on Disqus</p>
+            <hr />
+            <p><strong>What do I put in the <em>Website URL</em> field in Disqus?</strong></p>
+            <p>Please use <code>{{ SITE_URL }}/{{ user.username }}/</code></p>
+            <hr />
+            <p><strong>How do I secure my comments to just codrspace.com?</strong></p>
+            <p>Go to <code>http://yourshortname.disqus.com/admin/settings/advanced</code> and under the trusted domains section put <code>codrspace.com</code></p>           
+        </div>
+   </div>
+   </div>
+{% endblock %}

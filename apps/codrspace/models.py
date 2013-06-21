@@ -37,6 +37,7 @@ class Post(models.Model):
     content = models.TextField(blank=True)
     slug = models.SlugField(max_length=75)
     author = models.ForeignKey(User, editable=False)
+    comments = models.BooleanField(default=True, null=False)
     status = models.CharField(max_length=30, choices=STATUS_CHOICES, default=0)
     publish_dt = models.DateTimeField(null=True)
     create_dt = models.DateTimeField(auto_now_add=True)
@@ -109,6 +110,7 @@ class Setting(models.Model):
     blog_tagline = models.CharField(max_length=150, null=True, blank=True)
     name = models.CharField(max_length=30, null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
+    disqus_shortname = models.CharField(max_length=75, null=True, blank=True)
     user = models.ForeignKey(User, editable=False)
     timezone = TimeZoneField(default="US/Central")
 

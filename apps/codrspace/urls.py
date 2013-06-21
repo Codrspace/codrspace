@@ -37,6 +37,7 @@ urlpatterns = patterns('codrspace.views',
 
     url(r'^donate/$', 'donate', name="donate"),
     url(r'^feedback/$', 'feedback', name="feedback"),
+    url(r'^help/$', 'help', name="help"),
     url(r'^api/', include(api.urls)),
 )
 

@@ -5,9 +5,11 @@
 {% block content %}
    {% include "_form_messages.html" with form=form %}
    <div id="feedback-page">
+   <div class="page-header">
+       <h1>Give Codrspace Some Feedback</h1>
+   </div>
    <div class="row">
        <div class="span12">
-            <h2>Give Codrspace Some Feedback</h2>
             <p>Your feedback is welcome. Please let use know how we can improve, or what features you would like to see. Thanks!</o>
             <form method="POST" action="." class="well">
                 {% csrf_token %}

@@ -33,8 +33,11 @@
                    <label>Status</label>
                    {{ form.status }}
                </div>
+               <div id="comments">
+                   <label>{{ form.comments }} Allow Comments <a href="{% url 'help' %}#comments">help</a></label>
+               </div>
             </div>
-            <input class="btn btn-success btn-large" type="submit" name="submit_post" value="Save changes" />
+            <input id="submit_button" class="btn btn-success btn-large" type="submit" name="submit_post" value="Save changes" />
             {% if posts %}
                 <div class="page-header">
                     <h2>Other posts</h2>

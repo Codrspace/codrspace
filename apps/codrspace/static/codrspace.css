@@ -153,8 +153,16 @@ div.post-content h1, h2, h3 {
 /**
 * Admin area styles
 */
+#submit_button {
+  margin-top: 15px;
+}
+
 div#date {
   display: none;
+}
+
+div#comments #id_comments {
+  display: inline;
 }
 
 ul#post-list {
@@ -232,6 +240,9 @@ ul#post-list span.post-list-date {
 .highlighttable .highlight {
   overflow: auto; width: 635px;
 }
+
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
 
 /**
 * WMD overrides

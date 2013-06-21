@@ -28,6 +28,18 @@
                 {{ form.name }}
                 <label>Biography</label>
                 {{ form.bio }}
+                <div class="form-vertical">
+                    <fieldset>
+                        <legend>Comments</legend>
+                    </fieldset>
+                </div>
+                <label>Disqus Short Name <a href="{% url 'help' %}#comments">help</a></label>
+                {{ form.disqus_shortname }}
+                <div class="form-vertical">
+                    <fieldset>
+                        <legend>Other</legend>
+                    </fieldset>
+                </div>
                 <label>Time Zone</label>
                 {{ form.timezone }}
                 <div class="form-button">

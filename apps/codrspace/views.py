@@ -454,3 +454,6 @@ def render_preview(request, template_name='preview.html'):
 
 def donate(request, template_name='donate.html'):
     return render(request, template_name)
+
+def help(request, template_name='help.html'):
+    return render(request, template_name)
