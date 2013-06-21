@@ -41,8 +41,8 @@
 .w { color: #bbbbbb } /* Text.Whitespace */
 .mf { color: #009999 } /* Literal.Number.Float */
 .mh { color: #009999 } /* Literal.Number.Hex */
-.mi { color: #009999 } /* Literal.Number.Integer */
-.mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
 .sb { color: #d01040 } /* Literal.String.Backtick */
 .sc { color: #d01040 } /* Literal.String.Char */
 .sd { color: #d01040 } /* Literal.String.Doc */

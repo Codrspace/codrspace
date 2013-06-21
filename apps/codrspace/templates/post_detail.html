@@ -13,6 +13,11 @@
 
 {% block title %}{% firstof post.title "Untitled" %} by {{ post.author.username }}{% endblock %}
 
+{% block extra_head %}
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+{% endblock %}
+
 {% block nav %}
     {% include "_nav.html" with page="post_detail" %}
 {% endblock %}
