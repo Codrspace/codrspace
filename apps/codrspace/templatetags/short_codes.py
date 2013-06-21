@@ -14,6 +14,7 @@ from django.utils.safestring import mark_safe
 from settings import MEDIA_ROOT
 
 from codrspace.templatetags.syntax_color import _colorize_table
+from codrspace.utils import clean_html
 
 register = template.Library()
 
@@ -31,6 +32,9 @@ def explosivo(value):
     import types
     module = sys.modules[__name__]
     all_replacements = []
+
+    # clean the html before it goes into markdown processing
+    value = clean_html(value)
 
     # get the replacement values and content with replacement hashes
     for name, var in vars(module).items():
