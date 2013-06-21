@@ -213,7 +213,7 @@ GITHUB_AUTH = {
 SITE_URL = "http://codrspace.com"
 SITE_NAME = "Codrspace"
 SITE_TAGLINE = "The blogging platform for coders."
-VERSION = "0.7 alpha"
+VERSION = "0.8 alpha"
 ANALYTICS_CODE = ''
 
 # Override any settings locally
