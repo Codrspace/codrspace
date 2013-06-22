@@ -416,7 +416,6 @@ def feedback(request, template_name='feedback.html'):
             msg = "Thanks for send us feedback. We hope to make the product better."
             messages.info(request, msg, extra_tags='alert-success')
 
-            print dir(form)
             subject = 'Codrspace feedback from %s' % user.username
             message = '%s (%s), %s' % (
                 request.user.username,
