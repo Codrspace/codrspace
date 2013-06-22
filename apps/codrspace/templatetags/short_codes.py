@@ -33,15 +33,16 @@ def explosivo(value):
     module = sys.modules[__name__]
     all_replacements = []
 
-    # clean the html before it goes into markdown processing
-    value = clean_html(value)
-
     # get the replacement values and content with replacement hashes
     for name, var in vars(module).items():
         if type(var) == types.FunctionType and name.startswith('filter_'):
             replacements, value, match = var(value)
             if match:
                 all_replacements.extend(replacements)
+
+    # clean the html before it goes into markdown processing
+    # and while it has hash values
+    value = clean_html(value)
 
     # convert to markdown
     value = markdown.markdown(value)
