@@ -216,6 +216,9 @@ SITE_TAGLINE = "The blogging platform for coders."
 VERSION = "0.8 alpha"
 ANALYTICS_CODE = ''
 
+# 500 page that has some context
+handler500 = 'codrspace.views.handler500'
+
 # Override any settings locally
 try:
     from local_settings import *
