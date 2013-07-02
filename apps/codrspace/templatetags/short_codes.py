@@ -1,11 +1,11 @@
 """Custom filters to grab code from the web via short codes"""
 
-
 import requests
 import mimetypes
 import re
 import os
 import markdown
+import HTMLParser
 from hashlib import md5
 
 from django.utils import simplejson
@@ -17,6 +17,7 @@ from codrspace.templatetags.syntax_color import _colorize_table
 from codrspace.utils import clean_html
 
 register = template.Library()
+html_parser = HTMLParser.HTMLParser()
 
 
 @register.filter(name='explosivo')
@@ -43,6 +44,11 @@ def explosivo(value):
     # clean the html before it goes into markdown processing
     # and while it has hash values
     value = clean_html(value)
+
+    # this is a quick fix, but html.parser with beautiful soup
+    # converts some symbols to the html entity here we convert them back
+    # so things like blockquotes work
+    value = html_parser.unescape(value)
 
     # convert to markdown
     value = markdown.markdown(value)

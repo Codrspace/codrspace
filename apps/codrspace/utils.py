@@ -22,7 +22,7 @@ def localize_date(date, from_tz=None, to_tz=None):
 
 def clean_html(html):
     """Use beautifulsoup4 to clean html"""
-    allowed_tags = ['p', 'br', 'span']
+    allowed_tags = ['p', 'br', 'span', 'small']
     allowed_attributes = []
 
     soup = BeautifulSoup(html, "html.parser")
