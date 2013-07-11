@@ -42,3 +42,14 @@ def clean_html(html):
         comment.extract()
 
     return unicode(soup)
+
+
+def apply_class(html, element, _class):
+    """Apply a class to a all elements of type element"""
+    soup = BeautifulSoup(html, "html.parser")
+
+    # strip unwanted tags an attribute
+    for tag in soup.findAll(element):
+        tag.attrs['class'] = _class
+
+    return unicode(soup)

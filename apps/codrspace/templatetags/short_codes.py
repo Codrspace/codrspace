@@ -14,7 +14,7 @@ from django.utils.safestring import mark_safe
 from settings import MEDIA_ROOT
 
 from codrspace.templatetags.syntax_color import _colorize_table
-from codrspace.utils import clean_html
+from codrspace.utils import clean_html, apply_class
 
 register = template.Library()
 html_parser = HTMLParser.HTMLParser()
@@ -51,7 +51,10 @@ def explosivo(value):
     value = html_parser.unescape(value)
 
     # convert to markdown
-    value = markdown.markdown(value)
+    value = markdown.markdown(value, ['tables'])
+
+    # apply classes that are needed for certain bootstrap styling
+    value = apply_class(value, 'table', 'table')
 
     # replace the hash values with the replacement values
     for r in all_replacements:
