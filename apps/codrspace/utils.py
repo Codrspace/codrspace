@@ -33,8 +33,9 @@ def clean_html(html):
             tag.extract()
             continue
 
-        if tag.attrs.keys() not in allowed_attributes:
-            tag.attrs = {}
+        for attr in tag.attrs.keys():
+            if attr not in allowed_attributes:
+                del tag.attrs[attr]
 
     # scripts can be executed from comments in some cases
     comments = soup.findAll(text=lambda text: isinstance(text, Comment))
