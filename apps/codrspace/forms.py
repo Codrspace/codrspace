@@ -36,7 +36,8 @@ class PostForm(forms.ModelForm):
                     if post.pk == self.instance.pk:
                         return slug
 
-            msg = 'You already have a post with this slug'
+            post = Post.objects.filter(slug=slug, author=self.user)[0]
+            msg = 'You already have a post with this slug (id: %d)' % (post.pk)
             raise forms.ValidationError(msg)
 
         return slug
@@ -146,7 +147,8 @@ class APIPostForm(forms.ModelForm):
                     if post.pk == self.instance.pk:
                         return slug
 
-            msg = 'You already have a post with this slug'
+            post = Post.objects.filter(slug=slug, author=self.user)[0]
+            msg = 'You already have a post with this slug (id: %d)' % (post.pk)
             raise forms.ValidationError(msg)
 
         return slug
