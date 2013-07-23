@@ -76,3 +76,13 @@ Now you have two instances of the django development server running.
 The instance on port 9000 is only for fake oAuth validation.
 
 Use the site as you normally would through `http://localhost:8000`.
+
+### Setting up API keys
+
+- Manually apply the following patch to tastypie:
+    [tastypie bugfix](https://github.com/toastdriven/django-tastypie/commit/520b33f)
+
+- Now you have a few choices:
+    1. Delete your database and run `python manage.py syncdb` again
+    2. Back-fill any existing users with api keys by running:
+        - `python manage.py backfill_api_keys`
