@@ -87,6 +87,25 @@
    "url":"{{ SITE_URL }}/{{ user.username }}/this-blog-post-will-be-killer/"
 }</pre>
             </div>
+
+            <h3>Get post with given slug</h3>
+            <div class="well">
+                <p><code>curl -X GET {{ SITE_URL }}/api/v1/post/?format=json&username={{ user.username }}&api_key={{ api_key.key }}&slug=this-blog-post-will-be-killer</code></p>
+                <p><strong>Output</strong></p>
+                <pre>
+{
+   "content":"My killer content",
+   "create_dt":"2012-03-18T02:26:21",
+   "id":"[id]",
+   "publish_dt":"2012-03-18T02:25:00",
+   "resource_uri":"/api/post/[id]/",
+   "slug":"this-blog-post-will-be-killer",
+   "status":"published",
+   "title":"This blog post will be killer",
+   "update_dt":"2012-03-23T15:16:45",
+   "url":"{{ SITE_URL }}/{{ user.username }}/this-blog-post-will-be-killer/"
+}</pre>
+            </div>
 <h3>Create a post</h3>
             <div class="well">
                 <h5>Fields</h5>

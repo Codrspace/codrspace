@@ -11,6 +11,7 @@ from tastypie import fields
 from tastypie.exceptions import NotFound, Unauthorized
 from tastypie.utils import dict_strip_unicode_keys
 from tastypie import http
+from tastypie.constants import ALL
 
 from codrspace.forms import APIPostForm
 from codrspace.models import Post
@@ -96,6 +97,7 @@ class PostResource(CodrspaceModelResource):
         serializer = Serializer(formats=['json'])
         validation = PostValidation(form_class=APIPostForm)
         always_return_data = True
+        filtering = {"slug": ALL}
 
     def dehydrate(self, bundle):
         bundle.data['url'] = bundle.obj.url()
