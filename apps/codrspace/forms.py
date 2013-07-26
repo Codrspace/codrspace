@@ -27,17 +27,17 @@ class PostForm(forms.ModelForm):
 
     def clean_slug(self):
         slug = self.cleaned_data['slug']
-        count = Post.objects.filter(slug=slug, author=self.user).count()
+        posts = Post.objects.filter(slug=slug, author=self.user)
 
-        if count > 0:
+        if len(posts) > 0:
             if self.instance:
-                posts = Post.objects.filter(slug=slug, author=self.user)
                 for post in posts:
                     if post.pk == self.instance.pk:
                         return slug
 
-            post = Post.objects.filter(slug=slug, author=self.user)[0]
-            msg = 'You already have a post with this slug (id: %d)' % (post.pk)
+            dup_post = posts[0]
+            msg = 'You already have a post with this slug "%s" (id: %d)' % (
+                                                             slug, dup_post.pk)
             raise forms.ValidationError(msg)
 
         return slug
@@ -138,17 +138,17 @@ class APIPostForm(forms.ModelForm):
         if not self.instance.pk and not slug:
             slug = slugify(title)
 
-        count = Post.objects.filter(slug=slug, author=self.user).count()
+        posts = Post.objects.filter(slug=slug, author=self.user)
 
-        if count > 0:
+        if len(posts) > 0:
             if self.instance.pk:
-                posts = Post.objects.filter(slug=slug, author=self.user)
                 for post in posts:
                     if post.pk == self.instance.pk:
                         return slug
 
-            post = Post.objects.filter(slug=slug, author=self.user)[0]
-            msg = 'You already have a post with this slug (id: %d)' % (post.pk)
+            dup_post = posts[0]
+            msg = 'You already have a post with this slug "%s" (id: %d)' % (
+                                                             slug, dup_post.pk)
             raise forms.ValidationError(msg)
 
         return slug
