@@ -35,9 +35,7 @@ class PostForm(forms.ModelForm):
                     if post.pk == self.instance.pk:
                         return slug
 
-            dup_post = posts[0]
-            msg = 'You already have a post with this slug "%s" (id: %d)' % (
-                                                             slug, dup_post.pk)
+            msg = 'You already have a post with this slug "%s"' % (slug)
             raise forms.ValidationError(msg)
 
         return slug
