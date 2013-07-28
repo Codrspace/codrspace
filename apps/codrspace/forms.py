@@ -116,7 +116,9 @@ class APIPostForm(forms.ModelForm):
         'invalid_choice': 'Please use a valid status. Valid choices are %s' % VALID_STATUS_CHOICES
     })
     tags = TagField()
-    publish_dt = forms.DateTimeField(required=False)
+    publish_dt = forms.DateTimeField(required=False, error_messages={
+        'invalid': 'Enter a valid date/time in the YYYY-MM-DD HH:MM:SS format.'
+    })
     create_dt = forms.DateTimeField(required=False)
     update_dt = forms.DateTimeField(required=False)
 
