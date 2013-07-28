@@ -9,11 +9,11 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.conf import settings
 from django.contrib import messages
 from django.db.models import Q
 from django.core.cache import cache
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.conf import settings
 
 from codrspace.models import Post, Profile, Media, Setting
 from codrspace.forms import PostForm, MediaForm, \
@@ -53,6 +53,52 @@ def post_detail(request, username, slug, template_name="post_detail.html"):
     })
 
 
+def post_list_tags(request, username, tag, template_name="post_list.html"):
+    """List posts by tag"""
+    user = get_object_or_404(User, username=username)
+
+    try:
+        user_settings = Setting.objects.get(user=user)
+    except:
+        user_settings = None
+
+    # set the post type to display in place holders
+    post_type = 'posts tagged with "%s"' % tag
+
+    # filter the posts by the tag first
+    tagged_posts = Post.objects.filter(tags__name__in=[tag])
+
+    # filter by published only posts by the user
+    posts = tagged_posts.filter(
+        Q(status="published"),
+        Q(publish_dt__lte=datetime.now()) | Q(publish_dt=None),
+        author=user,
+    )
+    posts = posts.order_by('-publish_dt')
+
+    # paginate posts
+    paginator = Paginator(posts, 3)
+    page = request.GET.get('page')
+
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        posts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        posts = paginator.page(paginator.num_pages)
+
+    return render(request, template_name, {
+        'username': username,
+        'posts': posts,
+        'post_type': post_type,
+        'meta': user.profile.get_meta(),
+        'user_settings': user_settings,
+        'is_tag_list': True
+    })
+
+
 def post_list(request, username, post_type='published',
               template_name="post_list.html"):
     user = get_object_or_404(User, username=username)
@@ -74,7 +120,10 @@ def post_list(request, username, post_type='published',
         Q(publish_dt__lte=datetime.now()) | Q(publish_dt=None),
         author=user,
     )
-    posts = posts.order_by('-publish_dt')
+    if post_type == 'published':
+        posts = posts.order_by('-publish_dt')
+    else:
+        posts = posts.order_by('-update_dt')
 
     # paginate posts
     paginator = Paginator(posts, 3)
@@ -129,6 +178,7 @@ def add(request, template_name="add.html"):
 
         # post
         form = PostForm(request.POST, user=request.user)
+        # validate form
         if form.is_valid() and 'submit_post' in request.POST:
             post = form.save(commit=False)
 
@@ -137,7 +187,14 @@ def add(request, template_name="add.html"):
                 post.author = request.user
                 if post.status == 'published' and not post.publish_dt:
                     post.publish_dt = datetime.now()
+
+                # save the post
                 post.save()
+
+                # add the tags
+                if 'tags' in form.cleaned_data and form.cleaned_data['tags']:
+                    post.tags.set(*form.cleaned_data['tags'])
+
                 messages.info(
                     request,
                     'Added post "%s".' % post,
@@ -238,21 +295,34 @@ def edit(request, pk=0, template_name="edit.html"):
             if media_form.is_valid():
                 media = media_form.save(commit=False)
                 media.uploader = request.user
-                media.filename = unicode(media_form.cleaned_data.get(
-                                                                'file', ''))
+                media.filename = unicode(
+                    media_form.cleaned_data.get('file', '')
+                )
                 media.save()
 
         # post post  hehe
         if 'title' in request.POST:
             form = PostForm(request.POST, instance=post, user=request.user)
+            # validate form
             if form.is_valid() and 'submit_post' in request.POST:
                 post = form.save(commit=False)
+
+                # set the published date/time if the status is changed
+                # to published
                 if post.status == 'published':
                     if not post.publish_dt:
                         post.publish_dt = datetime.now()
                 if post.status == "draft":
                     post.publish_dt = None
+
+                # save the post
                 post.save()
+
+                # add the tags
+                if 'tags' in form.cleaned_data and form.cleaned_data['tags']:
+                    post.tags.set(*form.cleaned_data['tags'])
+
+                # queue the alert message
                 messages.info(
                     request,
                     'Edited post "%s".' % post,

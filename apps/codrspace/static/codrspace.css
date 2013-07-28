@@ -124,6 +124,12 @@ div#latest-posts p {
   line-height: 11px;
 }
 
+.post-meta p {
+  vertical-align: bottom;
+  line-height: 11px;
+  margin-top: 10px;
+}
+
 .post-meta a {
   vertical-align: bottom;
   line-height: 11px;
@@ -159,6 +165,10 @@ div.post-content h1, h2, h3 {
 
 div#date {
   display: none;
+}
+
+div#tags {
+  margin-bottom: 8px;
 }
 
 div#comments #id_comments {
@@ -321,4 +331,20 @@ ul.home-options-list {
 
 #preview-page {
   width: 530px;
+}
+
+/* autocompletejs overrides */
+div.autocomplete_internal_container {
+  border: 1px solid #CCC;
+  padding: 0;
+  padding-left: 4px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+div.autocomplete_internal_container div.token-group {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
 }

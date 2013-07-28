@@ -8,8 +8,10 @@ from django.utils.hashcompat import md5_constructor
 from django.core.cache import cache
 from django.utils.http import urlquote
 from django.conf import settings
+
 from timezones.fields import TimeZoneField
 from tastypie.models import create_api_key
+from taggit.managers import TaggableManager
 from codrspace.managers import SettingManager
 
 models.signals.post_save.connect(create_api_key, sender=User)
@@ -42,6 +44,8 @@ class Post(models.Model):
     publish_dt = models.DateTimeField(null=True)
     create_dt = models.DateTimeField(auto_now_add=True)
     update_dt = models.DateTimeField(auto_now=True)
+
+    tags = TaggableManager()
 
     class Meta:
         unique_together = ("slug", "author")

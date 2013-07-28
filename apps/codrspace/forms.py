@@ -4,11 +4,25 @@ from collections import OrderedDict
 from django import forms
 from django.conf import settings
 from django.utils.text import slugify
+from django.utils.safestring import mark_safe
+from django.utils import six
+
+from taggit.utils import edit_string_for_tags
 
 from codrspace.models import Post, Media, Setting, STATUS_CHOICES
 from codrspace.utils import localize_date
+from taggit.forms import TagField, TagWidget
 
 VALID_STATUS_CHOICES = ', '.join([sc[0] for sc in STATUS_CHOICES])
+
+
+class TagAutoCompleteWidget(TagWidget):
+    def render(self, name, value, attrs=None):
+        if value is not None and not isinstance(value, six.string_types):
+            value = edit_string_for_tags([o.tag for o in value.select_related("tag")])
+        html = '<input type="hidden" id="id_%s_hidden" name="%s" value="%s" />' % (name, name, value)
+        html += '<div id="%s">%s</div>' % (attrs['id'], value)
+        return mark_safe(html)
 
 
 class PostForm(forms.ModelForm):
@@ -21,6 +35,8 @@ class PostForm(forms.ModelForm):
         input_formats=['%a, %b %d %Y %I:%M %p'],
         required=False
     )
+
+    tags = TagField(widget=TagAutoCompleteWidget())
 
     class Meta:
         model = Post

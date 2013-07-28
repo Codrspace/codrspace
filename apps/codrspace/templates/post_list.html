@@ -58,7 +58,11 @@
                 {% empty %}
                     {% if username == user.username %}
                         <div id="no-posts-message">
-                            <p>A little empty ...</p> 
+                            {% if is_tag_list %}
+                              <p>No posts {{ post_type }}</p>
+                            {% else %}
+                              <p>A little empty ...</p>
+                            {% endif %}
                             <p><a href="{% url "add" %}">Let's add some posts!</a></p>
                         </div>
                     {% else %}

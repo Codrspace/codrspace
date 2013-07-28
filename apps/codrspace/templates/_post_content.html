@@ -18,6 +18,9 @@
         <i class="icon-pencil"></i> <a href="{% url "edit" post.pk %}">edit</a>
         <i class="icon-trash"></i> <a href="{% url "delete" post.pk %}">delete</a>
     {% endif %}
+    {% if post.tags.count > 0 %}
+        <p>Tags:&nbsp;{% for tag in post.tags.all %}<a href="{% url "post_list_tags" post.author.username tag %}">{{ tag }}</a>{% if not forloop.last %},{% endif %}&nbsp;{% endfor %}</p>
+    {% endif %}
 </div>
 
 <div class="post-content">

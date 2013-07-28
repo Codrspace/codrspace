@@ -5,6 +5,7 @@
 {% block extra_head %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}wmd.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}anytimec.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}autocomplete-0.2.1.min.css">
 {% endblock %}
 
 {% block content %}
@@ -25,6 +26,10 @@
                <label>Content</label>
                <div id="wmd-button-bar" class="wmd-panel"></div>
                {{ form.content }}
+               <div id="tags">
+                   <label for="id_publish_dt">Tags</label>
+                   {{ form.tags }}
+               </div>
                <div id="date">
                    <label for="id_publish_dt">Publish Date</label>
                    {{ form.publish_dt }}
@@ -80,5 +85,25 @@
 <script type="text/javascript" src="{{ STATIC_URL }}jquery.insertat.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}jquery.hotkeys.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}anytimec.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}autocomplete-0.2.1.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}codrspace_admin.js"></script>
+<script type="text/javascript">
+  /* autocomplete js */
+  var config = {
+    onChange: function(new_value, old_value) {
+      var el = document.getElementById('id_tags_hidden');
+      var tags = new_value.map(function(i) { return i[0].value; });
+      el.value = tags.join(',');
+    },
+    {% if post.tags.count > 0 %}initialValue: [{% for tag in post.tags.all %}['{{ tag }}'],{% endfor %}],{% endif %}
+    lists: {
+      tags: {
+        allowFreeform: true,
+        options: [],
+      }
+    }
+  };
+  var widget = new AutoComplete('id_tags', config);
+</script>
+
 {% endblock %}
