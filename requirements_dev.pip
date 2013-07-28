@@ -7,5 +7,6 @@ pytz>=2011n
 Pygments
 django-tastypie==0.9.15
 django-debug-toolbar
+django-taggit==0.10a1
 requests
 -e git://github.com/durden/frappy.git#egg=frappy
