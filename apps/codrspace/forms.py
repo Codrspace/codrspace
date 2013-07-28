@@ -115,6 +115,7 @@ class APIPostForm(forms.ModelForm):
     status = forms.ChoiceField(choices=STATUS_CHOICES, error_messages={
         'invalid_choice': 'Please use a valid status. Valid choices are %s' % VALID_STATUS_CHOICES
     })
+    tags = TagField()
     publish_dt = forms.DateTimeField(required=False)
     create_dt = forms.DateTimeField(required=False)
     update_dt = forms.DateTimeField(required=False)
@@ -146,7 +147,11 @@ class APIPostForm(forms.ModelForm):
 
     def clean_slug(self):
         slug = self.cleaned_data['slug']
-        title = self.cleaned_data['title']
+
+        if 'title' in self.cleaned_data:
+            title = self.cleaned_data['title']
+        else:
+            raise forms.ValidationError('Title is required in order to process a slug, even if slug is given.')
 
         # autogenerate a slug if it isn't provided
         if not self.instance.pk and not slug:
