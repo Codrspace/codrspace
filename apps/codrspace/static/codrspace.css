@@ -357,7 +357,45 @@ div.autocomplete_internal_container div.token-group {
   border-radius: 3px;
 }
 
-ul#post-list li p.edit-controls a, ul#post-list li p.edit-controls i {
+ul#post-excerpt-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+ul#post-excerpt-list li a {
+  margin: 0 0 0 10px;
+  font-size: 26px;
+  vertical-align: bottom;
+  line-height: 13px;
+}
+
+ul#post-excerpt-list li a.tiny {
+  font-size: 13px;
+}
+
+ul#post-excerpt-list li {
+  padding: 8px;
+  border-bottom: 1px solid #CCC;
+  margin-bottom: 10px;
+}
+
+ul#post-excerpt-list span.post-excerpt-list-date {
+  margin: 0 0 0 10px;
+  vertical-align: bottom;
+  line-height: 11px;
+  color: #777;
+  font-size: 13px;
+}
+
+ul#post-excerpt-list li p {
+  margin: 10px 0 10px 10px;
+  font-size: 13px;
+  vertical-align: bottom;
+  line-height: 13px;
+}
+
+ul#post-excerpt-list li span.edit-controls a, ul#post-excerpt-list li span.edit-controls i {
   margin: 0 0 0 10px;
   font-size: 12px;
   vertical-align: bottom;

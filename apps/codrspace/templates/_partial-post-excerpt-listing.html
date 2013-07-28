@@ -1,18 +1,24 @@
 {% load codrspace_tags %}
 
-<ul id="post-list">
+<ul id="post-excerpt-list">
 {% for post in posts %}
     <li>
-    <a href="{{ post.get_absolute_url }}">{% filter striptags|truncatewords:30 %}{% firstof post.title "Untitled" %}{% endfilter %}</a>
-        <p> {{ post.content|truncatewords:50}} </p>
-        <span class="post-list-date">{{ post.publish_dt|localize:user }}</span>
-        <p class="edit-controls">
-            {% if post.author == user %}
-                <i class="icon-pencil"></i> <a class="tiny" href="{% url "edit" post.pk %}">edit</a>
-                <i class="icon-trash"></i> <a class="tiny" href="{% url "delete" post.pk %}">delete</a>
+        {% if post.author == user %}
+            {% if post.status == 'published' %}
+                <span class="label label-success">{{ post.status }}</span>
             {% endif %}
-        </p>
-        <br style="clear: right;"/>
+            {% if post.status == 'draft' %}
+                <span class="label label-warning">{{ post.status }}</span>
+            {% endif %}
+        {% endif %}
+        <a href="{{ post.get_absolute_url }}">{% filter striptags|truncatewords:50 %}{% firstof post.title "Untitled" %}{% endfilter %}</a>
+        <span class="post-excerpt-list-date">{{ post.publish_dt|localize:user }}</span>
+            {% if post.author == user %}
+                <span class="edit-controls">
+                    <i class="icon-pencil"></i> <a class="tiny" href="{% url "edit" post.pk %}">edit</a>
+                    <i class="icon-trash"></i> <a class="tiny" href="{% url "delete" post.pk %}">delete</a>
+                </span>
+            {% endif %}
     </li>
 {% endfor %}
 </ul>
