@@ -51,11 +51,9 @@
                    </h1>
                </div>
 
-                {% for post in posts %}
-                    {% if post.status != "deleted" %}
-                        {% include "_post_content.html" with post=post %}
-                    {% endif %}
-                {% empty %}
+               {% if posts %}
+                    {% include "_partial-post-excerpt-listing.html" with posts=posts %}
+                {% else %}
                     {% if username == user.username %}
                         <div id="no-posts-message">
                             {% if is_tag_list %}
@@ -70,7 +68,7 @@
                             <p>This person hasn't posted yet :(</p>
                         </div>                
                     {% endif %}
-                {% endfor %}
+                {% endif %}
            </div>
         </div>
     </div>

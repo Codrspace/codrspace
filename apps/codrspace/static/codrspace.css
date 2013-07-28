@@ -191,6 +191,7 @@ ul#post-list li a {
 ul#post-list li {
   padding: 8px;
   border-bottom: 1px solid #CCC;
+  margin-bottom: 10px;
 }
 
 ul#post-list li:hover {
@@ -205,6 +206,13 @@ ul#post-list span.post-list-date {
   vertical-align: bottom;
   line-height: 11px;
   color: #777;
+}
+
+ul#post-list li p {
+  margin: 10px 0 10px 10px;
+  font-size: 13px;
+  vertical-align: bottom;
+  line-height: 13px;
 }
 
 #media-list .media-item {
@@ -347,4 +355,12 @@ div.autocomplete_internal_container div.token-group {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
+}
+
+ul#post-list li p.edit-controls a, ul#post-list li p.edit-controls i {
+  margin: 0 0 0 10px;
+  font-size: 12px;
+  vertical-align: bottom;
+  line-height: 13px;
+  float: right;
 }
