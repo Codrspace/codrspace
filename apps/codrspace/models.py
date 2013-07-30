@@ -110,11 +110,16 @@ class Setting(models.Model):
     """
     Settings model for specific blog settings
     """
+
     blog_title = models.CharField(max_length=75, null=True, blank=True)
     blog_tagline = models.CharField(max_length=150, null=True, blank=True)
     name = models.CharField(max_length=30, null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
     disqus_shortname = models.CharField(max_length=75, null=True, blank=True)
+
+    HOMEPAGE_STYLES = (('F', 'Full'), ('E', 'Excerpts'))
+    homepage_style = models.CharField(max_length=75, null=True, blank=True,
+                                      choices=HOMEPAGE_STYLES, default='F')
     user = models.ForeignKey(User, editable=False)
     timezone = TimeZoneField(default="US/Central")
 

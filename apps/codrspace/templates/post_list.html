@@ -52,7 +52,15 @@
                </div>
 
                {% if posts %}
-                    {% include "_partial-post-excerpt-listing.html" with posts=posts %}
+                   {% if user_settings.homepage_style == 'F' %}
+                        {% for post in posts %}
+                            {% if post.status != "deleted" %}
+                               {% include "_post_content.html" with post=post %}
+                            {% endif %}
+                        {% endfor %}
+                   {% else %}
+                        {% include "_partial-post-excerpt-listing.html" with posts=posts %}
+                   {% endif %}
                 {% else %}
                     {% if username == user.username %}
                         <div id="no-posts-message">
