@@ -2,6 +2,7 @@
 
 <ul id="post-excerpt-list">
 {% for post in posts %}
+    {% if post.status != "deleted" %}
     <li>
         {% if post.author == user %}
             {% if post.status == 'published' %}
@@ -20,5 +21,6 @@
                 </span>
             {% endif %}
     </li>
+    {% endif %}
 {% endfor %}
 </ul>
