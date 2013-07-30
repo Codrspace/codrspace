@@ -52,14 +52,14 @@
                </div>
 
                {% if posts %}
-                   {% if user_settings.homepage_style == 'F' %}
+                   {% if user_settings.homepage_style == 'E' %}
+                        {% include "_partial-post-excerpt-listing.html" with posts=posts %}
+                   {% else %}
                         {% for post in posts %}
                             {% if post.status != "deleted" %}
                                {% include "_post_content.html" with post=post %}
                             {% endif %}
                         {% endfor %}
-                   {% else %}
-                        {% include "_partial-post-excerpt-listing.html" with posts=posts %}
                    {% endif %}
                 {% else %}
                     {% if username == user.username %}
