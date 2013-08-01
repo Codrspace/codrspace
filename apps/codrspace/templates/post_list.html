@@ -52,7 +52,7 @@
                </div>
 
                {% if posts %}
-                   {% if user_settings.homepage_style == 'E' %}
+                   {% if user_settings.post_list_type == 'E' %}
                         {% include "_partial-post-excerpt-listing.html" with posts=posts %}
                    {% else %}
                         {% for post in posts %}

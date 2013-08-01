@@ -127,7 +127,7 @@ def post_list(request, username, post_type='published',
 
     # paginate posts
     posts_per_page = 3
-    if user_settings.homepage_style == 'E':
+    if user_settings.post_list_type == 'E':
         posts_per_page = 10
 
     paginator = Paginator(posts, posts_per_page)

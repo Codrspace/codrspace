@@ -117,9 +117,9 @@ class Setting(models.Model):
     bio = models.TextField(null=True, blank=True)
     disqus_shortname = models.CharField(max_length=75, null=True, blank=True)
 
-    HOMEPAGE_STYLES = (('F', 'Full'), ('E', 'Excerpts'))
-    homepage_style = models.CharField(max_length=75, null=True, blank=True,
-                                      choices=HOMEPAGE_STYLES, default='F')
+    POST_LIST_TYPES = (('F', 'Full'), ('E', 'Excerpts'))
+    post_list_type = models.CharField(max_length=75, null=True,
+                                      choices=POST_LIST_TYPES, default='F')
     user = models.ForeignKey(User, editable=False)
     timezone = TimeZoneField(default="US/Central")
 
