@@ -126,9 +126,11 @@ def post_list(request, username, post_type='published',
         posts = posts.order_by('-update_dt')
 
     # paginate posts
-    posts_per_page = 3
-    if user_settings.post_list_type == 'E':
-        posts_per_page = 10
+    posts_per_page = user_settings.posts_per_page
+    if not user_settings.posts_per_page:
+        posts_per_page = 3
+        if user_settings.post_list_type == 'E':
+            posts_per_page = 10
 
     paginator = Paginator(posts, posts_per_page)
     page = request.GET.get('page')

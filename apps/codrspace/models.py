@@ -120,6 +120,11 @@ class Setting(models.Model):
     POST_LIST_TYPES = (('F', 'Full'), ('E', 'Excerpts'))
     post_list_type = models.CharField(max_length=75, null=True,
                                       choices=POST_LIST_TYPES, default='F')
+
+    _range = range(1, 11)
+    ppp_choices = zip(_range, _range)
+    posts_per_page = models.SmallIntegerField(choices=ppp_choices,
+                                              default=3, null=True)
     user = models.ForeignKey(User, editable=False)
     timezone = TimeZoneField(default="US/Central")
 
