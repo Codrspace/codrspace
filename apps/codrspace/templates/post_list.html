@@ -21,6 +21,8 @@
 
 {% block extra_head %}
 <link rel="alternate" type="application/rss+xml" href="{% url "posts_feed" username %}" title="Codrspace: Posts by {{ username }}">
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 {% endblock %}
 
 {% block nav %}
