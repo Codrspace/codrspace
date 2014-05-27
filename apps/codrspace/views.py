@@ -405,7 +405,7 @@ def signin_callback(request, slug=None, template_name="base.html"):
 @login_required
 def feedback(request, template_name='feedback.html'):
     """ Send Feed back """
-    from django.core.mail import mail_admins
+    from django.core.mail import EmailMessage
     user = get_object_or_404(User, username=request.user.username)
 
     form = FeedBackForm(initial={'email': user.email})
@@ -423,7 +423,14 @@ def feedback(request, template_name='feedback.html'):
                 form.cleaned_data['comments'],
             )
 
-            mail_admins(subject, message, fail_silently=False)
+            email = EmailMessage(
+                subject,
+                message,
+                settings.DEFAULT_FROM_EMAIL,
+                [settings.SERVER_EMAIL,],
+                headers = {'Reply-To': form.cleaned_data['email']}
+            )
+            email.send(fail_silently=False)
 
     return render(request, template_name, {
         'form': form,
