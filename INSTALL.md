@@ -58,7 +58,7 @@ callbacks for local testing.  Unfortunately it requires running two Django dev s
 
 1. Clone the project, copy the example local_settings, start the server on port 9000 for oAuth.
 
-  - `git clone git://github.com/durden/dash.git codrspace_app`
+  - `git clone git@github.com:Codrspace/codrspace.git codrspace_app`
   - `cd codrspace_app`
   - `workon codrspace_app` (only if you used the virtualenv route)
   - `cp example_local_settings.py local_settings.py`
