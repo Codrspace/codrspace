@@ -15,6 +15,8 @@ from settings import MEDIA_ROOT
 
 from codrspace.templatetags.syntax_color import _colorize_table
 from codrspace.utils import clean_html, apply_class
+from codrspace.pygments.over_pygments import add_colors_to
+
 
 register = template.Library()
 html_parser = HTMLParser.HTMLParser()
@@ -104,6 +106,7 @@ def filter_inline(value):
             lang = None
 
         text = _colorize_table(inline_code.group('code'), lang=lang)
+        text = add_colors_to(text)
         text_hash = md5(text.encode('utf-8')).hexdigest()
 
         replacements.append([text_hash, text])
