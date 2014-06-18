@@ -92,7 +92,7 @@ def filter_gitstyle(value):
 
 def filter_inline(value):
     replacements = []
-    pattern = re.compile('\\[code(\\s+lang=\"(?P<lang>[\\w]+)\")*\\](?P<code>.*?)\\[/code\\]', re.I | re.S | re.M)
+    pattern = re.compile('\\[code(\\s+lang=\"(?P<lang>[\\w]+)\")*(?P<flags>.*?)\\](?P<code>.*?)\\[/code\\]', re.I | re.S | re.M)
 
     if len(re.findall(pattern, value)) == 0:
         return (replacements, value, None,)
@@ -106,7 +106,11 @@ def filter_inline(value):
             lang = None
 
         text = _colorize_table(inline_code.group('code'), lang=lang)
-        text = add_colors_to(text)
+
+        # per-word coloring for user defined names
+        if inline_code.group('flags').find('more_colors') > -1:
+            text = add_colors_to(text)
+
         text_hash = md5(text.encode('utf-8')).hexdigest()
 
         replacements.append([text_hash, text])

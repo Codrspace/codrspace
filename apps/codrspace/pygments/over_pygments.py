@@ -2,12 +2,12 @@ import random
 
 css_classes_to_recolor = set(["n", "na", "nc", "no", "nd", "ni", "ne", "nf", "nl", "nn", "nt", "nv", "vc", "vg", "vi"])
 
-RED_RANGE = 140
-RED_MINIMUM = 40
-GREEN_RANGE = 130
-GREEN_MINIMUM = 40
-BLUE_RANGE = 130
-BLUE_MINIMUM = 40
+RED_RANGE = 128
+RED_MINIMUM = 35
+GREEN_RANGE = 128
+GREEN_MINIMUM = 30
+BLUE_RANGE = 128
+BLUE_MINIMUM = 35
 
 
 def add_colors_to( text ):
@@ -35,7 +35,7 @@ def add_colors_to( text ):
 		class_name = split_by_bracket[-2].split('\"')[-2]
 		if class_name in css_classes_to_recolor:
 			old = 'class=\"' + class_name + '\"'
-			new = 'style={color:#' + color_of(word) + ';}'
+			new = 'style=\"color:#' + color_of(word) + ';\"'
 			recolored_pieces += [piece.replace(old, new)]
 		else:
 			recolored_pieces += [piece]
