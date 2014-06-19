@@ -1,6 +1,6 @@
 import random
 
-css_classes_to_recolor = set(["n", "na", "nc", "no", "nd", "ni", "ne", "nf", "nl", "nn", "nt", "nv", "vc", "vg", "vi"])
+css_classes_to_recolor = set(["s-Atom", "n", "na", "nc", "no", "nd", "ni", "ne", "nf", "nl", "nn", "nt", "nv", "vc", "vg", "vi"])
 
 RED_RANGE = 128
 RED_MINIMUM = 35
