@@ -115,7 +115,7 @@ def filter_inline(value):
 def filter_gist(value):
     gist_base_url = 'https://api.github.com/gists/'
     replacements = []
-    pattern = re.compile('\[gist (\d+) *\]', flags=re.IGNORECASE)
+    pattern = re.compile('\[gist ([a-f0-9]+) *\]', flags=re.IGNORECASE)
 
     ids = re.findall(pattern, value)
     if not len(ids):
@@ -124,7 +124,7 @@ def filter_gist(value):
     for gist_id in ids:
         gist_text = ""
         lang = None
-        resp = requests.get('%s%d' % (gist_base_url, int(gist_id)))
+        resp = requests.get('%s%s' % (gist_base_url, gist_id))
 
         if resp.status_code != 200:
             return (replacements, value, None,)
