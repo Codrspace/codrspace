@@ -449,7 +449,7 @@ def posts_download(request, username):
     except:
         user_settings = None
 
-    posts = Post.objects.all()
+    posts = Post.objects.all(author=user)
     io_buffer = StringIO()
     zip = ZipFile(io_buffer, "a")
 
