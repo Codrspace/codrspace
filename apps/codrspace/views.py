@@ -2,7 +2,10 @@
 import requests
 from datetime import datetime
 
-from django.http import Http404
+from StringIO import StringIO
+from zipfile import ZipFile
+
+from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import simplejson
 from django.core.urlresolvers import reverse
@@ -24,7 +27,7 @@ class GithubAuthError(Exception):
     pass
 
 
-def index(request, template_name="home.html"):
+def index(request, template_name="home_shutdown.html"):
     return render(request, template_name)
 
 
@@ -54,7 +57,7 @@ def post_detail(request, username, slug, template_name="post_detail.html"):
 
 
 def post_list(request, username, post_type='published',
-              template_name="post_list.html"):
+              template_name="post_list_shutdown.html"):
     user = get_object_or_404(User, username=username)
 
     try:
@@ -435,6 +438,37 @@ def feedback(request, template_name='feedback.html'):
     return render(request, template_name, {
         'form': form,
     })
+
+@login_required
+def posts_download(request, username):
+    """Download all posts as an archive"""
+    user = get_object_or_404(User, username=username)
+
+    try:
+        user_settings = Setting.objects.get(user=user)
+    except:
+        user_settings = None
+
+    posts = Post.objects.all()
+    io_buffer = StringIO()
+    zip = ZipFile(io_buffer, "a")
+
+    for post in posts:
+        zip.writestr("{}.md".format(post.slug), post.content.encode('utf-8'))
+
+    # fix for Linux zip files read in Windows
+    for file in zip.filelist:
+        file.create_system = 0    
+
+    zip.close()
+
+    response = HttpResponse(mimetype="application/zip")
+    response["Content-Disposition"] = "attachment; filename=codrspace_post_archive_{}.zip".format(username)
+
+    io_buffer.seek(0)
+    response.write(io_buffer.read())
+
+    return response
 
 
 @login_required

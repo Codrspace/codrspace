@@ -48,10 +48,11 @@ urlpatterns += patterns('codrspace.mock_views',
 )
 
 urlpatterns += patterns('codrspace.views',
+    url(r'^download/(?P<username>[\w\d\-\.]+)/$', 'posts_download', name="posts_download"),
     url(r'^(?P<username>[\w\d\-\.]+)/feed/$', LatestPostsFeed(), name="posts_feed"),
     url(r'^(?P<username>[\w\d\-\.]+)/(?P<slug>[\w\d\-]+)/$', 'post_detail',
         name="post_detail"),
-    url(r'^(?P<username>[\w\d\-\.]+)/$', 'post_list', name="post_list"),
+    url(r'^(?P<username>[\w\d\-\.]+)/$', 'post_list', name="post_list")
 )
 
 urlpatterns += patterns('',

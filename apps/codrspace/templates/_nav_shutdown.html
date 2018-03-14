@@ -1,0 +1,37 @@
+{% load codrspace_tags %}
+
+<div class="navbar navbar-fixed-top">
+       <div class="navbar-inner">
+         <div class="container">
+              <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+              <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </a>
+         
+              <!-- Be sure to leave the brand out there if you want it shown -->
+              <a class="brand" href="{% url "homepage" %}"><img src="{{ STATIC_URL }}codrspace-nav-logo.png" alt="Codrspace - {{ SITE_TAGLINE }}" title="Codrspace - {{ SITE_TAGLINE }}"/></a>
+
+              <!-- Everything you want hidden at 940px or less, place within here -->
+              <div class="nav-collapse">
+                <ul class="nav">
+                    <li><a href="#">Codrspace is shutting down in 30 days. Please login to download an archive of your posts.</a></li>
+                </ul>
+
+                <ul class="nav pull-right">
+                {% if page == "home" or page == "post_list" %}
+                    {% if not user.is_authenticated %}
+                        <li><a href="{% url "signin_start" %}"><i class="icon-play icon-white"></i> Sign In</a></li>
+                    {% else %}
+                      <li><a href="{% url "signout" %}"><i class="icon-off icon-white"></i> Sign out</a></li>
+                    {% endif %}
+                {% endif %}
+                </ul>
+                <!-- .nav, .navbar-search, .navbar-form, etc -->
+              </div>
+         </div>
+       </div>
+    </div>
+
+<div class="nav-clear"><!-- iefix --></div>

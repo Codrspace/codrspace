@@ -276,11 +276,16 @@ a.brand {
 }
 
 h1.home-tagline {
+  padding: 0 0 20px 0;
+  font-size: 44px;
+}
+
+/*h1.home-tagline {
   background: url('/site_media/static/underline.png') no-repeat;
   background-position: 90% 97%;
   padding: 0 0 20px 0;
   font-size: 44px;
-}
+}*/
 
 ul.features-list {
   margin-top: 5px;

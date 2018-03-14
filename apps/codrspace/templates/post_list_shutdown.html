@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% load short_codes %}
+{% load codrspace_tags %}
+
+{% block pre_title %}
+{% if user_settings.blog_title %}
+    {{ user_settings.blog_title|striptags }} - 
+{% else %}
+    {{ SITE_NAME }} - 
+{% endif %}
+{% endblock %}
+
+{% block title %}
+{% if user_settings.blog_tagline %}
+    {{ user_settings.blog_tagline|striptags }}
+{% else %}
+    Latest {{ post_type }} by {{ username }}
+{% endif %}
+{% endblock %}
+
+{% block extra_head %}
+<link rel="alternate" type="application/rss+xml" href="{% url "posts_feed" username %}" title="Codrspace: Posts by {{ username }}">
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+{% endblock %}
+
+{% block nav %}
+    {% include "_nav_shutdown.html" with page="post_list" %}
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+<p>The link below will download all of your posts into an archive both published and draft.</p>
+<p>It was nice running codrspace, but time and financials lead us to shut it down. Thank you for using the platform. Happy coding!</p>
+<a href="{% url "posts_download" username %}">Download Archive</a>
+{% endblock %}}
+
+{% block footer %}{% endblock %}

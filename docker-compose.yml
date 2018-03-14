@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+  database:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "development"
+      MYSQL_DATABASE: "codrspace"
+      MYSQL_USER: "codrspace"
+      MYSQL_PASSWORD: "development"
+
+  codrspace:
+    build: "."
+    command: bash -c "sleep 10 && python manage.py syncdb && python manage.py runserver 0.0.0.0:9000"
+    depends_on:
+      - "database"
+    ports:
+      - "9000:9000"
+    volumes:
+      - ".:/code/codrspace_app"
