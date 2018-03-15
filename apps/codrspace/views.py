@@ -445,7 +445,7 @@ def posts_download(request, username):
     user = get_object_or_404(User, username=username)
 
     if request.user.username != username:
-        return Http404
+        raise Http404
 
     try:
         user_settings = Setting.objects.get(user=user)
