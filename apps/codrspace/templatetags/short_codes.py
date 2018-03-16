@@ -15,6 +15,8 @@ from settings import MEDIA_ROOT
 
 from codrspace.templatetags.syntax_color import _colorize_table
 from codrspace.utils import clean_html, apply_class
+from codrspace.pygments.over_pygments import add_colors_to
+
 
 register = template.Library()
 html_parser = HTMLParser.HTMLParser()
@@ -90,7 +92,9 @@ def filter_gitstyle(value):
 
 def filter_inline(value):
     replacements = []
-    pattern = re.compile('\\[code(\\s+lang=\"(?P<lang>[\\w]+)\")*\\](?P<code>.*?)\\[/code\\]', re.I | re.S | re.M)
+    pattern = re.compile('\\[code(\\s+lang=\"(?P<lang>[\\w]+)\")*\\s*' + \
+                        '(?P<more_colors>more_colors)*\\](?P<code>.*?)\\[/code\\]', 
+                        re.I | re.S | re.M)
 
     if len(re.findall(pattern, value)) == 0:
         return (replacements, value, None,)
@@ -103,7 +107,17 @@ def filter_inline(value):
         except IndexError:
             lang = None
 
+        try:
+            more_colors = (inline_code.group('more_colors') == 'more_colors')
+        except IndexError:
+            more_colors = False
+
         text = _colorize_table(inline_code.group('code'), lang=lang)
+
+        # per-word coloring for user defined names
+        if more_colors:
+            text = add_colors_to(text)
+
         text_hash = md5(text.encode('utf-8')).hexdigest()
 
         replacements.append([text_hash, text])
