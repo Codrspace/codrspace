@@ -104,16 +104,20 @@ div#latest-posts p {
 }
 
 #popover-wrap img {
-  float: left;
+  margin-left:2%;
+  float:left; 
+  height:30%;
+  width:30%; 
 }
 
 #popover-wrap p {
-  float: left;
+  margin-left: 40%;
   color: #777;
-  margin-bottom: 5px;
-  margin-left: 15px;
-  width: 150px;
+  width:100%;
+  height:auto;
+  padding:1%;
 }
+
 
 /**
 * Post Detail Style
